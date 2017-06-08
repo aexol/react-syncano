@@ -8,7 +8,7 @@ import {
   djangoJWT
 }
 from '../django';
-const fetchMethod = djangoJWT;
+const fetchMethod = fetch;
 export const addModel = ({
   name,
   endpoint,

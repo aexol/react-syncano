@@ -1,0 +1,8 @@
+export const ADD_USER = 'ADD_USER'
+export const REMOVE_USER = 'REMOVE_USER'
+export const GET_USERS = 'GET_USERS'
+export const CREATE_ORGANIZATION = 'CREATE_ORGANIZATION'
+export const GET_ORGANIZATION = 'GET_ORGANIZATION'
+export const ADD_INVITE = 'ADD_INVITE'
+export const GET_INVITES = 'GET_INVITES'
+export const GET_INVITERS = 'GET_INVITERS'

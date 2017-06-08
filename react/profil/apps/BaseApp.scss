@@ -1,0 +1,21 @@
+html,
+body,
+#root_react {
+	padding   : 0;
+	height    : 100%;
+	overflow-y: hidden;
+}
+.BaseApp {
+	display    : flex;
+	flex-flow  : row nowrap;
+	align-items: stretch;
+	height     : 100%;
+	.BaseAppContent {
+		background-color: darken(white,10%);
+		flex            : 1;
+		height          : 100%;
+	}
+	h1 {
+		margin-bottom: 20px;
+	}
+}

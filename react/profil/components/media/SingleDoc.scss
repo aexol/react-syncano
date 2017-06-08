@@ -1,0 +1,85 @@
+@import "../../../material/vars";
+.SingleDoc {
+	@extend .main_list_item;
+	.SingleDocContent {
+		display       : flex;
+		flex-flow     : row nowrap;
+		background    : white;
+		margin        : 0 0 10px;
+		align-items   : center;
+		text-transform: uppercase;
+		transition    : $transition;
+		svg {
+			width       : 16px;
+			margin-right: 5px;
+		}
+		.Sygnatura {
+			flex      : 1;
+			transition: $transition;
+		}
+		.Nazwa {
+			flex      : 1;
+			transition: $transition;
+		}
+		.Data {
+			flex      : 1;
+			transition: $transition;
+		}
+		.Pliki {
+			flex       : 1;
+			opacity    : 1.0;
+			transition : $transition;
+			display    : flex;
+			align-items: center;
+			color      : darken($violet,10%);
+			svg {
+				fill: darken($violet,10%);
+			}
+		}
+		.Terminy {
+			flex       : 1;
+			opacity    : 1.0;
+			transition : $transition;
+			display    : flex;
+			align-items: center;
+			color      : darken($red,10%);
+			svg {
+				fill: darken($red,10%);
+			}
+		}
+		.Zobacz {
+			padding    : 15px;
+			background : $mainColor;
+			color      : white;
+			cursor     : pointer;
+			border-left: $mainColor 2px solid;
+			transition : $transition;
+			&:hover {
+				color     : $mainColor;
+				background: white;
+			}
+		}
+	}
+	&.active {
+		.SingleDocContent {
+			align-items: baseline;
+			.Nazwa {
+				font-size: 150%;
+				flex     : initial;
+			}
+			.Sygnatura {
+				margin-left: 20px;
+				flex       : initial;
+			}
+			.Data {
+				margin-left: 20px;
+			}
+			.Pliki {
+				opacity: 0.0;
+			}
+			.Terminy {
+				opacity: 0.0;
+			}
+		}
+	}
+}

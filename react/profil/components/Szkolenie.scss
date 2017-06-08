@@ -1,0 +1,26 @@
+.Szkolenie{
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 15px;
+    margin: 15px 0;
+    background-color: white;
+    .title{
+        text-transform: uppercase;
+        padding-bottom: 5px;
+        border-bottom: #37c483 1px solid
+    }
+    .date{
+        padding:5px 0;
+            color:#666;
+            font-size: 11px;
+            font-style: italic;
+    }
+    .place{
+        padding-bottom: 25px;
+    }
+    .menu{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+    }
+}

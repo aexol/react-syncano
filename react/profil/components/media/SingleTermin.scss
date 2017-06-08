@@ -1,0 +1,34 @@
+@import "../../../material/vars.scss";
+.SingleTermin {
+	width           : 100%;
+	display         : flex;
+	padding         : 10px 20px;
+	background-color: white;
+	border-bottom   : 1px solid $mainColor;
+	.data {
+		flex      : 2;
+		font-style: italic;
+	}
+	.nazwa {
+		flex: 2;
+	}
+	.miejsce {
+		flex: 4;
+	}
+	.actions {
+		flex           : 1;
+		display        : flex;
+		align-items    : center;
+		justify-content: flex-end;
+		a {
+			padding: 0 10px;
+			cursor : pointer;
+			.fa-trash {
+				color: $red;
+			}
+			.fa-edit {
+				color: $mainColor;
+			}
+		}
+	}
+}

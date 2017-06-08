@@ -1,0 +1,11 @@
+@import "./body";
+.DateTimePicker {
+	width: 100%;
+	.rdt {
+		margin: 10px 0;
+		width : 100%;
+		input {
+			@extend input;
+		}
+	}
+}

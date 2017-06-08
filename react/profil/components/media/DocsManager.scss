@@ -1,0 +1,40 @@
+@keyframes expand {
+	from {
+		opacity  : 0;
+		transform: scaleY(0);
+	}
+	to {
+		opacity  : 1.0;
+		transform: scaleY(1);
+	}
+}
+.DocsManager {
+	width    : 100%;
+	animation: expand 0.5s forwards;
+	transform: scaleY(1);
+	.TerminyMenu {
+		padding: 20px 0;
+	}
+	.Drop {
+		padding         : 10px;
+		background-color: #cacaca;
+		.DropBox {
+			width          : 100%;
+			height         : 200px;
+			border         : #bbb 1px solid;
+			border-radius  : 2px;
+			display        : flex;
+			align-items    : center;
+			justify-content: center;
+			.DropDescription {
+				margin   : auto;
+				font-size: 18px;
+				color    : #aaa;
+			}
+		}
+	}
+	.FileList {
+		background: #fff;
+		padding   : 20px 0;
+	}
+}

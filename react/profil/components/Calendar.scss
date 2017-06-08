@@ -1,0 +1,33 @@
+@import "../../material/vars.scss";
+.CalendarContainer {
+	height   : 100%;
+	flex-flow: row nowrap;
+	flex     : 1;
+	display  : flex;
+	.Terminy {
+		@extend .side_menu_template;
+		.main_bar {
+			@extend .upper_bar;
+			.add {
+				@extend .side_menu_add;
+			}
+		}
+		.list {
+			@extend .side_list_template;
+		}
+	}
+	.Calendar {
+		display   : flex;
+		flex-flow : column;
+		height    : 100%;
+		flex      : 1;
+		.main_bar {
+			@extend .upper_bar_white;
+		}
+		background: white;
+		.CalendarElement {
+			flex : 1;
+			width: 100% !important;
+		}
+	}
+}

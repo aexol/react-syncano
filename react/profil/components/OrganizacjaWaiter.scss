@@ -1,0 +1,45 @@
+@import "../../material/vars.scss";
+.OrganizacjaWaiter {
+	width    : 100%;
+	display  : flex;
+	flex-flow: row nowrap;
+	height   : 100%;
+	.Invites {
+		flex: 1;
+		@extend .main_menu_template;
+		.main_bar {
+			@extend .upper_bar_white;
+		}
+		.add {
+			@extend .main_menu_add;
+		}
+		.InviteContent {
+			@extend .main_menu_content;
+			.InviteCard {
+				@extend .card;
+				.InviteTitle {
+					@extend .card_title;
+				}
+				.InviteDetails {
+					@extend .card_content;
+					input {
+						margin-bottom: 15px;
+					}
+					.Submit {
+						@extend .form_submit_button;
+					}
+				}
+			}
+		}
+	}
+	.Inviters {
+		background   : white;
+		margin-bottom: 25px;
+		padding      : 20px 0;
+		.empty {
+			width  : 100%;
+			padding: 0 20px;
+			color  : lighten($topColor,40%);
+		}
+	}
+}

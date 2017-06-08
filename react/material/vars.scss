@@ -1,0 +1,167 @@
+$mainColor: #37c483;
+$topColor: #2e2f30;
+$red: #de0000;
+$violet: #b21f90;
+$transition: all 0.5s;
+@keyframes expand_right {
+	from {
+		width: 0;
+	}
+	to {
+		width: 280px;
+	}
+}
+.upper_bar {
+	display         : flex;
+	flex-flow       : row nowrap;
+	background-color: $topColor;
+	padding         : 40px 20px 0;
+	height          : 100px;
+	align-items     : center;
+	width           : 100%;
+	border-bottom   : darken($topColor, 3%) 1px solid;
+	.title {
+		font-size   : 170%;
+		margin-right: 20px;
+	}
+}
+.upper_bar_white {
+	@extend .upper_bar;
+	background-color: white;
+	border-bottom   : darken(white, 5%) 1px solid;
+	height          : 100px;
+}
+.side_list_template {
+	padding         : 20px;
+	background-color: lighten($topColor, 10%);
+	display         : flex;
+	flex-flow       : column nowrap;
+	font-size       : 90%;
+	flex            : 1;
+	overflow-y      : auto;
+}
+.side_list_subtitle {
+	font-size     : 110%;
+	font-weight   : 400;
+	text-transform: uppercase;
+	margin        : 5px 0;
+	color         : lighten($mainColor,30%);
+}
+.side_list_item {
+	cursor         : pointer;
+	display        : flex;
+	flex-flow      : row nowrap;
+	justify-content: space-between;
+	color          : darken(white,30%);
+	padding        : 10px 0;
+	text-transform : capitalize;
+	transition     : $transition;
+	&.active {
+		color: white;
+	}
+	max-width      : 240px;
+}
+.side_menu_template {
+	color    : white;
+	height   : 100%;
+	display  : flex;
+	flex-flow: column nowrap;
+	width    : 280px;
+}
+.side_menu_add {
+	text-transform: uppercase;
+	color         : darken(white, 50%);
+	cursor        : pointer;
+	transition    : $transition;
+	font-weight   : bolder;
+	font-size     : 90%;
+	&:hover {
+		color: white;
+	}
+}
+.main_menu_template {
+	display  : flex;
+	flex-flow: column;
+}
+.main_menu_add {
+	@extend .side_menu_add;
+	color: lighten($topColor, 50%);
+	&:hover {
+		color: $topColor;
+	}
+}
+.right_side {
+	display  : flex;
+	flex-flow: column nowrap;
+	height   : 100%;
+}
+.main_menu_content {
+	background: white;
+	overflow-y: auto;
+	flex      : 1;
+	height    : 100%;
+}
+.main_list_item {
+	border-bottom: darken(white, 5%) 1px solid;
+	padding      : 20px;
+}
+.vertical_scroll_wrapper {
+	overflow: hidden;
+}
+.vertical_scroll {
+	overflow     : auto;
+	height       : 100%;
+	margin-right : -100%;
+	padding-right: 100%;
+}
+
+//Cards
+.card {
+	padding   : 20px 0;
+	border    : darken(white, 5%) 1px solid;
+	margin-top: -1px;
+	background: white;
+}
+.card_title {
+	padding: 5px 20px;
+	span {
+		font-weight  : 300;
+		font-size    : 110%;
+		border-bottom: lighten($mainColor,30%) 2px solid;
+		padding      : 5px 0;
+	}
+}
+.card_subtitle {
+	padding      : 5px 20px;
+	margin-bottom: 15px;
+	font-weight  : 400;
+	color        : lighten($topColor,10%);
+}
+.card_content {
+	padding  : 5px 20px;
+	font-size: 100%;
+}
+
+//Forms
+.form_submit_button {
+	background    : white;
+	border        : $mainColor 2px solid;
+	border-radius : 3px;
+	text-transform: uppercase;
+	display       : inline-block;
+	color         : $mainColor;
+	padding       : 5px 20px;
+	transition    : $transition;
+	cursor        : pointer;
+	&:hover {
+		color     : white;
+		background: $mainColor;
+	}
+}
+.form_submit_addon {
+	@extend .form_submit_button;
+	border: 0;
+}
+.form_field {
+	margin-bottom: 15px;
+}

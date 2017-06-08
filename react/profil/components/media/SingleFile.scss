@@ -1,0 +1,23 @@
+@import "../../../material/vars";
+.SingleFile {
+	display: flex;
+	flex-flow: row nowrap;
+	padding: 10px 20px 0;
+	.name {
+		flex: 3;
+		border-bottom: 1px #ddd solid;
+	}
+	.date-created {
+		flex: 1;
+		border-bottom: 1px #ddd solid;
+		margin-left: 10px;
+	}
+	.fa {
+		cursor: pointer;
+		color: $mainColor;
+		padding: 10px;
+		&.fa-trash {
+			color: $red;
+		}
+	}
+}

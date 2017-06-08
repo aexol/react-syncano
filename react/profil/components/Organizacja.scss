@@ -1,0 +1,58 @@
+@import "../../material/vars.scss";
+.Organizacja {
+	width    : 100%;
+	display  : flex;
+	flex-flow: row nowrap;
+	height   : 100%;
+	.People {
+		@extend .side_menu_template;
+		.main_bar {
+			@extend .upper_bar;
+			.add {
+				@extend .side_menu_add;
+			}
+		}
+		.list {
+			@extend .side_list_template;
+			.title {
+				@extend .side_list_subtitle;
+			}
+			.User {
+				@extend .side_list_item;
+				div {
+					span {
+						margin-right: 4px;
+					}
+				}
+			}
+		}
+	}
+	.Profil {
+		flex: 1;
+		@extend .main_menu_template;
+		.main_bar {
+			@extend .upper_bar_white;
+		}
+		.add {
+			@extend .main_menu_add;
+		}
+		.ProfilContent {
+			@extend .main_menu_content;
+			.ProfilCard {
+				@extend .card;
+				.ProfilTitle {
+					@extend .card_title;
+				}
+				.ProfilDetails {
+					@extend .card_content;
+					input {
+						margin-bottom: 15px;
+					}
+					.Submit {
+						@extend .form_submit_button;
+					}
+				}
+			}
+		}
+	}
+}

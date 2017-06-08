@@ -1,0 +1,20 @@
+@import "../../../material/vars.scss";
+.Event {
+	padding: 20px 0;
+	cursor : pointer;
+	.EventName {
+		color: lighten($topColor, 70%);
+	}
+	.EventDate {
+		color: lighten($topColor, 30%);
+	}
+	.EventPlace {
+		color: lighten($topColor, 50%);
+	}
+	.EventAkta {
+		color: lighten($mainColor, 30%);
+	}
+	.EventKlient {
+		color: lighten($violet, 30%);
+	}
+}

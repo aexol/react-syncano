@@ -1,0 +1,2 @@
+export const SET_PHRASES = 'SET_PHRASES'
+export const SEARCH_PHRASES = 'SEARCH_PHRASES'

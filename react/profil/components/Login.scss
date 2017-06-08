@@ -1,0 +1,41 @@
+@import "../../material/vars.scss";
+.Login {
+	@extend .right_side;
+	.main_bar {
+		@extend .upper_bar_white;
+	}
+	.LoginContent {
+		@extend .main_menu_content;
+		align-items    : center;
+		display        : flex;
+		justify-content: center;
+		.LoginPart {
+			padding    : 20px;
+			text-align : right;
+			width      : 100%;
+			flex       : 1;
+			height     : 100%;
+			@extend .card;
+			border-left: 0;
+			border-top : 0;
+			.LoginTitle {
+				@extend .card_title;
+				text-align   : center;
+				margin-bottom: 25px;
+			}
+			.LoginSub {
+				@extend .card_subtitle;
+				text-align: center;
+			}
+			.LoginInputs {
+				@extend .card_content;
+				input {
+					margin-bottom: 15px;
+				}
+				.Submit {
+					@extend .form_submit_button;
+				}
+			}
+		}
+	}
+}

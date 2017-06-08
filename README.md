@@ -5,8 +5,7 @@
 [![Dependency Status](https://david-dm.org/coryhouse/react-slingshot.svg?style=flat-square)](https://david-dm.org/coryhouse/react-slingshot)
 [![Coverage Status](https://img.shields.io/coveralls/coryhouse/react-slingshot/master.svg?style=flat-square)](https://coveralls.io/github/coryhouse/react-slingshot?branch=master)
 
-React Slingshot is a comprehensive starter kit for rapid application development using React.
-
+React Slingshot - Aexol fork
 Why Slingshot?
 
 1. **One command to get started** - Type `npm start` to start development in your default browser.

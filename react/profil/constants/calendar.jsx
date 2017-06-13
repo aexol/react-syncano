@@ -1,6 +1,0 @@
-export const GET_EVENTS = 'GET_EVENTS'
-export const ADD_EVENT = 'ADD_EVENT'
-export const DELETE_EVENT = 'DELETE_EVENT'
-export const UPDATE_EVENT = 'UPDATE_EVENT'
-export const OPEN_MODAL = 'OPEN_MODAL'
-export const CLOSE_MODAL = 'CLOSE_MODAL'

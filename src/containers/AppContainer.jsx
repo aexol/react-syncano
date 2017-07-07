@@ -19,10 +19,11 @@ from '../components';
 class AppContainer extends React.Component {
   render () {
     const {
-      actions
+      actions,
+      children
     } = this.props;
     return (
-      <App actions={actions}/>
+      <App actions={actions} children={children}/>
     )
   }
 }

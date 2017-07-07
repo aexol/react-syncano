@@ -1,2 +1,8 @@
-export * from './App.jsx';
-export * from './Home.jsx';
+export {
+default as App
+}
+from './App.jsx';
+export {
+default as Home
+}
+from './Home.jsx';

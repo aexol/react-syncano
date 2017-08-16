@@ -1,8 +1,19 @@
-export {
-default as alerts
+import uni from './uni.jsx';
+import alerts from './alerts.jsx';
+import auth from './jwt-auth.jsx';
+import {
+  combineReducers
 }
-from './alerts.jsx';
-export {
-default as uni
+from 'redux';
+import {
+  routerReducer
 }
-from './uni.jsx';
+from 'react-router-redux';
+const rootReducer = combineReducers({
+  uni,
+  alerts,
+  auth,
+  routing: routerReducer
+})
+export
+default rootReducer;

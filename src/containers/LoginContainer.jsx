@@ -13,26 +13,25 @@ import {
 from 'redux';
 import * as actions from '../actions';
 import {
-  AppStrap
+  Login
 }
 from '../components';
-class AppContainer extends React.Component {
+class LoginContainer extends React.Component {
   render () {
     const {
       actions,
-      children,
       alerts
     } = this.props;
     return (
-      <AppStrap actions={actions} alerts={alerts} children={children}/>
+      <Login actions={actions} alerts={alerts}/>
     )
   }
 }
 const mapStateToProps = (state) => ({
-  alerts: state.uni.alerts ? state.uni.alerts : []
+  alerts: state.alerts.alerts
 })
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 })
 export
-default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

@@ -61,7 +61,7 @@ export default
 		{
 			test: /\.jsx?$/,
 			exclude: /node_modules/,
-			loaders: ['babel-loader']
+			loaders: ['babel-loader'],
 		},
 		{
 			test: /\.eot(\?v=\d+.\d+.\d+)?$/,

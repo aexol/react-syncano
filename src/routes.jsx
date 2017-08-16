@@ -5,13 +5,14 @@ import {
 }
 from 'react-router';
 import {
-  HomeContainer,
+  LoginContainer,
   AppContainer
 }
 from './containers';
 const routes = (
     <Route component={AppContainer} path="/">
-      <IndexRoute component={HomeContainer}/>
+      <IndexRoute component={LoginContainer}/>
+      <Route component={AppContainer} path=""></Route>
     </Route>
 );
 export

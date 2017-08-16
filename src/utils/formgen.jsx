@@ -141,6 +141,9 @@ class FormGen extends React.Component {
       }
     }
   }
+  componentWillMount() {
+    this.componentWillReceiveProps(this.props)
+  }
   componentWillReceiveProps(nextProps) {
     const {
       fields,
@@ -169,7 +172,7 @@ class FormGen extends React.Component {
   }
   validate() {
     const {
-      validator,
+      validator = "django",
       fields
     } = this.props;
     var sfields = {

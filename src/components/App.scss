@@ -1,0 +1,79 @@
+@import "../vars.scss";
+@keyframes deli {
+  0% {
+    margin-left: -150px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+@keyframes alerts {
+  0% {
+    opacity: 0.0;
+  }
+  10% {
+    opacity: 1.0;
+  }
+  90% {
+    opacity: 1.0;
+  }
+  100% {
+    opacity: 0.0;
+  }
+}
+.App {
+  background-color: white;
+  height          : 100%;
+  width           : 100%;
+  display         : flex;
+  flex-flow       : column nowrap;
+  .Alerts {
+    position   : absolute;
+    z-index    : 30;
+    display    : flex;
+    align-items: flex-start;
+    flex-wrap  : wrap;
+    .Alert {
+      padding   : 30px;
+      margin    : 30px;
+      background: white;
+      animation : alerts forwards 3s;
+    }
+  }
+  .TopNav {
+    display        : flex;
+    flex-flow      : row;
+    align-items    : center;
+    justify-content: flex-end;
+    flex           : 0 0 auto;
+    padding        : 10px;
+    flex-wrap      : wrap;
+    .logo {
+      
+    }
+    .AdminLink {
+      text-transform : uppercase;
+      text-decoration: none;
+      color          : white;
+      flex           : 1;
+      padding        : 10px 20px;
+      &:hover {
+        background: grey;
+      }
+    }
+  }
+  .Content {
+    flex    : 1;
+    overflow: auto;
+    display : flex;
+    .MainContent {
+      flex: 1;
+      .ContentChild {
+        display  : flex;
+        flex-flow: row nowrap;
+        height   : 100%;
+        position : relative;
+      }
+    }
+  }
+}

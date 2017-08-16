@@ -1,7 +1,12 @@
 import * as types from '../constants/auth.jsx';
 import Cookies from 'js-cookie';
+import {
+  TOKEN_NAME
+}
+from '../server/config.jsx';
 const reducer = (state = {
-  token: Cookies.get('jwt-service-aexol-token')
+  token: Cookies.get(`${TOKEN_NAME}-token`),
+  username: Cookies.get(`${TOKEN_NAME}-username`)
 },
 action) => {
   const {
@@ -10,18 +15,27 @@ action) => {
   } = action;
   switch (type) {
   case types.LOGIN:
-    Cookies.set('jwt-service-aexol-token', json.token, {
+    Cookies.set(`${TOKEN_NAME}-token`, json.token, {
       expires: 365
     });
     return {
-      token: json.token,
-      ...state
+      ...state,
+      token: json.token
     }
   case types.LOGOUT:
-    Cookies.remove('jwt-service-aexol-token')
+    Cookies.remove(`${TOKEN_NAME}-token`);
+    Cookies.remove(`${TOKEN_NAME}-username`);
     return {
-      token: '',
-      ...state
+      ...state,
+      token: ""
+    }
+  case types.SAVE_USERNAME:
+    Cookies.set(`${TOKEN_NAME}-username`, action.username, {
+      expires: 365
+    });
+    return {
+      ...state,
+      username: action.username
     }
   default:
     return {

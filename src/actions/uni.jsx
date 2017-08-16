@@ -4,16 +4,20 @@ import {
 }
 from './alerts.jsx';
 import {
-  djangoFetch,
-  djangoJWT
+  jwtFetch
 }
-from '../django';
-const fetchMethod = fetch;
+from '../server/config.jsx';
+import {
+  push
+}
+from 'react-router-redux';
+const fetchMethod = jwtFetch;
 export const addModel = ({
   name,
   endpoint,
   reducer,
-  data
+  data,
+  move
 }) => (dispatch,
 getState) => {
   fetchMethod(endpoint, {
@@ -26,18 +30,22 @@ getState) => {
       json,
       reducer
     })
-    dispatch(addAlert(`Dodano ${name}`))
+    dispatch(addAlert(`Dodano ${name}`));
+    if (move) {
+      dispatch(push(`/${move}/${json.id}`));
+    }
   })
 }
 export const updateModel = ({
   name,
   endpoint,
   reducer,
+  move,
   data
 }) => (dispatch,
 getState) => {
   fetchMethod(endpoint, {
-    method: 'put',
+    method: 'PATCH',
     body: JSON.stringify(data)
   }).then(response => response.json()).then(json => {
     dispatch({
@@ -47,6 +55,9 @@ getState) => {
       reducer
     })
     dispatch(addAlert(`Zmieniono ${name}`))
+    if (move) {
+      dispatch(push(`/${move}/${json.id}`));
+    }
   })
 }
 export const getModel = ({
@@ -81,5 +92,39 @@ getState) => {
       reducer
     })
     dispatch(addAlert(`Usunięto ${name}`))
+  })
+}
+export const resortModel = ({
+  endpoint,
+  name,
+  reducer,
+  data
+}) => (dispatch,
+getState) => {
+  fetchMethod(endpoint, {
+    method: 'post',
+    body: JSON.stringify({
+      data
+    })
+  }).then(response => response.json()).then(json => {
+    dispatch({
+      type: types.RESORT_MODEL,
+      data,
+      name,
+      reducer
+    })
+  })
+}
+export const setActiveModel = ({
+  name,
+  reducer,
+  model
+}) => (dispatch,
+getState) => {
+  dispatch({
+    type: types.SET_ACTIVE_MODEL,
+    name,
+    reducer,
+    model
   })
 }

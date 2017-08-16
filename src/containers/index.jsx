@@ -1,7 +1,7 @@
 export {
-default as AppContainer
+default as LoginContainer
 }
-from './AppContainer.jsx';
+from './LoginContainer.jsx';
 export {
 default as Root
 }
@@ -10,3 +10,7 @@ export {
 default as HomeContainer
 }
 from './HomeContainer.jsx';
+export {
+default as AppContainer
+}
+from './AppContainer.jsx';

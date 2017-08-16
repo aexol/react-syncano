@@ -17,6 +17,31 @@ import {
 }
 from '../server/config.jsx';
 const fetchMethod = jwtFetch;
+export const validate = () => (dispatch,
+getState) => {
+  fetch(`${HOST}/api-token-verify/`, {
+    method: 'post',
+    body: JSON.stringify({
+      token: getState().auth.token
+    }),
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  }).then(response => {
+    if (response.status === 200) {
+      dispatch({
+        type: types.VALIDATE,
+        valid: true
+      })
+    } else {
+      dispatch({
+        type: types.VALIDATE,
+        valid: false
+      })
+    }
+  })
+}
 export const login = data => (dispatch,
 getState) => {
   fetch(`${HOST}/api-token-auth/`, {
@@ -31,7 +56,10 @@ getState) => {
       dispatch(addAlert("Błędna nazwa użytkownika lub hasło"))
     }
     if (json.token && json.token !== "error") {
-//Obsługa auth
+      dispatch({
+        type: types.LOGIN,
+        json
+      })
     }
   })
 }

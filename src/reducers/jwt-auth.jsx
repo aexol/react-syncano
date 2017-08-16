@@ -6,7 +6,8 @@ import {
 from '../server/config.jsx';
 const reducer = (state = {
   token: Cookies.get(`${TOKEN_NAME}-token`),
-  username: Cookies.get(`${TOKEN_NAME}-username`)
+  username: Cookies.get(`${TOKEN_NAME}-username`),
+  valid: null
 },
 action) => {
   const {
@@ -14,6 +15,11 @@ action) => {
     json
   } = action;
   switch (type) {
+  case types.VALIDATE:
+    return {
+      ...state,
+      valid: action.valid
+    }
   case types.LOGIN:
     Cookies.set(`${TOKEN_NAME}-token`, json.token, {
       expires: 365

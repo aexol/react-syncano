@@ -23,9 +23,21 @@ from 'react-router-redux'; // import
 class HomeContainer extends React.Component {
   componentWillMount() {
     const {
-      actions
+      actions,
+      push,
+      valid
     } = this.props;
     actions.validate();
+  }
+  componentDidUpdate() {
+    const {
+      actions,
+      push,
+      valid
+    } = this.props;
+    if (valid === false) {
+      push('/login')
+    }
   }
   render () {
     const {
@@ -33,9 +45,7 @@ class HomeContainer extends React.Component {
       valid,
       children
     } = this.props;
-    if (valid === false) {
-      push('/login')
-    } else if (valid === null) {
+    if (valid === null) {
       return (
         <div className='wait'></div>
       )

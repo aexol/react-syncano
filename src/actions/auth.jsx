@@ -19,10 +19,21 @@ from '../server/config.jsx';
 const fetchMethod = jwtFetch;
 export const validate = () => (dispatch,
 getState) => {
+  const token = getState().auth.token;
+  const valid = getState().auth.valid;
+  if (token === undefined || token.length === 0) {
+    dispatch({
+      type: types.VALIDATE,
+      valid: false
+    })
+    return
+  } else if (valid === true) {
+    return
+  }
   fetch(`${HOST}/api-token-verify/`, {
     method: 'post',
     body: JSON.stringify({
-      token: getState().auth.token
+      token
     }),
     headers: {
       "Accept": "application/json",
@@ -68,5 +79,5 @@ getState) => {
   dispatch({
     type: types.LOGOUT
   })
-  dispatch(push('/admin'))
+  dispatch(push('/login'))
 }

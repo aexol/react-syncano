@@ -10,8 +10,8 @@ export default
 	},
 	devtool: 'eval-source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
 	entry: [
-		// must be first entry to properly set public path
-		'./src/webpack-public-path', 'react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true',
+		// must be first entry to properly set p
+		"react-hot-loader/patch", 'webpack-hot-middleware/client',
 		path.resolve(__dirname, 'src/index.jsx') // Defining path seems necessary for this to work consistently on Windows machines.
 	],
 	target: 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
@@ -61,7 +61,7 @@ export default
 		{
 			test: /\.jsx?$/,
 			exclude: /node_modules/,
-			loaders: ['babel-loader'],
+			loaders: ['react-hot-loader/webpack', 'babel-loader']
 		},
 		{
 			test: /\.eot(\?v=\d+.\d+.\d+)?$/,

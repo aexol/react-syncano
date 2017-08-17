@@ -33,6 +33,7 @@ action) => {
     Cookies.remove(`${TOKEN_NAME}-username`);
     return {
       ...state,
+      valid: null,
       token: ""
     }
   case types.SAVE_USERNAME:

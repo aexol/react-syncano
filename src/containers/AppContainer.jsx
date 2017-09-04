@@ -13,9 +13,20 @@ import {
 from 'redux';
 import * as actions from '../actions';
 import {
-  AppStrap
+  App
 }
 from '../components';
+import {
+  HomeContainer,
+  LoginContainer
+}
+from '.';
+import {
+  withRouter,
+  Switch,
+  Route
+}
+from 'react-router-dom'
 class AppContainer extends React.Component {
   render () {
     const {
@@ -24,7 +35,12 @@ class AppContainer extends React.Component {
       alerts
     } = this.props;
     return (
-      <AppStrap actions={actions} alerts={alerts} children={children}/>
+      <App actions={actions} alerts={alerts}>
+        <Switch>
+          <Route component={HomeContainer} exact path="/"/>
+          <Route component={LoginContainer} path="/login"/>
+        </Switch>
+      </App>
     )
   }
 }
@@ -35,4 +51,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 })
 export
-default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppContainer));

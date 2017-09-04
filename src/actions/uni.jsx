@@ -7,10 +7,6 @@ import {
   jwtFetch
 }
 from '../server/config.jsx';
-import {
-  push
-}
-from 'react-router-redux';
 const fetchMethod = jwtFetch;
 export const addModel = ({
   name,
@@ -31,9 +27,7 @@ getState) => {
       reducer
     })
     dispatch(addAlert(`Dodano ${name}`));
-    if (move) {
-      dispatch(push(`/${move}/${json.id}`));
-    }
+    if (move) {}
   })
 }
 export const updateModel = ({
@@ -55,9 +49,7 @@ getState) => {
       reducer
     })
     dispatch(addAlert(`Zmieniono ${name}`))
-    if (move) {
-      dispatch(push(`/${move}/${json.id}`));
-    }
+    if (move) {}
   })
 }
 export const getModel = ({

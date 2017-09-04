@@ -5,15 +5,10 @@ import {
   combineReducers
 }
 from 'redux';
-import {
-  routerReducer
-}
-from 'react-router-redux';
 const rootReducer = combineReducers({
   uni,
   alerts,
-  auth,
-  routing: routerReducer
+  auth
 })
 export
 default rootReducer;

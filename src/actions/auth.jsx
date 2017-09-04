@@ -5,10 +5,6 @@ import {
 }
 from '../server/config.jsx';
 import {
-  push
-}
-from 'react-router-redux';
-import {
   addAlert
 }
 from './alerts.jsx';
@@ -79,5 +75,4 @@ getState) => {
   dispatch({
     type: types.LOGOUT
   })
-  dispatch(push('/login'))
 }

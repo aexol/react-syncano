@@ -17,11 +17,6 @@ import {
   ListGroupItemTextListGroup
 }
 from 'reactstrap';
-import {
-  Link
-}
-from 'react-router';
-import classnames from 'classnames';
 import FontAwesome from 'react-fontawesome';
 import '../Menu.scss';
 import FormGen from '../../utils/formgen.jsx';
@@ -121,7 +116,7 @@ class Sortable extends React.Component {
         }} toggleEdit={(element) => {
           this.toggleOpenModal("update", element)
         }}/>
-        <ModalSet id={this.state.activeElement.id} initialDataAdd={initialDataAdd} del={del} actions={actions} add={add} fields={elementFields} initialDataUpdate={initialDataUpdate} name={name} open={this.state.openModal} toggle={this.toggleOpenModal} update={update} values={this.state.activeElement}/>
+        <ModalSet initialDataUpdate={initialDataUpdate} id={this.state.activeElement.id} del={del} actions={actions} add={add} fields={elementFields} initialDataAdd={initialDataAdd} name={name} open={this.state.openModal} toggle={this.toggleOpenModal} update={update} values={this.state.activeElement}/>
       </div>
     )
   }

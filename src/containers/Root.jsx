@@ -8,11 +8,19 @@ import {
   Provider
 }
 from 'react-redux';
-import routes from '../routes';
 import {
-  Router
+  LoginContainer,
+  HomeContainer,
+  PanelContainer,
+  AppContainer
 }
-from 'react-router';
+from '.';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+}
+from 'react-router-dom';
 class Root extends Component {
   render() {
     const {
@@ -21,7 +29,11 @@ class Root extends Component {
     } = this.props;
     return (
       <Provider store={store}>
-        <Router history={history} routes={routes}/>
+        <Router>
+          <div>
+            <Route component={AppContainer} path="/"/>
+          </div>
+        </Router>
       </Provider>
     );
   }

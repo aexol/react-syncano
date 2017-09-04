@@ -7,7 +7,7 @@ import './App.scss';
 import {
   Link
 }
-from 'react-router';
+from 'react-router-dom';
 import FormGen from '../utils/formgen.jsx';
 import {
   Nav,

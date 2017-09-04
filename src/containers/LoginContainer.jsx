@@ -16,6 +16,10 @@ import {
   Login
 }
 from '../components';
+import {
+  withRouter
+}
+from 'react-router-dom'
 class LoginContainer extends React.Component {
   render () {
     const {
@@ -34,4 +38,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 })
 export
-default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginContainer));

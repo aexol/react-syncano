@@ -10,6 +10,10 @@ import {
   ModalFooter
 }
 from 'reactstrap';
+import {
+  Link
+}
+from 'react-router';
 import classnames from 'classnames';
 import FontAwesome from 'react-fontawesome';
 import FormGen from '../../utils/formgen.jsx';
@@ -23,7 +27,8 @@ class AddModal extends React.Component {
       endpoint,
       text,
       name,
-      initialData = {}
+      initialData = {},
+      presetData = {}
     } = this.props;
     return (
       <Modal isOpen={isOpen} toggle={toggle}>
@@ -36,11 +41,12 @@ class AddModal extends React.Component {
             reducer: name,
             data   : {
               ...initialData,
+              ...presetData,
               ...e
             }
           })
           toggle();
-        }}/>
+        }} values={presetData}/>
         </ModalBody>
       </Modal>
     )

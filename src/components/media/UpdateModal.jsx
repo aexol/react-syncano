@@ -10,6 +10,12 @@ import {
   ModalFooter
 }
 from 'reactstrap';
+import {
+  Link
+}
+from 'react-router';
+import classnames from 'classnames';
+import FontAwesome from 'react-fontawesome';
 import FormGen from '../../utils/formgen.jsx';
 class UpdateModal extends React.Component {
   render () {

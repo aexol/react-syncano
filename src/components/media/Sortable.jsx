@@ -17,8 +17,12 @@ import {
   ListGroupItemTextListGroup
 }
 from 'reactstrap';
+import {
+  Link
+}
+from 'react-router';
+import classnames from 'classnames';
 import FontAwesome from 'react-fontawesome';
-import '../Menu.scss';
 import FormGen from '../../utils/formgen.jsx';
 import {
   SortableContainer,
@@ -29,19 +33,18 @@ from 'react-sortable-hoc';
 import ModalSet from './ModalSet.jsx';
 const Element = SortableElement(({
   value,
+  element,
   toggleDeleteModal,
   toggleEdit
 }) => (
-  <div className='danieelements'>
+  <div className='elements'>
     <FontAwesome name="trash-o" onClick={() => {
       toggleDeleteModal(value)
     }}/>
-    <FontAwesome name="pencil-o" onClick={() => {
+    <FontAwesome name="pencil" onClick={() => {
       toggleEdit(value)
     }}/>
-      {Object.keys(value).map(k => (
-        <div className={`${k}`}>{value[k]}</div>
-    ))}
+      {element(value)}
   </div>
 ));
 const SortableList = SortableContainer((props) => {
@@ -94,6 +97,7 @@ class Sortable extends React.Component {
   render () {
     const {
       elements,
+      element,
       actions,
       endpoints: {
         add,
@@ -111,12 +115,12 @@ class Sortable extends React.Component {
           this.toggleOpenModal("add")
         }}><span aria-hidden="true"><FontAwesome name={"plus"}/></span>
         </div>
-        <SortableList axis={"y"} elements={elements} onSortEnd={this.onSortEnd} toggleDeleteModal={(element) => {
+        <SortableList axis={"y"} element={element} elements={elements} onSortEnd={this.onSortEnd} toggleDeleteModal={(element) => {
           this.toggleOpenModal("delete", element)
         }} toggleEdit={(element) => {
           this.toggleOpenModal("update", element)
         }}/>
-        <ModalSet initialDataUpdate={initialDataUpdate} id={this.state.activeElement.id} del={del} actions={actions} add={add} fields={elementFields} initialDataAdd={initialDataAdd} name={name} open={this.state.openModal} toggle={this.toggleOpenModal} update={update} values={this.state.activeElement}/>
+        <ModalSet initialDataAdd={initialDataAdd} initialDataUpdate={initialDataUpdate} del={del} actions={actions} add={add} fields={elementFields} id={this.state.activeElement.id} name={name} open={this.state.openModal} toggle={this.toggleOpenModal} update={update} values={this.state.activeElement}/>
       </div>
     )
   }

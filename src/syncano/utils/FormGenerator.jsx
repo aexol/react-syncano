@@ -28,7 +28,7 @@ const validators = {
 const receivers = {
   normal: {},
   syncano: {
-    file: e => (<img src={e.value} />)
+    file: e => e.value.match(/\.(jpeg|jpg|gif|png)$/)? <img style={{maxWidth:"100px"}}src={e.value} /> : e.value
   }
 }
 
@@ -66,10 +66,7 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  select: (
-    {name, placeholder, label, value, values, multi, className = ''},
-    t
-  ) => (
+  select: ({name, placeholder, label, value, values, multi}, t) => (
     <Select
       className={`${className} formgenSelect ${t.state.fields[name] !== t.state.initial[name] ? 'changed' : ''}`}
       key={name}
@@ -97,7 +94,7 @@ const fieldElements = {
         className={`${className} formgenInput ${t.state.fields[name] !== t.state.initial[name] ? 'changed' : ''}`}
         onChange={e => {
           const fileName = e.target.files[0]
-          getBase64(fileName, (r) => {
+          getBase64(fileName, r => {
             t.setState({
               fields: {
                 ...t.state.fields,
@@ -109,9 +106,6 @@ const fieldElements = {
         placeholder={placeholder || name}
         type='file'
       />
-      <div className='namefile'>
-        {t.state.fields[name] ? t.state.fields[name] : placeholder}
-      </div>
       <a
         className='file_holder'
         href={
@@ -165,7 +159,7 @@ const fieldElements = {
     />
   )
 }
-class FormGen extends React.Component {
+class FormGenerator extends React.Component {
   constructor (props) {
     super(props)
     const {fields} = this.props
@@ -261,7 +255,7 @@ class FormGen extends React.Component {
     )
   }
 }
-FormGen.defaultProps = {
+FormGenerator.defaultProps = {
   values: {}
 }
-export default FormGen
+export default FormGenerator

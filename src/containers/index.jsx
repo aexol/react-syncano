@@ -1,8 +1,4 @@
 export {
-default as LoginContainer
-}
-from './LoginContainer.jsx';
-export {
 default as Root
 }
 from './Root.jsx';

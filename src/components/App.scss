@@ -27,6 +27,14 @@
   width           : 100%;
   display         : flex;
   flex-flow       : column nowrap;
+  .Home{
+    margin: auto;
+    .WelcomeMessage{
+     width: 480px;
+     font: 24px/48px sans-serif;
+     color:#333;
+    }
+  }
   .Alerts {
     position   : absolute;
     z-index    : 30;
@@ -38,42 +46,6 @@
       margin    : 30px;
       background: white;
       animation : alerts forwards 3s;
-    }
-  }
-  .TopNav {
-    display        : flex;
-    flex-flow      : row;
-    align-items    : center;
-    justify-content: flex-end;
-    flex           : 0 0 auto;
-    padding        : 10px;
-    flex-wrap      : wrap;
-    .logo {
-      
-    }
-    .AdminLink {
-      text-transform : uppercase;
-      text-decoration: none;
-      color          : white;
-      flex           : 1;
-      padding        : 10px 20px;
-      &:hover {
-        background: grey;
-      }
-    }
-  }
-  .Content {
-    flex    : 1;
-    overflow: auto;
-    display : flex;
-    .MainContent {
-      flex: 1;
-      .ContentChild {
-        display  : flex;
-        flex-flow: row nowrap;
-        height   : 100%;
-        position : relative;
-      }
     }
   }
 }

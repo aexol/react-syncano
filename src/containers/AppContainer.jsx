@@ -38,7 +38,6 @@ class AppContainer extends React.Component {
       <App actions={actions} alerts={alerts}>
         <Switch>
           <Route component={HomeContainer} exact path="/"/>
-          <Route component={LoginContainer} path="/login"/>
         </Switch>
       </App>
     )

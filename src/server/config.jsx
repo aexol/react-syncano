@@ -1,6 +1,7 @@
 export const HOST = process.env.NODE_ENV === 'production' ? "http://production.host.here" : "http://localhost:8000";
+export const INSTANCE_NAME = 'twilight-feather-5200';
 import Cookies from 'js-cookie';
-export const TOKEN_NAME = 'react-aexol';
+export const TOKEN_NAME = 'syncano';
 export const saveToken = token => Cookies.set("jwt-service-aexol-token", token, {
   expires: 365
 })

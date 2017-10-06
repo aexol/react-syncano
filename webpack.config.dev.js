@@ -88,6 +88,10 @@ export default
 			loader: 'file-loader?name=[name].[ext]'
 		},
 		{
+			test: /\.m4v$/,
+			loader: 'file-loader?name=[name].[ext]'
+		},
+		{
 			test: /(\.css|\.scss|\.sass)$/,
 			loaders: ['style-loader', 'css-loader?sourceMap', 'postcss-loader', 'sass-loader?sourceMap']
 		}]

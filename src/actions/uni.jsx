@@ -1,63 +1,52 @@
-import * as types from '../constants/uni.jsx';
-import {
-  addAlert
-}
-from './alerts.jsx';
-import {
-  jwtFetch
-}
-from '../server/config.jsx';
-const fetchMethod = jwtFetch;
-export const addModel = ({
-  name,
-  endpoint,
-  reducer,
-  data,
-  move
-}) => (dispatch,
-getState) => {
+import * as types from '../constants/uni.jsx'
+import {addAlert} from './alerts.jsx'
+import {jwtFetch, HOST} from '../server/config.jsx'
+import React, {PropTypes} from 'react'
+const fetchMethod = fetch
+import EditableString from '../syncano/EditableString'
+export const addModel = ({name, endpoint, reducer, data, move}) => (
+  dispatch,
+  getState
+) => {
   fetchMethod(endpoint, {
     method: 'post',
     body: JSON.stringify(data)
-  }).then(response => response.json()).then(json => {
-    dispatch({
-      type: types.ADD_MODEL,
-      name,
-      json,
-      reducer
-    })
-    dispatch(addAlert(`Dodano ${name}`));
-    if (move) {}
   })
+    .then(response => response.json())
+    .then(json => {
+      dispatch({
+        type: types.ADD_MODEL,
+        name,
+        json,
+        reducer
+      })
+      dispatch(addAlert(`Dodano ${name}`))
+      if (move) {
+      }
+    })
 }
-export const updateModel = ({
-  name,
-  endpoint,
-  reducer,
-  move,
-  data
-}) => (dispatch,
-getState) => {
+export const updateModel = ({name, endpoint, reducer, move, data}) => (
+  dispatch,
+  getState
+) => {
   fetchMethod(endpoint, {
     method: 'PATCH',
     body: JSON.stringify(data)
-  }).then(response => response.json()).then(json => {
-    dispatch({
-      type: types.UPDATE_MODEL,
-      name,
-      json,
-      reducer
-    })
-    dispatch(addAlert(`Zmieniono ${name}`))
-    if (move) {}
   })
+    .then(response => response.json())
+    .then(json => {
+      dispatch({
+        type: types.UPDATE_MODEL,
+        name,
+        json,
+        reducer
+      })
+      dispatch(addAlert(`Zmieniono ${name}`))
+      if (move) {
+      }
+    })
 }
-export const getModel = ({
-  name,
-  endpoint,
-  reducer
-}) => (dispatch,
-getState) => {
+export const getModel = ({name, endpoint, reducer}) => (dispatch, getState) => {
   fetchMethod(endpoint).then(response => response.json()).then(json => {
     dispatch({
       type: types.GET_MODEL,
@@ -67,15 +56,12 @@ getState) => {
     })
   })
 }
-export const deleteModel = ({
-  name,
-  reducer,
-  id,
-  endpoint
-}) => (dispatch,
-getState) => {
+export const deleteModel = ({name, reducer, id, endpoint}) => (
+  dispatch,
+  getState
+) => {
   fetchMethod(endpoint, {
-    method: "delete"
+    method: 'delete'
   }).then(response => {
     dispatch({
       type: types.DELETE_MODEL,
@@ -86,33 +72,30 @@ getState) => {
     dispatch(addAlert(`Usunięto ${name}`))
   })
 }
-export const resortModel = ({
-  endpoint,
-  name,
-  reducer,
-  data
-}) => (dispatch,
-getState) => {
+export const resortModel = ({endpoint, name, reducer, data}) => (
+  dispatch,
+  getState
+) => {
   fetchMethod(endpoint, {
     method: 'post',
     body: JSON.stringify({
       data
     })
-  }).then(response => response.json()).then(json => {
-    dispatch({
-      type: types.RESORT_MODEL,
-      data,
-      name,
-      reducer
-    })
   })
+    .then(response => response.json())
+    .then(json => {
+      dispatch({
+        type: types.RESORT_MODEL,
+        data,
+        name,
+        reducer
+      })
+    })
 }
-export const setActiveModel = ({
-  name,
-  reducer,
-  model
-}) => (dispatch,
-getState) => {
+export const setActiveModel = ({name, reducer, model}) => (
+  dispatch,
+  getState
+) => {
   dispatch({
     type: types.SET_ACTIVE_MODEL,
     name,
@@ -120,3 +103,4 @@ getState) => {
     model
   })
 }
+

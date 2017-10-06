@@ -1,0 +1,18 @@
+.EditableString{
+  display: inline;
+  span.saveEditableString{
+    padding:10px;
+    text-transform:uppercase;
+    background:#000;
+    color:#fff;
+    border:solid 1px #fff;
+    opacity:0.1;
+    transition: opacity 0.5s;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1000;
+    &:hover{
+      opacity: 1.0;
+    }
+  }
+}

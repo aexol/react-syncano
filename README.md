@@ -22,3 +22,4 @@ React Slingshot - Aexol fork
 2. **ReactStrap** for admin panels [ReactStrap](reactstrap.github.io)
 3. **React GeoSuggest** for intelligent place autocomplete [GeoSuggest](https://github.com/ubilabs/react-geosuggest)
 4. **ClassNames** for class name selection [ClassNames](https://github.com/JedWatson/classnames)
+5. **Syncano** for your serverless backend!!!! [Syncano](https://syncano.io/)

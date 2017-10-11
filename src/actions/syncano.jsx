@@ -5,7 +5,6 @@ import Syncano from 'syncano-client'
 import React from 'react'
 import EditableString from '../syncano/EditableString'
 const s = new Syncano(INSTANCE_NAME)
-
 export const syncanoValidate = ({username, token}) => (dispatch, getState) => {
   s.post('rest-auth/validate', {username, token}).then(json => {
     dispatch({
@@ -14,7 +13,10 @@ export const syncanoValidate = ({username, token}) => (dispatch, getState) => {
     })
   })
 }
-export const syncanoRefreshToken = ({username, token}) => (dispatch, getState) => {
+export const syncanoRefreshToken = ({username, token}) => (
+  dispatch,
+  getState
+) => {
   s.post('rest-auth/refresh', {username, token}).then(json => {
     dispatch({
       token: json.token,
@@ -36,10 +38,10 @@ export const syncanoLogin = ({username, password}) => (dispatch, getState) => {
     })
   })
 }
-export const syncanoLogout = () => (dispatch,getState) => {
-    dispatch({
-      type:atypes.LOGOUT
-    })
+export const syncanoLogout = () => (dispatch, getState) => {
+  dispatch({
+    type: atypes.LOGOUT
+  })
 }
 export const syncanoList = ({model}) => (dispatch, getState) => {
   s
@@ -108,7 +110,7 @@ export const getString = (name, content = 'Some text') => (
   }
   return (
     <EditableString
-      save={(id,s) => {
+      save={(id, s) => {
         dispatch(
           syncanoUpdate({
             id,

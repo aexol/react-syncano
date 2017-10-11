@@ -9,6 +9,10 @@
   .SyncanoLogin{
     width:320px;
     margin: auto;
+    .SyncanoInstanceName{
+      color:#777;
+      padding: 10px;
+    }
     .FormGen{
       display: flex;
       flex-flow: column nowrap;
@@ -25,6 +29,13 @@
         padding: 10px;
         color:white;
       }
+    }
+  }
+  .SyncanoCategories{
+    display: flex;
+    flex-flow: column nowrap;
+    .SyncanoCategory{
+      padding: 10px;
     }
   }
   .SyncanoNavigation{

@@ -3,12 +3,15 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as actions from '../actions'
 import ModalSet from './media/ModalSet'
-import {HOST} from '../server/config'
-import {withRouter, Switch, Route} from 'react-router-dom'
+import {HOST, INSTANCE_NAME} from '../server/config'
+import {withRouter, Switch, Route, Link} from 'react-router-dom'
 import './AdminContainer.scss'
 import models from '../models'
 import Cookies from 'js-cookie'
 import FormGen from '../utils/formgen'
+import ListContainer from './ListContainer'
+import MigrateContainer from './MigrateContainer'
+import ConfigContainer  from './ConfigContainer'
 class SyncanoAdminContainer extends React.Component {
   constructor (props) {
     super(props)
@@ -19,18 +22,18 @@ class SyncanoAdminContainer extends React.Component {
     if (token && valid !== true) {
       actions.syncanoValidate({token, username})
     }
-    models.forEach(m => {
-      actions.syncanoList({
-        model: m.name
-      })
-    })
   }
   render () {
-    const {actions, token, valid} = this.props
+    const {actions, token, valid, match} = this.props
     const {open, active, model, values} = this.state
     const loginScreen = (
       <div className='SyncanoAdmin'>
         <div className='SyncanoLogin'>
+          <div className='SyncanoInstanceName'>
+            {INSTANCE_NAME === 'YOUR_INSTANCE_NAME_HERE'
+              ? 'Please set your syncano instance name in src/server/config.jsx'
+              : INSTANCE_NAME}
+          </div>
           <FormGen
             fields={[
               {
@@ -55,6 +58,12 @@ class SyncanoAdminContainer extends React.Component {
     }
     return (
       <div className='SyncanoAdmin'>
+        <div className='SyncanoCategories'>
+          <Link to={`${match.url}/manage`} className='SyncanoCategory'>Manage</Link>
+          <Link to={`${match.url}/migrate`} className='SyncanoCategory'>Migrate</Link>
+          <Link to={`${match.url}/model`} className='SyncanoCategory'>Model</Link>
+          <Link to={`${match.url}/config`} className='SyncanoCategory'>Config</Link>
+        </div>
         <div className='SyncanoNavigation'>
           {models.map(m => (
             <div
@@ -70,75 +79,37 @@ class SyncanoAdminContainer extends React.Component {
             </div>
           ))}
           <div className='UserSettings'>
-            <div className='logOut' onClick={()=>{
-              actions.syncanoLogout();
-              }}>logout</div>
+            <div
+              className='logOut'
+              onClick={() => {
+                actions.syncanoLogout()
+              }}
+            >
+              logout
+            </div>
             <div className='changePassword'>change password</div>
           </div>
         </div>
-        {model &&
-          <div className='SyncanoNavigation'>
-            <div
-              className='SyncanoLink'
-              onClick={() => {
-                this.setState({open: 'add'})
-              }}
-            >
-              Add
-            </div>
-          </div>}
-        <div className='SyncanoList'>
-          {model &&
-            this.props[model.name].map(m => (
-              <div className='SyncanoObject' key={m.id}>
-                <span
-                  className='displayName'
-                  onClick={() => {
-                    this.setState({
-                      open: 'update',
-                      values: {...m}
-                    })
-                  }}
-                >
-                  {m[model.display]}
-                </span>
-                <span
-                  onClick={() => {
-                    this.setState({
-                      open: 'delete',
-                      values: {id:m.id}
-                    })
-                  }}
-                  className='deleteButton'
-                >
-                  ×
-                </span>
-              </div>
-            ))}
-        </div>
-        {model &&
-          <ModalSet
-            name={model.name}
-            actions={actions}
-            fields={model.fields}
-            values={values}
-            open={open}
-            toggle={o => {
-              this.setState({
-                open: o
-              })
-            }}
-          />}
+        <Switch>
+          <Route
+            render={() => <MigrateContainer model={model} />}
+            path='/admin/migrate'
+          />
+          <Route
+            render={() => <ListContainer model={model} />}
+            path='/admin/manage'
+          />
+          <Route
+            render={() => <ConfigContainer model={model} />}
+            path='/admin/config'
+          />
+        </Switch>
       </div>
     )
   }
 }
 const mapStateToProps = state => ({
   ...state,
-  ...models.map(m => m.name).reduce((p, n) => {
-    p[n] = state.uni[n] ? state.uni[n] : []
-    return p
-  }, {}),
   token: state.auth.token,
   valid: state.auth.valid,
   username: state.auth.username
@@ -146,6 +117,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 })
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SyncanoAdminContainer
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SyncanoAdminContainer)
 )

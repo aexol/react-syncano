@@ -1088,6 +1088,13 @@ babel-register@^6.18.0, babel-register@^6.24.1:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
+babel-runtime@6.x:
+  version "6.26.0"
+  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
+  dependencies:
+    core-js "^2.4.0"
+    regenerator-runtime "^0.11.0"
+
 babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.20.0, babel-runtime@^6.22.0, babel-runtime@^6.25.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1:
   version "6.25.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.25.0.tgz#33b98eaa5d482bb01a8d1aa6b437ad2b01aec41c"
@@ -5538,6 +5545,13 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
+rc-progress@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/rc-progress/-/rc-progress-2.2.2.tgz#179f322218c533be27be5ddf4ef6f20e1e228769"
+  dependencies:
+    babel-runtime "6.x"
+    prop-types "^15.5.8"
+
 rc@^1.1.7:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.1.tgz#2e03e8e42ee450b8cb3dce65be1bf8974e1dfd95"
@@ -5879,6 +5893,10 @@ regenerate@^1.2.1:
 regenerator-runtime@^0.10.0:
   version "0.10.5"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz#336c3efc1220adcedda2c9fab67b5a7955a33658"
+
+regenerator-runtime@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.0.tgz#7e54fe5b5ccd5d6624ea6255c3473be090b802e1"
 
 regenerator-transform@0.9.11:
   version "0.9.11"
@@ -6608,9 +6626,9 @@ symbol-tree@^3.2.1:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
 
-syncano-client@^0.2.9:
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/syncano-client/-/syncano-client-0.2.9.tgz#a7ebf5a43c89993b6c9912490e123cfe55c5674c"
+syncano-client@0.2.6-2:
+  version "0.2.6-2"
+  resolved "https://registry.yarnpkg.com/syncano-client/-/syncano-client-0.2.6-2.tgz#46865a43102f9ad54d4a1018729cb9ce0e3ad40d"
   dependencies:
     axios "^0.15.3"
 

@@ -3,7 +3,7 @@ import Select from 'react-select'
 import {Creatable} from 'react-select'
 import 'react-select/dist/react-select.css'
 import Geosuggest from 'react-geosuggest'
-
+import classnames from 'classnames'
 const getBase64 = (file, callback) => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
@@ -28,14 +28,21 @@ const validators = {
 const receivers = {
   normal: {},
   syncano: {
-    file: e => e.value.match(/\.(jpeg|jpg|gif|png)$/)? <img style={{maxWidth:"100px"}}src={e.value} /> : e.value
+    file: e =>
+      (e.value.match(/\.(jpeg|jpg|gif|png)$/)
+        ? <img style={{maxWidth: '100px'}} src={e.value} />
+        : e.value)
   }
 }
 
 const fieldElements = {
   text: ({name, placeholder, inputType, className = ''}, t) => (
     <input
-      className={`${className} formgenInput ${t.state.fields[name] !== t.state.initial[name] ? 'changed' : ''}`}
+      className={classnames({
+        forgenInput: true,
+        changed: t.state.fields[name] !== t.state.initial[name],
+        [className]: true
+      })}
       key={name}
       onChange={e => {
         t.setState({
@@ -52,7 +59,11 @@ const fieldElements = {
   ),
   textarea: ({name, placeholder, className = ''}, t) => (
     <textarea
-      className={`${className} formgenInput ${t.state.fields[name] !== t.state.initial[name] ? 'changed' : ''}`}
+      className={classnames({
+        forgenInput: true,
+        changed: t.state.fields[name] !== t.state.initial[name],
+        [className]: true
+      })}
       key={name}
       onChange={e => {
         t.setState({
@@ -66,10 +77,13 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  select: ({name, placeholder, label, value, values, multi}, t) => (
+  select: ({name, placeholder, label, value, values, multi,className = ''}, t) => (
     <Select
-      className={`${className} formgenSelect ${t.state.fields[name] !== t.state.initial[name] ? 'changed' : ''}`}
-      key={name}
+      className={classnames({
+        forgenInput: true,
+        changed: t.state.fields[name] !== t.state.initial[name],
+        [className]: true
+      })}
       multi={multi || false}
       name={placeholder || name}
       onChange={e => {
@@ -122,7 +136,11 @@ const fieldElements = {
   ),
   geo: ({name, placeholder, location, radius, className = ''}, t) => (
     <Geosuggest
-      className={`${className} formgenGeo ${t.state.fields[name] !== t.state.initial[name] ? 'changed' : ''}`}
+      className={classnames({
+        forgenInput: true,
+        changed: t.state.fields[name] !== t.state.initial[name],
+        [className]: true
+      })}
       initialValue={t.state.initial[name]}
       key={name}
       location={location}
@@ -142,7 +160,11 @@ const fieldElements = {
   ),
   tag: ({name, placeholder, multi, className = ''}, t) => (
     <Creatable
-      className={`${className} formgenSelect ${t.state.fields[name] !== t.state.initial[name] ? 'changed' : ''}`}
+      className={classnames({
+        forgenInput: true,
+        changed: t.state.fields[name] !== t.state.initial[name],
+        [className]: true
+      })}
       key={name}
       multi={multi || true}
       name={placeholder || name}

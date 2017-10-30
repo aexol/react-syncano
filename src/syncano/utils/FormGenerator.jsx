@@ -36,12 +36,13 @@ const receivers = {
 }
 
 const fieldElements = {
-  text: ({name, placeholder, inputType, className = ''}, t) => (
+  text: ({name, placeholder, inputType, className = '',invalid}, t) => (
     <input
       className={classnames({
         forgenInput: true,
         changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true
+        [className]: true,
+        invalid
       })}
       key={name}
       onChange={e => {
@@ -57,12 +58,13 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  textarea: ({name, placeholder, className = ''}, t) => (
+  textarea: ({name, placeholder, className = '',invalid}, t) => (
     <textarea
       className={classnames({
         forgenInput: true,
         changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true
+        [className]: true,
+        invalid
       })}
       key={name}
       onChange={e => {
@@ -77,12 +79,13 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  select: ({name, placeholder, label, value, values, multi,className = ''}, t) => (
+  select: ({name, placeholder, label, value, values, multi,className = '',invalid}, t) => (
     <Select
       className={classnames({
         forgenInput: true,
         changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true
+        [className]: true,
+        invalid
       })}
       multi={multi || false}
       name={placeholder || name}
@@ -102,10 +105,15 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  file: ({name, placeholder, className = ''}, t) => (
+  file: ({name, placeholder, className = '',invalid}, t) => (
     <div className='formgenFile' key={name}>
       <input
-        className={`${className} formgenInput ${t.state.fields[name] !== t.state.initial[name] ? 'changed' : ''}`}
+        className={classnames({
+          [className]:true,
+          forgenInput:true,
+          changed:t.state.fields[name] !== t.state.initial[name],
+          invalid
+        })}
         onChange={e => {
           const fileName = e.target.files[0]
           getBase64(fileName, r => {
@@ -134,12 +142,13 @@ const fieldElements = {
       </a>
     </div>
   ),
-  geo: ({name, placeholder, location, radius, className = ''}, t) => (
+  geo: ({name, placeholder, location, radius, className = '',invalid}, t) => (
     <Geosuggest
       className={classnames({
         forgenInput: true,
         changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true
+        [className]: true,
+        invalid
       })}
       initialValue={t.state.initial[name]}
       key={name}
@@ -158,12 +167,13 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  tag: ({name, placeholder, multi, className = ''}, t) => (
+  tag: ({name, placeholder, multi, className = '',invalid}, t) => (
     <Creatable
       className={classnames({
         forgenInput: true,
         changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true
+        [className]: true,
+        invalid
       })}
       key={name}
       multi={multi || true}
@@ -253,11 +263,12 @@ class FormGenerator extends React.Component {
     this.props.validate(returnData)
   }
   render () {
-    const {fields, submitText} = this.props
+    const {fields, submitText, invalid} = this.props
     const fieldsRender = fields.map(f =>
       fieldElements[f.type](
         {
-          ...f
+          ...f,
+          invalid:invalid[f.name]
         },
         this
       )

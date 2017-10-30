@@ -8,10 +8,10 @@ import {withRouter, Switch, Route, Link} from 'react-router-dom'
 import './AdminContainer.scss'
 import models from '../models'
 import Cookies from 'js-cookie'
-import FormGen from '../utils/formgen'
+import FormGen from './utils/FormGenerator'
 import ListContainer from './ListContainer'
 import MigrateContainer from './MigrateContainer'
-import ConfigContainer  from './ConfigContainer'
+import ConfigContainer from './ConfigContainer'
 class SyncanoAdminContainer extends React.Component {
   constructor (props) {
     super(props)
@@ -25,7 +25,7 @@ class SyncanoAdminContainer extends React.Component {
   }
   render () {
     const {actions, token, valid, match} = this.props
-    const {open, active, model, values} = this.state
+    const {open, active, model, values, invalid = {}} = this.state
     const loginScreen = (
       <div className='SyncanoAdmin'>
         <div className='SyncanoLogin'>
@@ -35,6 +35,7 @@ class SyncanoAdminContainer extends React.Component {
               : INSTANCE_NAME}
           </div>
           <FormGen
+            invalid={invalid}
             fields={[
               {
                 name: 'username',
@@ -47,6 +48,13 @@ class SyncanoAdminContainer extends React.Component {
               }
             ]}
             validate={e => {
+              // this.setState({
+              //   invalid: {
+              //     ...invalid,
+              //     username: !e.username,
+              //     password: !e.password
+              //   }
+              // })
               actions.syncanoLogin(e)
             }}
           />
@@ -59,10 +67,18 @@ class SyncanoAdminContainer extends React.Component {
     return (
       <div className='SyncanoAdmin'>
         <div className='SyncanoCategories'>
-          <Link to={`${match.url}/manage`} className='SyncanoCategory'>Manage</Link>
-          <Link to={`${match.url}/migrate`} className='SyncanoCategory'>Migrate</Link>
-          <Link to={`${match.url}/model`} className='SyncanoCategory'>Model</Link>
-          <Link to={`${match.url}/config`} className='SyncanoCategory'>Config</Link>
+          <Link to={`${match.url}/manage`} className='SyncanoCategory'>
+            Manage
+          </Link>
+          <Link to={`${match.url}/migrate`} className='SyncanoCategory'>
+            Migrate
+          </Link>
+          <Link to={`${match.url}/model`} className='SyncanoCategory'>
+            Model
+          </Link>
+          <Link to={`${match.url}/config`} className='SyncanoCategory'>
+            Config
+          </Link>
         </div>
         <div className='SyncanoNavigation'>
           {models.map(m => (

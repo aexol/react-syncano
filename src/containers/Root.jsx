@@ -11,7 +11,7 @@ import AdminContainer from '../syncano/AdminContainer.jsx';
 import {HashRouter as Router, Route, Link, Switch} from 'react-router-dom'
 class Root extends Component {
   render () {
-    const {store, history} = this.props
+    const {store} = this.props
     return (
       <Provider store={store}>
         <Router>
@@ -28,6 +28,5 @@ class Root extends Component {
 }
 Root.propTypes = {
   store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
 }
 export default Root

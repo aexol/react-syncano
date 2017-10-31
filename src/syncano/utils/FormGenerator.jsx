@@ -263,7 +263,7 @@ class FormGenerator extends React.Component {
     this.props.validate(returnData)
   }
   render () {
-    const {fields, submitText, invalid} = this.props
+    const {fields, submitText, invalid=[]} = this.props
     const fieldsRender = fields.map(f =>
       fieldElements[f.type](
         {

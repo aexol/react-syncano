@@ -1,11 +1,11 @@
-import {INSTANCE_NAME} from '../server/config.jsx'
-import Syncano from 'syncano-client'
-import * as types from '../constants/syncano'
-const s = new Syncano(INSTANCE_NAME)
-export const startMigration = ({model, link, fields, key, payload}) => (
-  dispatch,
-  getState
-) => {
+import {s} from '../server/config'
+export const startMigration = ({
+  model,
+  link,
+  fields,
+  key,
+  payload
+}) => state => dispatch => {
   const postTo = () => {
     s
       .post('migrate/migrate', {
@@ -17,11 +17,13 @@ export const startMigration = ({model, link, fields, key, payload}) => (
       })
       .then(response => {
         const {status, progress} = response
-        if(progress){
-          dispatch({
-            type:types.SET_MIGRATION_PROGRESS,
-            progress: progress.split("/").reduce((a,b)=>{return parseInt(a)/parseInt(b)})
-          })
+        if (progress) {
+          dispatch(state => ({
+            ...state,
+            progress: progress.split('/').reduce((a, b) => {
+              return parseInt(a) / parseInt(b)
+            })
+          }))
         }
         if (status === 'migrating') {
           postTo()

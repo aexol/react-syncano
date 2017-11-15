@@ -7,10 +7,6 @@ import {
   connect
 }
 from 'react-redux';
-import {
-  bindActionCreators
-}
-from 'redux';
 import * as actions from '../actions';
 import {
   App
@@ -27,6 +23,13 @@ import {
   Route
 }
 from 'react-router-dom'
+@connect(
+  state => ({
+    alerts:state.alerts
+  }),{
+    ...actions
+  }
+)
 class AppContainer extends React.Component {
   render () {
     const {
@@ -35,7 +38,7 @@ class AppContainer extends React.Component {
       alerts
     } = this.props;
     return (
-      <App actions={actions} alerts={alerts}>
+      <App {...this.props}>
         <Switch>
           <Route component={HomeContainer} exact path="/"/>
         </Switch>
@@ -43,11 +46,5 @@ class AppContainer extends React.Component {
     )
   }
 }
-const mapStateToProps = (state) => ({
-  alerts: state.uni.alerts ? state.uni.alerts : []
-})
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(actions, dispatch)
-})
 export
-default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppContainer));
+default withRouter(AppContainer);

@@ -4,11 +4,13 @@ import {Creatable} from 'react-select'
 import 'react-select/dist/react-select.css'
 import Geosuggest from 'react-geosuggest'
 import classnames from 'classnames'
+import {connect} from 'react-redux'
+import { display } from "../../display";
 const getBase64 = (file, callback) => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
   reader.onload = function () {
-    callback({type: 'file', value: reader.result})
+    callback(reader.result)
   }
   reader.onerror = function (error) {
     console.log('Error: ', error)
@@ -19,24 +21,12 @@ const validators = {
   syncano: {
     select: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
     tag: e => (Array.isArray(e) ? e.map(p => p.value) : e.value)
-  },
-  django: {
-    select: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
-    tag: e => (Array.isArray(e) ? e.map(p => p.value) : e.value)
-  }
-}
-const receivers = {
-  normal: {},
-  syncano: {
-    file: e =>
-      (e.value.match(/\.(jpeg|jpg|gif|png)$/)
-        ? <img style={{maxWidth: '100px'}} src={e.value} />
-        : e.value)
   }
 }
 
 const fieldElements = {
-  text: ({name, placeholder, inputType, className = '',invalid}, t) => (
+  //TODO: datetime input
+  text: ({name, placeholder, inputType, className = '', invalid}, t) => (
     <input
       className={classnames({
         forgenInput: true,
@@ -58,7 +48,7 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  textarea: ({name, placeholder, className = '',invalid}, t) => (
+  textarea: ({name, placeholder, className = '', invalid}, t) => (
     <textarea
       className={classnames({
         forgenInput: true,
@@ -79,7 +69,10 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  select: ({name, placeholder, label, value, values, multi,className = '',invalid}, t) => (
+  select: (
+    {name, placeholder, label="id", value="id", values, multi, className = '', invalid},
+    t
+  ) => (
     <Select
       className={classnames({
         forgenInput: true,
@@ -98,6 +91,7 @@ const fieldElements = {
         })
       }}
       options={values.map(k => ({
+        key: `${name}-${k[value]}`,
         value: k[value],
         label: k[label]
       }))}
@@ -105,13 +99,13 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  file: ({name, placeholder, className = '',invalid}, t) => (
+  file: ({name, placeholder, className = '', invalid}, t) => (
     <div className='formgenFile' key={name}>
       <input
         className={classnames({
-          [className]:true,
-          forgenInput:true,
-          changed:t.state.fields[name] !== t.state.initial[name],
+          [className]: true,
+          forgenInput: true,
+          changed: t.state.fields[name] !== t.state.initial[name],
           invalid
         })}
         onChange={e => {
@@ -142,7 +136,7 @@ const fieldElements = {
       </a>
     </div>
   ),
-  geo: ({name, placeholder, location, radius, className = '',invalid}, t) => (
+  geo: ({name, placeholder, location, radius, className = '', invalid}, t) => (
     <Geosuggest
       className={classnames({
         forgenInput: true,
@@ -167,7 +161,7 @@ const fieldElements = {
       value={t.state.fields[name]}
     />
   ),
-  tag: ({name, placeholder, multi, className = '',invalid}, t) => (
+  tag: ({name, placeholder, multi, className = '', invalid}, t) => (
     <Creatable
       className={classnames({
         forgenInput: true,
@@ -191,6 +185,12 @@ const fieldElements = {
     />
   )
 }
+@connect(
+  state => ({
+    ...state
+  }),
+  {}
+)
 class FormGenerator extends React.Component {
   constructor (props) {
     super(props)
@@ -215,10 +215,7 @@ class FormGenerator extends React.Component {
     const {fields, validator, values} = nextProps
     var newFields = {}
     for (var f of fields) {
-      const receive = validator
-        ? receivers[validator][f.type] ? receivers[validator][f.type] : e => e
-        : e => e
-      newFields[f.name] = values[f.name] ? receive(values[f.name]) : ''
+      newFields[f.name] = values[f.name] || ''
     }
     var updateDict = {
       initial: {
@@ -263,16 +260,24 @@ class FormGenerator extends React.Component {
     this.props.validate(returnData)
   }
   render () {
-    const {fields, submitText, invalid=[]} = this.props
-    const fieldsRender = fields.map(f =>
-      fieldElements[f.type](
+    const {fields, submitText, invalid = []} = this.props
+    const fieldsRender = fields.map(f => {
+      let Field = {...f}
+      if(Field.target){
+        if(typeof this.props[Field.target] ==="undefined"){
+          return
+        }
+        Field.values = this.props[Field.target]
+        Field.label  = display(Field.target)
+      }
+      return fieldElements[Field.type](
         {
-          ...f,
-          invalid:invalid[f.name]
+          ...Field,
+          invalid: invalid[Field.name]
         },
         this
       )
-    )
+    })
     return (
       <div className='FormGen'>
         {fieldsRender}

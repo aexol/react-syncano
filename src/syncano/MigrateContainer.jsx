@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 import * as actions from '../actions'
 import FormGen from './utils/FormGenerator'
 import {withRouter, Switch, Route} from 'react-router-dom'
@@ -24,15 +23,20 @@ const fields = [
     type: 'textarea'
   }
 ]
+@connect(
+  state => ({
+    progress:state.progress
+  }),
+  {
+    ...actions
+  }
+)
 class MigrateContainer extends React.Component {
   constructor (props) {
     super(props)
   }
-  componentWillMount () {
-    const {actions} = this.props
-  }
   render () {
-    const {actions, model, progress} = this.props
+    const {model, progress} = this.props
     var containerStyle = {
       width: '200px',
       height: '200px'
@@ -56,7 +60,7 @@ class MigrateContainer extends React.Component {
               : {}
           }
           validate={e => {
-            actions.startMigration({
+            this.props.startMigration({
               ...e,
               model: model.name,
               fields: e.fields ? e.fields : model.fields.map(f => f.name),
@@ -75,12 +79,4 @@ class MigrateContainer extends React.Component {
     )
   }
 }
-const mapStateToProps = state => ({
-  progress: state.migrations.progress
-})
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-})
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(MigrateContainer)
-)
+export default withRouter(MigrateContainer)

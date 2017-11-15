@@ -1,31 +1,58 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 import * as actions from '../actions'
 import ModalSet from './media/ModalSet'
 import {HOST, INSTANCE_NAME} from '../server/config'
 import {withRouter, Switch, Route, Link} from 'react-router-dom'
 import './AdminContainer.scss'
-import models from '../models'
 import Cookies from 'js-cookie'
 import FormGen from './utils/FormGenerator'
 import ListContainer from './ListContainer'
 import MigrateContainer from './MigrateContainer'
 import ConfigContainer from './ConfigContainer'
+import Loading from './utils/Loading'
+
+@connect(
+  state => ({
+    ...state
+  }),
+  {
+    ...actions
+  }
+)
 class SyncanoAdminContainer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
   }
   componentWillMount () {
-    const {actions, valid, token, username} = this.props
+    const {valid, token, username} = this.props
+    console.log(this.props)
     if (token && valid !== true) {
-      actions.syncanoValidate({token, username})
+      this.props.syncanoValidate({token, username})
+    }
+  }
+  componentDidUpdate (prevProps) {
+    const {valid, token, username, models} = this.props
+    if (!models) {
+      this.props.syncanoSetModels()
+    }
+    if (
+      valid === true &&
+      typeof prevProps.models === 'undefined' &&
+      typeof models !== 'undefined'
+    ) {
+      models.forEach(m => {
+        this.props.syncanoList({
+          model: m.name
+        })
+      })
     }
   }
   render () {
-    const {actions, token, valid, match} = this.props
+    const {token, valid, match, models} = this.props
     const {open, active, model, values, invalid = {}} = this.state
+    console.log(this.props)
     const loginScreen = (
       <div className='SyncanoAdmin'>
         <div className='SyncanoLogin'>
@@ -48,14 +75,7 @@ class SyncanoAdminContainer extends React.Component {
               }
             ]}
             validate={e => {
-              // this.setState({
-              //   invalid: {
-              //     ...invalid,
-              //     username: !e.username,
-              //     password: !e.password
-              //   }
-              // })
-              actions.syncanoLogin(e)
+              this.props.syncanoLogin(e)
             }}
           />
         </div>
@@ -63,6 +83,9 @@ class SyncanoAdminContainer extends React.Component {
     )
     if (!valid) {
       return loginScreen
+    }
+    if (typeof models === 'undefined') {
+      return <Loading>Loading models...</Loading>
     }
     return (
       <div className='SyncanoAdmin'>
@@ -81,7 +104,7 @@ class SyncanoAdminContainer extends React.Component {
           </Link>
         </div>
         <div className='SyncanoNavigation'>
-          {models.map(m => (
+          {models.filter( m => typeof this.props[m.name] !== "undefined" ).map(m => (
             <div
               key={m.name}
               className='SyncanoLink'
@@ -98,7 +121,7 @@ class SyncanoAdminContainer extends React.Component {
             <div
               className='logOut'
               onClick={() => {
-                actions.syncanoLogout()
+                this.props.syncanoLogout()
               }}
             >
               logout
@@ -124,15 +147,4 @@ class SyncanoAdminContainer extends React.Component {
     )
   }
 }
-const mapStateToProps = state => ({
-  ...state,
-  token: state.auth.token,
-  valid: state.auth.valid,
-  username: state.auth.username
-})
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-})
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SyncanoAdminContainer)
-)
+export default withRouter(SyncanoAdminContainer)

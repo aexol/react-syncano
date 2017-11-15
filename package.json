@@ -35,6 +35,7 @@
     "react-transition-group": "^2.2.0",
     "redux": "3.6.0",
     "redux-thunk": "2.1.0",
+    "repatch": "1.3.12",
     "syncano-client": "0.2.6-2"
   },
   "devDependencies": {

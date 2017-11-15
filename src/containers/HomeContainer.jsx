@@ -7,10 +7,6 @@ import {
   connect
 }
 from 'react-redux';
-import {
-  bindActionCreators
-}
-from 'redux';
 import * as actions from '../actions';
 import {
   Home
@@ -20,22 +16,20 @@ import {
   withRouter
 }
 from 'react-router-dom'
+
+@connect(
+  state => ({
+    valid:state.valid
+  }),{
+    ...actions
+  }
+)
 class HomeContainer extends React.Component {
   render () {
-    const {
-      actions,
-      children
-    } = this.props;
     return (
-      <Home actions={actions} children={children}/>
+      <Home actions={actions} {...this.props} />
     )
   }
 }
-const mapStateToProps = (state) => ({
-  valid: state.auth.valid
-})
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(actions, dispatch)
-})
 export
-default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeContainer));
+default withRouter(HomeContainer);

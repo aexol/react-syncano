@@ -1,15 +1,19 @@
 import React, {PropTypes} from 'react'
 import './EditableString.scss'
 import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import * as actions from '../actions'
+@connect(
+  state => ({
+    text: state.text,
+    valid: state.valid
+  })
+)
 class EditableString extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
   }
   componentWillReceiveProps (props) {
-    const {actions, name, content} = this.props
+    const {name, content} = this.props
     if (props.text.length > 0) {
       let str = props.text.filter(s => s.name === name)
       if (str.length === 0) {
@@ -66,12 +70,4 @@ class EditableString extends React.Component {
     )
   }
 }
-const mapStateToProps = state => ({
-  ...state,
-  text: state.uni.text ? state.uni.text : [],
-  valid: state.auth.valid
-})
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-})
-export default connect(mapStateToProps, mapDispatchToProps)(EditableString)
+export default EditableString

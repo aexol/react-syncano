@@ -1,108 +1,116 @@
-import * as types from '../constants/uni.jsx'
-import * as atypes from '../constants/auth.jsx'
-import {INSTANCE_NAME} from '../server/config.jsx'
-import Syncano from 'syncano-client'
 import React from 'react'
 import EditableString from '../syncano/EditableString'
-const s = new Syncano(INSTANCE_NAME)
-export const syncanoValidate = ({username, token}) => (dispatch, getState) => {
-  s.post('rest-auth/validate', {username, token}).then(json => {
-    dispatch({
-      valid: json.valid,
-      type: atypes.VALIDATE
-    })
+import {s, TOKEN_NAME} from '../server/config'
+import Cookies from 'js-cookie'
+import { castField } from "./utils";
+export const syncanoSetModels = () => state => dispatch => {
+  s.post('rest-framework/schema').then(json => {
+    dispatch(state => ({
+      ...state,
+      models: json.map(m => ({
+        ...m,
+        fields: m.fields.map(f => castField(f))
+      }))
+    }))
   })
 }
-export const syncanoRefreshToken = ({username, token}) => (
-  dispatch,
-  getState
-) => {
+export const syncanoValidate = ({username, token}) => state => dispatch => {
+  s.post('rest-auth/validate', {username, token}).then(json =>
+    dispatch(state => ({
+      ...state,
+      valid: json.valid
+    }))
+  )
+}
+export const syncanoRefreshToken = ({username, token}) => state => dispatch => {
   s.post('rest-auth/refresh', {username, token}).then(json => {
-    dispatch({
-      token: json.token,
-      type: atypes.LOGIN
+    Cookies.set(`${TOKEN_NAME}-token`, json.token, {
+      expires: 365
     })
+    dispatch(state => ({
+      ...state,
+      valid: true,
+      token: json.token
+    }))
   })
 }
-export const syncanoLogin = ({username, password}) => (dispatch, getState) => {
+export const syncanoLogin = ({username, password}) => state => dispatch => {
   s.post('rest-auth/login', {username, password}).then(json => {
-    console.log(json)
+    Cookies.set(`${TOKEN_NAME}-token`, json.token, {
+      expires: 365
+    })
+    Cookies.set(`${TOKEN_NAME}-username`, json.username, {
+      expires: 365
+    })
     s.setToken(json.token)
-    dispatch({
+    dispatch(state => ({
+      ...state,
+      username: json.username,
       token: json.token,
-      type: atypes.LOGIN
-    })
-    dispatch({
-      type: atypes.SAVE_USERNAME,
-      username: json.username
-    })
+      valid: true
+    }))
   })
 }
-export const syncanoLogout = () => (dispatch, getState) => {
-  dispatch({
-    type: atypes.LOGOUT
-  })
+export const syncanoLogout = () => state => dispatch => {
+  dispatch(state => ({
+    ...state,
+    valid: null,
+    token: ''
+  }))
 }
-export const syncanoList = ({model}) => (dispatch, getState) => {
+export const syncanoList = ({model}) => state => dispatch => {
   s
     .get('rest-framework/list', {
       model
     })
-    .then(json => {
-      dispatch({
-        json,
-        name: model,
-        type: types.GET_MODEL
-      })
-    })
+    .then(json =>
+      dispatch(state => ({
+        ...state,
+        [model]: json
+      }))
+    )
 }
-export const syncanoAdd = ({model, data}) => (dispatch, getState) => {
+export const syncanoAdd = ({model, data}) => state => dispatch => {
   s
     .post('rest-framework/add', {
       model,
       data
     })
-    .then(json => {
+    .then(json =>
       dispatch({
-        json,
-        name: model,
-        type: types.ADD_MODEL
+        ...state,
+        [model]: [...state[model], json]
       })
-    })
+    )
 }
-export const syncanoUpdate = ({model, data, id}) => (dispatch, getState) => {
+export const syncanoUpdate = ({model, data, id}) => state => dispatch => {
   s
     .patch('rest-framework/update', {
       model,
       id,
       data
     })
-    .then(json => {
+    .then(json =>
       dispatch({
-        json,
-        name: model,
-        type: types.UPDATE_MODEL
+        ...state,
+        [model]: [state[model].map(o => (o.id === json.id ? json : o))]
       })
-    })
+    )
 }
-export const syncanoDelete = ({model, id}) => (dispatch, getState) => {
+export const syncanoDelete = ({model, id}) => state => dispatch => {
   s
     .patch('rest-framework/remove', {
       model,
       id
     })
-    .then(json => {
+    .then(json =>
       dispatch({
-        id,
-        name: model,
-        type: types.DELETE_MODEL
+        ...state,
+        [model]: [state[model].filter(o => o.id !== parseInt(id))]
       })
-    })
+    )
 }
-export const getString = (name, content = 'Some text') => (
-  dispatch,
-  getState
-) => {
+export const getString = (name, content = 'Some text') => state => dispatch => {
   let str = getState().uni.text
   str = str || []
   if (str.length === 0) {

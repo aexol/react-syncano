@@ -1,10 +1,11 @@
-import React, {PropTypes} from 'react'
-import {connect} from 'react-redux'
-import * as actions from '../actions'
-import FormGen from './utils/FormGenerator'
-import {withRouter, Switch, Route} from 'react-router-dom'
-import {Line, Circle} from 'rc-progress'
-import './MigrateContainer.scss'
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
+import FormGen from './utils/FormGenerator';
+import {withRouter, Switch, Route} from 'react-router-dom';
+import {Line, Circle} from 'rc-progress';
+import './MigrateContainer.scss';
+
 const fields = [
   {
     name: 'key',
@@ -20,7 +21,8 @@ const fields = [
   },
   {
     name: 'payload',
-    type: 'textarea'
+    type: 'textarea',
+    className: 'input-textarea'
   }
 ]
 @connect(
@@ -79,4 +81,4 @@ class MigrateContainer extends React.Component {
     )
   }
 }
-export default withRouter(MigrateContainer)
+export default withRouter(MigrateContainer);

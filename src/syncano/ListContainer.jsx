@@ -1,11 +1,12 @@
-import React, {PropTypes} from 'react'
-import {connect} from 'react-redux'
-import * as actions from '../actions'
-import {withRouter, Switch, Route} from 'react-router-dom'
-import ModalSet from './media/ModalSet'
-import Loading from './utils/Loading'
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
+import {withRouter, Switch, Route} from 'react-router-dom';
+import ModalSet from './media/ModalSet';
+import Loading from './utils/Loading';
 import { display } from "../display";
 import './ListContainer.scss';
+import MyDatePicker from './MyDatePicker';
 
 @connect(
   state => ({
@@ -35,6 +36,16 @@ class ListContainer extends React.Component {
             }}
           >
             Add
+          </div>
+          <div className='date-picker'>
+            <MyDatePicker
+              selected={this.state.startDate}
+              onChange={this.handleChange}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={5}
+              dateFormat="LLL"
+            />
           </div>
           <input type="text" className='SearchInput' placeholder="Search..."/>
         </div>
@@ -82,4 +93,4 @@ class ListContainer extends React.Component {
     )
   }
 }
-export default withRouter(ListContainer)
+export default withRouter(ListContainer);

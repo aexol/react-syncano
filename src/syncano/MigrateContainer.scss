@@ -1,3 +1,69 @@
+@import '../vars.scss';
+
 .MigrateContainer{
 
+  .FormGen {
+    max-width: 550px;
+    margin: 40px;
+
+    .forgenInput {
+      min-width: 200px;
+      height: 20px;
+      font-size: 15px;
+      border: 1px solid $color-three;
+      margin: 10px;
+      text-transform: capitalize;
+      outline: none;
+      appearance: none;
+      padding: 10px 20px;
+      font-family: 'Lato';
+
+      &::placeholder {
+        color: $color-three;
+      }
+    }
+
+    .Select {
+      height: auto;
+      max-width: 505px;
+      font-family: 'Lato';
+
+      &::placeholder {
+        color: $color-three;
+      }
+    }
+
+    .Select-control {
+      border: 0;
+    }
+
+    .input-textarea {
+      min-width: 465px;
+      min-height: 100px;
+      font-family: 'Lato';
+
+      &::placeholder {
+        color: $color-three;
+      }
+    }
+  }
+
+  .Submit {
+    margin: 0 30px 10px auto;
+    background: $color-one;
+    color: $color-two;
+    font-size: 18px;
+    display: block;
+    width: 100px;
+    text-align: center;
+    padding: 10px 20px;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-family: 'Lato';
+    cursor: pointer;
+  }
+
+  .MigrationStatus {
+    margin: 20px 10px;
+  }
 }

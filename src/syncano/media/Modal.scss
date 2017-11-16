@@ -1,3 +1,5 @@
+@import '../../vars.scss';
+
 .Modal{
   display: none;
   position: fixed;
@@ -9,45 +11,105 @@
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
+
   &.open{
     display: flex;
   }
+
   .Dialog{
     background: white;
     padding: 20px;
     display: flex;
     flex-flow: column nowrap;
+    width: 380px;
+
     .ModalHeader{
       font-weight: bold;
       display: flex;
       flex-flow: row nowrap;
       margin-bottom: 15px;
       line-height: 24px;
+
       .Close{
         margin-left: auto;
         font-size: 24px;
         cursor: pointer;
+
         &:hover{
           color:red;
         }
       }
     }
+
     .ModalBody{
+
       .FormGen{
         display: flex;
         flex-flow: column nowrap;
-        input,textarea{
+
+        input,
+        textarea {
           margin: 5px 0;
-          padding: 10px;
+          padding: 15px;
+          outline: none;
+          font-size: 15px;
+          appearance: none;
+          border: 1px solid $color-three;
+          border-radius: 0;
+          width: 100%;
+          box-sizing: border-box;
+
+          &::placeholder {
+            color: $color-three;
+          }
         }
+
+        .formgenFile {
+
+          .file_holder {
+            margin: 10px 0;
+            word-break: break-all;
+            text-decoration: none;
+            color: $color-one;
+            display: block;
+            transition: 0.35s ease-out;
+
+            &:hover {
+              color: $main-color;
+            }
+          }
+        }
+
+        .Select-control {
+          height: 50px;
+          border-radius: 0;
+          border: 1px solid $color-three;
+          margin-bottom: 5px;
+
+          .Select-multi-value-wrapper {
+
+            input {
+              border: 0;
+            }
+
+            .Select-value-label {
+              position: relative;
+              top: 8px;
+            }
+          }
+        }
+
         .Submit{
           background: #333;
           color: white;
           align-self: flex-end;
-          padding: 10px 20px;;
+          padding: 10px 20px;
+          margin-top: 15px;
+          cursor: pointer;
         }
       }
     }
+
     .ModalFooter{}
   }
 }

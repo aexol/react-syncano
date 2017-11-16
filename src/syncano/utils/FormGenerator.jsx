@@ -80,6 +80,7 @@ const fieldElements = {
         [className]: true,
         invalid
       })}
+      key={name}
       multi={multi || false}
       name={placeholder || name}
       onChange={e => {

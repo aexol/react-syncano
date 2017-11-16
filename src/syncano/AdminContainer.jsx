@@ -103,47 +103,51 @@ class SyncanoAdminContainer extends React.Component {
             Config
           </Link>
         </div>
-        <div className='SyncanoNavigation'>
-          {models.filter( m => typeof this.props[m.name] !== "undefined" ).map(m => (
-            <div
-              key={m.name}
-              className='SyncanoLink'
-              onClick={() => {
-                this.setState({
-                  model: m
-                })
-              }}
-            >
-              {m.name}
+        <div className='SyncanoContainer'>
+          <div className='SyncanoNavigation'>
+            <div className='SyncanoNavContainer'>
+              {models.filter( m => typeof this.props[m.name] !== "undefined" ).map(m => (
+                <div
+                  key={m.name}
+                  className='SyncanoLink'
+                  onClick={() => {
+                    this.setState({
+                      model: m
+                    })
+                  }}
+                >
+                  {m.name}
+                </div>
+              ))}
             </div>
-          ))}
-          <div className='UserSettings'>
-            <div
-              className='logOut'
-              onClick={() => {
-                this.props.syncanoLogout()
-              }}
-            >
-              logout
+            <div className='UserSettings'>
+              <div
+                className='logOut'
+                onClick={() => {
+                  this.props.syncanoLogout()
+                }}
+              >
+                logout
+              </div>
+              <div className='changePassword'>change password</div>
             </div>
-            <div className='changePassword'>change password</div>
           </div>
+          <Switch>
+            <Route
+              render={() => <MigrateContainer model={model} />}
+              path='/admin/migrate'
+            />
+            <Route
+              render={() => <ListContainer model={model} />}
+              path='/admin/manage'
+            />
+            <Route
+              render={() => <ConfigContainer model={model} />}
+              path='/admin/config'
+            />
+          </Switch>
         </div>
-        <Switch>
-          <Route
-            render={() => <MigrateContainer model={model} />}
-            path='/admin/migrate'
-          />
-          <Route
-            render={() => <ListContainer model={model} />}
-            path='/admin/manage'
-          />
-          <Route
-            render={() => <ConfigContainer model={model} />}
-            path='/admin/config'
-          />
-        </Switch>
-      </div>
+        </div>
     )
   }
 }

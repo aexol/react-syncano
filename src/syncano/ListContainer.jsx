@@ -5,6 +5,8 @@ import {withRouter, Switch, Route} from 'react-router-dom'
 import ModalSet from './media/ModalSet'
 import Loading from './utils/Loading'
 import { display } from "../display";
+import './ListContainer.scss';
+
 @connect(
   state => ({
     ...state
@@ -21,11 +23,11 @@ class ListContainer extends React.Component {
     const {model} = this.props
     const {values, open} = this.state
     if(!model){
-      return <div className=''>Choose a model</div>
+      return <div className='ChooseModel'>Choose a model</div>
     }
     return (
       <div className=''>
-        <div className='SyncanoNavigation'>
+        <div className='SyncanoNav'>
           <div
             className='SyncanoLink'
             onClick={() => {
@@ -34,12 +36,12 @@ class ListContainer extends React.Component {
           >
             Add
           </div>
-          <input type="text" placeholder="search..."/>
+          <input type="text" className='SearchInput' placeholder="Search..."/>
         </div>
         <div className='SyncanoList'>
           {this.props[model.name].map(m => (
             <div className='SyncanoObject' key={m.id}>
-              <span
+              <div
                 className='displayName'
                 onClick={() => {
                   this.setState({
@@ -49,8 +51,8 @@ class ListContainer extends React.Component {
                 }}
               >
                 {m[display(model.name)]}
-              </span>
-              <span
+              </div>
+              <div
                 onClick={() => {
                   this.setState({
                     open: 'delete',
@@ -60,7 +62,7 @@ class ListContainer extends React.Component {
                 className='deleteButton'
               >
                 ×
-              </span>
+              </div>
             </div>
           ))}
         </div>

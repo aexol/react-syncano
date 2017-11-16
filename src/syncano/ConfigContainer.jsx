@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+
 const fields = [
   {
     name:"migrate_key",
@@ -21,4 +22,5 @@ class ConfigContainer extends React.Component {
         )
     }
 }
+
 export default ConfigContainer;

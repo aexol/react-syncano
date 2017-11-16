@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import './EditableString.scss'
 import {connect} from 'react-redux'
+
 @connect(
   state => ({
     text: state.text,

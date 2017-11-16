@@ -52,6 +52,8 @@ export const syncanoLogin = ({username, password}) => state => dispatch => {
   })
 }
 export const syncanoLogout = () => state => dispatch => {
+  Cookies.remove(`${TOKEN_NAME}-token`)
+  Cookies.remove(`${TOKEN_NAME}-username`)
   dispatch(state => ({
     ...state,
     valid: null,

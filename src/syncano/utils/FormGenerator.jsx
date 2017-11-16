@@ -233,7 +233,7 @@ class FormGenerator extends React.Component {
     this.setState(updateDict)
   }
   validate () {
-    const {validator = 'django', fields, isFormData = true} = this.props
+    const {validator = 'syncano', fields, isFormData = true} = this.props
     var sfields = {
       ...this.state.fields
     }

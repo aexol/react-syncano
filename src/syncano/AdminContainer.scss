@@ -27,6 +27,8 @@
         padding:10px;
         border: 0;
         border-bottom: 2px solid $main-color;
+        width: 100%;
+        box-sizing: border-box;
       }
 
       .Submit {
@@ -39,6 +41,10 @@
     }
   }
 
+  .open-categories {
+    display: none;
+  }
+
   .SyncanoCategories {
     display: flex;
     flex-flow: column nowrap;
@@ -49,6 +55,7 @@
     padding: 30px 0;
     position: fixed;
     height: 100%;
+    z-index: 9;
 
     .SyncanoCategory {
       padding: 15px 30px;
@@ -78,6 +85,36 @@
       background: $color-three;
       width: 100%;
       min-height: 50px;
+
+      .hamburger {
+        display: none;
+        position: relative;
+        margin: 0 0 0 auto;
+        width: 24px;
+        height: 25px;
+        padding: 17.5px 24px;
+        transition: .5s ease-out;
+        cursor: pointer;
+        z-index: 4;
+
+        .bar {
+          height: 3px;
+          width: 50%;
+          background-color: $color-two;
+          display: block;
+          margin: 1px;
+          transition: .5s ease-out;
+
+          &:nth-child(odd) {
+            border-radius: 9px 0 0 9px;
+          }
+
+          &:nth-child(even) {
+            border-radius: 0 9px 9px 0;
+            transform: translate(12px, -4px);
+          }
+        }
+      }
 
       .SyncanoNavContainer {
         display: flex;
@@ -151,19 +188,8 @@
       }
     }
   }
-}
 
-.modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,.7);
-}
-
-@media (max-width: 1279px) {
-  .SyncanoAdmin {
+  @media (max-width: 1279px) {
 
     .SyncanoContainer {
 
@@ -189,4 +215,150 @@
       }
     }
   }
+
+  @media (max-width: 1023px) {
+
+    .SyncanoContainer {
+
+      .SyncanoNavigation {
+        flex-direction: column;
+
+        .SyncanoNavContainer {
+          order: 2;
+        }
+
+        .UserSettings {
+          order: 1;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+
+    .SyncanoCategories {
+      display: none;
+
+      &.show-categories {
+        display: flex;
+        padding-top: 65px;
+      }
+    }
+
+    .open-categories {
+      background: $color-one;
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 15px;
+      cursor: pointer;
+      z-index: 10;
+      transition: .35s ease-out;
+
+      &.arrow-toggle {
+        transform: rotate(180deg);
+        left: 140px;
+      }
+    }
+
+    .SyncanoContainer {
+      padding-left: 0;
+
+      .SyncanoNavigation {
+
+        &.open {
+
+            .UserSettings {
+              display: block;
+            }
+
+            .SyncanoNavContainer {
+              display: block;
+            }
+        }
+
+        .UserSettings {
+          flex-direction: column;
+          text-align: right;
+          display: none;
+
+          .logOut {
+            border-bottom: 2px solid $color-three;
+            padding: 10px 15px;
+          }
+        }
+
+        .SyncanoNavContainer {
+          flex-direction: column;
+          text-align: right;
+          display: none;
+
+          .SyncanoLink {
+            border-bottom: 2px solid $color-four;
+          }
+        }
+
+        .hamburger {
+          display: block;
+
+          &.toggle {
+
+            .bar {
+
+              &:nth-child(1) {
+                transform: translate(1px, 5px) rotate(45deg);
+              }
+
+              &:nth-child(2) {
+                transform: translate(9px, 1px) rotate(-45deg);
+              }
+
+              &:nth-child(3) {
+                transform: translate(-12px, 0);
+                opacity: 0;
+              }
+
+              &:nth-child(4) {
+                transform: translate(24px, -4px);
+                opacity: 0;
+              }
+
+              &:nth-child(5) {
+                transform: translate(1px, -3px) rotate(-45deg);
+              }
+
+              &:nth-child(6) {
+                transform: translate(9px, -7px) rotate(45deg);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 420px) {
+
+    .SyncanoLogin {
+
+      .SyncanoInstanceName {
+        margin: 0 15px;
+      }
+
+      .FormGen {
+        margin: 0 15px;
+      }
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.7);
 }

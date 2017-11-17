@@ -1,32 +1,48 @@
 @import '../vars.scss';
 
-.MigrateContainer{
+.MigrateContainer {
 
   .FormGen {
     max-width: 550px;
     margin: 40px;
+    box-sizing: border-box;
 
     .forgenInput {
       min-width: 200px;
-      height: 20px;
-      font-size: 15px;
-      border: 1px solid $color-three;
-      margin: 10px;
-      text-transform: capitalize;
-      outline: none;
-      appearance: none;
-      padding: 10px 20px;
-      font-family: 'Lato';
+      margin: 6px;
+      box-sizing: border-box;
+      display: inline-block;
 
-      &::placeholder {
-        color: $color-three;
+      &:nth-child(1),
+      &:nth-child(2) {
+        width: calc(50% - 20px);
+      }
+
+      input,
+      textarea {
+        appearance: none;
+        border: 1px solid $color-three;
+        padding: 12px 20px;
+        font-family: 'Lato';
+        width: 100%;
+        font-size: 15px;
+        box-sizing: border-box;
+        text-transform: capitalize;
+        outline: none;
+        height: 100%;
+
+        &::placeholder {
+          color: $color-three;
+        }
       }
     }
 
     .Select {
       height: auto;
-      max-width: 505px;
       font-family: 'Lato';
+      border: 1px solid $color-three;
+      width: calc(100% - 26px);
+      box-sizing: border-box;
 
       &::placeholder {
         color: $color-three;
@@ -35,21 +51,29 @@
 
     .Select-control {
       border: 0;
+      padding: 5px;
+
+      .Select-multi-value-wrapper {
+
+        input {
+          border: 0;
+        }
+      }
     }
 
     .input-textarea {
-      min-width: 465px;
-      min-height: 100px;
       font-family: 'Lato';
+      box-sizing: border-box;
+      width: calc(100% - 26px);
 
-      &::placeholder {
-        color: $color-three;
+      textarea {
+        min-height: 130px;
       }
     }
   }
 
   .Submit {
-    margin: 0 30px 10px auto;
+    margin: 10px 20px 0 auto;
     background: $color-one;
     color: $color-two;
     font-size: 18px;
@@ -65,5 +89,27 @@
 
   .MigrationStatus {
     margin: 20px 10px;
+  }
+
+  @media (max-width: 1023px) {
+
+    .FormGen {
+      margin: 40px 20px;
+    }
+  }
+
+  @media (max-width: 500px) {
+
+    .FormGen {
+      max-width: 100%;
+
+      .forgenInput {
+
+        &:nth-child(1),
+        &:nth-child(2) {
+          width: calc(100% - 26px);
+        }
+      }
+    }
   }
 }

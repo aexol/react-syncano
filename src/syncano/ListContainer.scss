@@ -37,6 +37,15 @@
       color: $color-three;
     }
   }
+
+  @media (max-width: 420px) {
+    flex-direction: column;
+
+    .SearchInput {
+      margin: 10px 20px;
+      min-width: auto;
+    }
+  }
 }
 
 .date-picker {

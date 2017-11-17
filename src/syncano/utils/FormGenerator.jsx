@@ -6,6 +6,8 @@ import Geosuggest from 'react-geosuggest'
 import classnames from 'classnames'
 import {connect} from 'react-redux'
 import { display } from "../../display";
+import MyDatePicker from '../MyDatePicker';
+
 const getBase64 = (file, callback) => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
@@ -27,47 +29,58 @@ const validators = {
 const fieldElements = {
   //TODO: datetime input
   text: ({name, placeholder, inputType, className = '', invalid}, t) => (
-    <input
-      className={classnames({
-        forgenInput: true,
-        changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true,
-        invalid
-      })}
-      key={name}
-      onChange={e => {
-        t.setState({
-          fields: {
-            ...t.state.fields,
-            [name]: e.target.value
-          }
-        })
-      }}
-      placeholder={placeholder || name}
-      type={inputType || 'text'}
-      value={t.state.fields[name]}
-    />
+    <div
+    className={classnames({
+      forgenInput: true,
+      [className]: true,
+    })}
+    key={name}
+    >
+      <input
+        className={classnames({
+          changed: t.state.fields[name] !== t.state.initial[name],
+          invalid
+        })}
+        key={name}
+        onChange={e => {
+          t.setState({
+            fields: {
+              ...t.state.fields,
+              [name]: e.target.value
+            }
+          })
+        }}
+        placeholder={placeholder || name}
+        type={inputType || 'text'}
+        value={t.state.fields[name]}
+      />
+    </div>
   ),
   textarea: ({name, placeholder, className = '', invalid}, t) => (
-    <textarea
+    <div
       className={classnames({
         forgenInput: true,
-        changed: t.state.fields[name] !== t.state.initial[name],
         [className]: true,
-        invalid
       })}
       key={name}
-      onChange={e => {
-        t.setState({
-          fields: {
-            ...t.state.fields,
-            [name]: e.target.value
-          }
-        })
-      }}
-      placeholder={placeholder || name}
-      value={t.state.fields[name]}
-    />
+    >
+      <textarea
+        className={classnames({
+          changed: t.state.fields[name] !== t.state.initial[name],
+          invalid
+        })}
+        onChange={e => {
+          t.setState({
+            fields: {
+              ...t.state.fields,
+              [name]: e.target.value
+            }
+          })
+        }}
+        placeholder={placeholder || name}
+        value={t.state.fields[name]}
+      />
+    </div>
   ),
   select: (
     {name, placeholder, label="id", value="id", values, multi, className = '', invalid},
@@ -184,6 +197,25 @@ const fieldElements = {
       placeholder={placeholder || name}
       value={t.state.fields[name]}
     />
+  ),
+  datepicker: ({name, className = '', invalid}, t) => (
+    <div
+      className={classnames({
+        'date-picker': true,
+        [className]: true,
+        invalid
+      })}
+      key={name}
+    >
+      <MyDatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChange}
+        showTimeSelect
+        timeFormat="HH:mm"
+        timeIntervals={5}
+        dateFormat="LLL"
+      />
+    </div>
   )
 }
 @connect(

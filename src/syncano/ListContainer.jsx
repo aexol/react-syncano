@@ -1,16 +1,17 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import * as actions from '../actions';
-import {withRouter, Switch, Route} from 'react-router-dom';
-import ModalSet from './media/ModalSet';
-import Loading from './utils/Loading';
-import { display } from "../display";
-import './ListContainer.scss';
+import React, {PropTypes} from 'react'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
+import {withRouter, Switch, Route} from 'react-router-dom'
+import ModalSet from './media/ModalSet'
+import Loading from './utils/Loading'
+import {display} from '../display'
+import './ListContainer.scss'
 
 @connect(
   state => ({
     ...state
-  }),{
+  }),
+  {
     ...actions
   }
 )
@@ -21,9 +22,13 @@ class ListContainer extends React.Component {
   }
   render () {
     const {model} = this.props
-    const {values, open} = this.state
-    if(!model){
+    const {values, open, search} = this.state
+    if (!model) {
       return <div className='ChooseModel'>Choose a model</div>
+    }
+    let renderedObjects = this.props[model.name]
+    if(search){
+      renderedObjects = renderedObjects.filter( o=> `${o[display(model.name)]}`.toLowerCase().indexOf(search.toLowerCase()) !== -1 )
     }
     return (
       <div className=''>
@@ -36,10 +41,20 @@ class ListContainer extends React.Component {
           >
             Add
           </div>
-          <input type="text" className='SearchInput' placeholder="Search..."/>
+          <input
+            type='text'
+            className='SearchInput'
+            placeholder='Search...'
+            value={search}
+            onChange={e => {
+              this.setState({
+                search: e.target.value
+              })
+            }}
+          />
         </div>
         <div className='SyncanoList'>
-          {this.props[model.name].map(m => (
+          {renderedObjects.map(m => (
             <div className='SyncanoObject' key={m.id}>
               <div
                 className='displayName'
@@ -82,4 +97,4 @@ class ListContainer extends React.Component {
     )
   }
 }
-export default withRouter(ListContainer);
+export default withRouter(ListContainer)

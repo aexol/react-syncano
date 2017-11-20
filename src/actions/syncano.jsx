@@ -2,7 +2,7 @@ import React from 'react'
 import EditableString from '../syncano/EditableString'
 import {s, TOKEN_NAME} from '../server/config'
 import Cookies from 'js-cookie'
-import { castField } from "./utils";
+import {castField} from './utils'
 export const syncanoSetModels = () => state => dispatch => {
   s.post('rest-framework/schema').then(json => {
     dispatch(state => ({
@@ -14,13 +14,24 @@ export const syncanoSetModels = () => state => dispatch => {
     }))
   })
 }
-export const syncanoValidate = ({username, token}) => state => dispatch => {
-  s.post('rest-auth/validate', {username, token}).then(json =>
+export const syncanoGetConfig = () => state => dispatch => {
+  s.post('rest-framework/getconfig').then(json => {
     dispatch(state => ({
+      ...state,
+      config: json.config
+    }))
+  })
+}
+export const syncanoValidate = ({username, token}) => state => dispatch => {
+  s.post('rest-auth/validate', {username, token}).then(json => {
+    if(json.valid){
+      s.setToken(token)
+    }
+    return dispatch(state => ({
       ...state,
       valid: json.valid
     }))
-  )
+  })
 }
 export const syncanoRefreshToken = ({username, token}) => state => dispatch => {
   s.post('rest-auth/refresh', {username, token}).then(json => {
@@ -92,12 +103,12 @@ export const syncanoUpdate = ({model, data, id}) => state => dispatch => {
       id,
       data
     })
-    .then(json =>
-      dispatch({
+    .then(json => {
+      dispatch(state => ({
         ...state,
-        [model]: [state[model].map(o => (o.id === json.id ? json : o))]
-      })
-    )
+        [model]: [...state[model].map(o => (o.id === json.id ? json : o))]
+      }))
+    })
 }
 export const syncanoDelete = ({model, id}) => state => dispatch => {
   s

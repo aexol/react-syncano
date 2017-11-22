@@ -1,6 +1,6 @@
 import React from 'react'
 import EditableString from '../syncano/EditableString'
-import {s, TOKEN_NAME} from '../server/config'
+import {s, setToken, getToken, setUsername, getUsername, removeUsername, removeToken} from '../server/config'
 import Cookies from 'js-cookie'
 import {castField} from './utils'
 export const syncanoSetModels = () => state => dispatch => {
@@ -26,6 +26,9 @@ export const syncanoValidate = ({username, token}) => state => dispatch => {
   s.post('rest-auth/validate', {username, token}).then(json => {
     if(json.valid){
       s.setToken(token)
+    }else{
+      removeToken()
+      removeUsername()
     }
     return dispatch(state => ({
       ...state,
@@ -35,9 +38,7 @@ export const syncanoValidate = ({username, token}) => state => dispatch => {
 }
 export const syncanoRefreshToken = ({username, token}) => state => dispatch => {
   s.post('rest-auth/refresh', {username, token}).then(json => {
-    Cookies.set(`${TOKEN_NAME}-token`, json.token, {
-      expires: 365
-    })
+    setToken(json.token)
     dispatch(state => ({
       ...state,
       valid: true,
@@ -47,12 +48,8 @@ export const syncanoRefreshToken = ({username, token}) => state => dispatch => {
 }
 export const syncanoLogin = ({username, password}) => state => dispatch => {
   s.post('rest-auth/login', {username, password}).then(json => {
-    Cookies.set(`${TOKEN_NAME}-token`, json.token, {
-      expires: 365
-    })
-    Cookies.set(`${TOKEN_NAME}-username`, json.username, {
-      expires: 365
-    })
+    setToken(json.token)
+    setUsername(json.username)
     s.setToken(json.token)
     dispatch(state => ({
       ...state,
@@ -63,8 +60,8 @@ export const syncanoLogin = ({username, password}) => state => dispatch => {
   })
 }
 export const syncanoLogout = () => state => dispatch => {
-  Cookies.remove(`${TOKEN_NAME}-token`)
-  Cookies.remove(`${TOKEN_NAME}-username`)
+  removeUsername()
+  removeToken()
   dispatch(state => ({
     ...state,
     valid: null,

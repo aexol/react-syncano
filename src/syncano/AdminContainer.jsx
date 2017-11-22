@@ -5,7 +5,6 @@ import ModalSet from './media/ModalSet';
 import {HOST, INSTANCE_NAME} from '../server/config';
 import {withRouter, Switch, Route, Link} from 'react-router-dom';
 import './AdminContainer.scss';
-import Cookies from 'js-cookie';
 import FormGen from './utils/FormGenerator';
 import ListContainer from './ListContainer';
 import MigrateContainer from './MigrateContainer';

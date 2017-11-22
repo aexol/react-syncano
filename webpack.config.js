@@ -39,27 +39,25 @@ const config = {
       {test: /\.css$/, loader: 'style-loader!css-loader'},
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader',
-            {
-              loader: 'sass-loader',
-              query: {
-                sourceMap: false
-              }
-            }
-          ],
-          publicPath: '../'
-        })
+        use: [
+          {
+            loader: 'style-loader' // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader' // translates CSS into CommonJS
+          },
+          {
+            loader: 'sass-loader' // compiles Sass to CSS
+          }
+        ]
       },
       {
         test: /\.(png|ico|jpg|gif|woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?|[ot]tf(\?v=\d+.\d+.\d+)?|svg(\?v=\d+\.\d+\.\d+)?)$/,
         use: [
           {
-            loader:'url-loader',
-            options:{
-              limit:10000
+            loader: 'url-loader',
+            options: {
+              limit: 10000
             }
           }
         ]
@@ -67,12 +65,12 @@ const config = {
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
         use: 'file-loader?&name=fonts/[name].[ext]'
-      },
+      }
     ]
   },
 
   resolve: {
-    extensions: ['*','.js', '.jsx','.json']
+    extensions: ['*', '.js', '.jsx', '.json']
   },
 
   plugins: [

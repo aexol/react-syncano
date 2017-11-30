@@ -1,7 +1,6 @@
 import React from 'react'
 import EditableString from '../syncano/EditableString'
 import {s, setToken, getToken, setUsername, getUsername, removeUsername, removeToken} from '../server/config'
-import Cookies from 'js-cookie'
 import {castField} from './utils'
 export const syncanoSetModels = () => state => dispatch => {
   s.post('rest-framework/schema').then(json => {

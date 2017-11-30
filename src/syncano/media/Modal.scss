@@ -23,7 +23,8 @@
     display: flex;
     flex-flow: column nowrap;
     width: 380px;
-
+    overflow: auto;
+    max-height: 90vh;
     .ModalHeader{
       font-weight: bold;
       display: flex;
@@ -43,7 +44,6 @@
     }
 
     .ModalBody{
-
       .FormGen{
         display: flex;
         flex-flow: column nowrap;

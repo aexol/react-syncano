@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../actions';
+import * as actions from './actions';
 import FormGen from './utils/FormGenerator';
 import {withRouter, Switch, Route} from 'react-router-dom';
 import {Line, Circle} from 'rc-progress';
-import './MigrateContainer.scss';
+import './Migrate.scss';
 
 const fields = [
   {
@@ -33,7 +33,7 @@ const fields = [
     ...actions
   }
 )
-class MigrateContainer extends React.Component {
+class Migrate extends React.Component {
   constructor (props) {
     super(props)
   }
@@ -47,7 +47,7 @@ class MigrateContainer extends React.Component {
       strokeWidth: 2
     }
     return (
-      <div className='MigrateContainer'>
+      <div className='Migrate'>
         <FormGen
           fields={fields}
           values={
@@ -81,4 +81,4 @@ class MigrateContainer extends React.Component {
     )
   }
 }
-export default withRouter(MigrateContainer);
+export default withRouter(Migrate);

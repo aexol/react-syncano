@@ -2,15 +2,25 @@ import React, {PropTypes} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter} from './Modal'
 import classnames from 'classnames'
 import FontAwesome from 'react-fontawesome'
+import {withRouter, Switch, Route, Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
+@connect(
+  state => ({
+  }),
+  {
+    syncanoDelete:actions.syncanoDelete
+  }
+)
 class DeleteModal extends React.Component {
   render () {
     const {
-      actions,
       isOpen,
       toggle,
       values,
       text,
       warning,
+      syncanoDelete,
       name
     } = this.props
     return (
@@ -20,7 +30,7 @@ class DeleteModal extends React.Component {
         <ModalFooter toggle={toggle}>
           <button
             onClick={() => {
-              actions.syncanoDelete({
+              syncanoDelete({
                 model:name,
                 id:values.id
               })

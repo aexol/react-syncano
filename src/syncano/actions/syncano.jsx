@@ -1,7 +1,20 @@
 import React from 'react'
-import EditableString from '../syncano/EditableString'
-import {s, setToken, getToken, setUsername, getUsername, removeUsername, removeToken} from '../server/config'
+import EditableString from '../EditableString'
+import {
+  s,
+  setToken,
+  getToken,
+  setUsername,
+  getUsername,
+  removeUsername,
+  removeToken
+} from '../server/config'
 import {castField} from './utils'
+export const syncanoGeneric = ({name, f}) => state => dispatch => {
+  s.post(name).then(json => {
+    dispatch(f)
+  })
+}
 export const syncanoSetModels = () => state => dispatch => {
   s.post('rest-framework/schema').then(json => {
     dispatch(state => ({
@@ -23,9 +36,9 @@ export const syncanoGetConfig = () => state => dispatch => {
 }
 export const syncanoValidate = ({username, token}) => state => dispatch => {
   s.post('rest-auth/validate', {username, token}).then(json => {
-    if(json.valid){
+    if (json.valid) {
       s.setToken(token)
-    }else{
+    } else {
       removeToken()
       removeUsername()
     }

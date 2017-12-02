@@ -1,10 +1,20 @@
 import React, {PropTypes} from 'react'
 import FormGenerator from '../utils/FormGenerator'
 import {Modal, ModalHeader, ModalBody} from './Modal'
+import {withRouter, Switch, Route, Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import * as actions from '../actions'
+@connect(
+  state => ({
+  }),
+  {
+    syncanoUpdate:actions.syncanoUpdate
+  }
+)
 class UpdateModal extends React.Component {
   render () {
     const {
-      actions,
+      syncanoUpdate,
       isOpen,
       toggle,
       fields,
@@ -22,7 +32,7 @@ class UpdateModal extends React.Component {
             submitText='Edit'
             validator='syncano'
             validate={e => {
-              actions.syncanoUpdate({
+              syncanoUpdate({
                 model: name,
                 id: values.id,
                 data: {

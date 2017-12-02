@@ -1,15 +1,15 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
-import * as actions from '../actions'
+import * as actions from './actions'
 import ModalSet from './media/ModalSet'
-import {HOST, INSTANCE_NAME} from '../server/config'
+import {HOST, INSTANCE_NAME} from './server/config'
 import {withRouter, Switch, Route, Link} from 'react-router-dom'
-import './AdminContainer.scss'
+import './Admin.scss'
 import FormGen from './utils/FormGenerator'
-import ListContainer from './ListContainer'
-import MigrateContainer from './MigrateContainer'
-import ConfigContainer from './ConfigContainer'
-import ModelContainer from "./ModelContainer";
+import List from './List'
+import Migrate from './Migrate'
+import Config from './Config'
+import Model from "./Model";
 import classnames from 'classnames'
 import {PreloaderScreen} from './media/PreloaderScreen'
 @connect(
@@ -20,7 +20,7 @@ import {PreloaderScreen} from './media/PreloaderScreen'
     ...actions
   }
 )
-class SyncanoAdminContainer extends React.Component {
+class SyncanoAdmin extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -200,19 +200,19 @@ class SyncanoAdminContainer extends React.Component {
           </div>
           <Switch>
             <Route
-              render={() => <MigrateContainer model={model} />}
+              render={() => <Migrate model={model} />}
               path='/admin/migrate'
             />
             <Route
-              render={() => <ListContainer model={model} />}
+              render={() => <List model={model} />}
               path='/admin/manage'
             />
             <Route
-              render={() => <ConfigContainer model={model} />}
+              render={() => <Config model={model} />}
               path='/admin/config'
             />
             <Route
-              render={() => <ModelContainer /> }
+              render={() => <Model /> }
               path='/admin/model'
             />
           </Switch>
@@ -221,4 +221,4 @@ class SyncanoAdminContainer extends React.Component {
     )
   }
 }
-export default withRouter(SyncanoAdminContainer)
+export default withRouter(SyncanoAdmin)

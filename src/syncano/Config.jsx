@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
-import * as actions from '../actions'
+import * as actions from './actions'
 import FormGenerator from './utils/FormGenerator'
 import Tip from './utils/Tip'
 const configFields = [
@@ -27,7 +27,7 @@ const configFields = [
     ...actions
   }
 )
-class ConfigContainer extends React.Component {
+class Config extends React.Component {
   componentWillMount () {
     const {syncanoGetConfig} = this.props
     syncanoGetConfig()
@@ -55,7 +55,7 @@ class ConfigContainer extends React.Component {
       }))
     }
     return (
-      <div className='ConfigContainer'>
+      <div className='Config'>
         <Tip>
           <p>Usage: This is for configuration for rest-framework socket</p>
           <p>
@@ -96,4 +96,4 @@ class ConfigContainer extends React.Component {
   }
 }
 
-export default ConfigContainer
+export default Config

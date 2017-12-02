@@ -1,11 +1,11 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
-import * as actions from '../actions'
+import * as actions from './actions'
 import {withRouter, Switch, Route} from 'react-router-dom'
 import ModalSet from './media/ModalSet'
 import Loading from './utils/Loading'
 import {display} from '../display'
-import './ListContainer.scss'
+import './List.scss'
 
 @connect(
   state => ({
@@ -15,7 +15,7 @@ import './ListContainer.scss'
     ...actions
   }
 )
-class ListContainer extends React.Component {
+class List extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -97,4 +97,4 @@ class ListContainer extends React.Component {
     )
   }
 }
-export default withRouter(ListContainer)
+export default withRouter(List)

@@ -1,7 +1,7 @@
 React Aexol - React, Redux, syncano, super stack
 
 ## Get Started
-1. **Clone the project**. `git clone https://github.com/aexol/react-aexol.git`.
+1. **Clone the project**. `git clone https://github.com/aexol/react-syncano.git`.
 2. **Run the setup script**. `yarn`
 3. **Run the example app**. `yarn run start`
 

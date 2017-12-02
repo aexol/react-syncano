@@ -3,7 +3,7 @@ import React from 'react'
 import {render} from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 import Root from './containers/Root'
-import {store} from './store/configureStore'
+import {store} from './configureStore'
 import './index.scss' // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
 const renderFunc = Component =>
   render(

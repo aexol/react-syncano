@@ -1,3 +1,3 @@
-react-aexol contributors (sorted alphabetically)
+react-syncano contributors (sorted alphabetically)
 ====================================================
 * Artur Czemiel ([aexol](https://github.com/aexol))

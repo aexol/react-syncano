@@ -53,14 +53,24 @@ Happy coding.
 3. Navigate to admin panel [admin](localhost:8080/#/admin) and login with your superuser.
 4. As you see you have 4 panels here MANAGE, MODEL[TBD], CONFIG, MIGRATE
 
+
 ## Config
-Here you can define your models and permissions behaviour.
-### models
+Here you can define your models that everybody will have permission to
+### Everybody
 Define which models should be available for CRUD(create, read, update, delete) operations for users of your website( Superuser and ADMIN_USERS have always access to everything. You will restrict permissions for that models later.
-### logged_in
+### Logged in user permissions
 Define with the use of permission language which models should be available for what iperations to end users of your portal. REMEMBER having declared your model in models section makes it possible to CRUD for everybody.
-### object_level
+### Object level user permissions
 This is the same stuff that logged in but on object level.
 
+## Manage
+Manage your models here
+
+## Migrate
+Migrate models from external rest source
+
+## Model
+To be done. Platform for mocking endpoint connections
+
 ## Next Steps
-Navigate to rest-framework tutorial
+Navigate to [rest-framework tutorial](examples/bookstore.md)

@@ -6,15 +6,18 @@ import Tip from './utils/Tip'
 const configFields = [
   {
     type: 'tag',
-    name: 'models'
+    name: 'models',
+    placeholder: 'Everybodys permissions'
   },
   {
     type: 'tag',
-    name: 'logged_in'
+    name: 'logged_in',
+    placeholder: 'Logged in user permissions'
   },
   {
     type: 'tag',
-    name: 'object_level'
+    name: 'object_level',
+    placeholder: 'Object level user permissions'
   }
 ]
 
@@ -24,7 +27,8 @@ const configFields = [
     config: state.config
   }),
   {
-    ...actions
+    syncanoRestFrameworkConfigure: actions.syncanoRestFrameworkConfigure,
+    syncanoGetConfig:actions.syncanoGetConfig
   }
 )
 class Config extends React.Component {
@@ -33,14 +37,14 @@ class Config extends React.Component {
     syncanoGetConfig()
   }
   render () {
-    let {models: schemaModels, config = {}} = this.props
+    let {models: schemaModels, config = {},syncanoRestFrameworkConfigure} = this.props
     let {
-      models = schemaModels.map(m => m.name),
+      models = [],
       logged_in = [],
       object_level = []
     } = config
     let preComputedValues = {
-      models,
+      models: models.map(m => `${m.model}:${m.type}`),
       logged_in: logged_in.map(m => `${m.model}:${m.type}`),
       object_level: object_level.map(
         m => `${m.model}:${m.type}:${m.owner_field}`
@@ -57,9 +61,12 @@ class Config extends React.Component {
     return (
       <div className='Config'>
         <Tip>
+          <p>{schemaModels.map(sch => sch.name)}</p>
           <p>Usage: This is for configuration for rest-framework socket</p>
           <p>
-            Models: Specify models which has to be available in rest framework( all models are available for superuser always )
+            Everybody: specify permissions for everybody in format
+            {' '}
+            <strong>model:permissions</strong>
           </p>
           <p>
             Logged in: specify models available for logged in users with permissions in format
@@ -77,6 +84,10 @@ class Config extends React.Component {
             let data = {...preComputedValues, ...e}
             data = {
               ...data,
+              models: data.models.map(o => ({
+                model: o.split(':')[0],
+                type: o.split(':')[1]
+              })),
               logged_in: data.logged_in.map(o => ({
                 model: o.split(':')[0],
                 type: o.split(':')[1]
@@ -87,6 +98,8 @@ class Config extends React.Component {
                 owner_field: o.split(':')[2]
               }))
             }
+            console.log(data)
+            syncanoRestFrameworkConfigure(data)
           }}
           fields={configFields}
           values={computedValues}

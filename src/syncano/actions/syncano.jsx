@@ -132,6 +132,17 @@ export const syncanoDelete = ({model, id}) => state => dispatch => {
       })
     )
 }
+export const syncanoRestFrameworkConfigure = data => state => (
+  dispatch,
+  getState
+) => {
+  s.post('rest-framework/configure', {config: data}).then(json => {
+    dispatch(state => ({
+      ...state,
+      config: json.config
+    }))
+  })
+}
 export const getString = (name, content = 'Some text') => state => dispatch => {
   let str = getState().uni.text
   str = str || []

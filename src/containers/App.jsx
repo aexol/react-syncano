@@ -5,7 +5,7 @@ import Home from './Home'
 import './App.scss'
 @connect(
   state => ({
-    alerts: state.alerts
+    ...state
   }),
   {}
 )

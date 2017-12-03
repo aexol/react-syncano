@@ -1,17 +1,11 @@
 {
   "name": "react-aexol",
   "version": "0.3.0",
-  "description": "Aexol react redux syncano insane repo",
+  "description": "Aexol react repatch syncano insane repo",
   "scripts": {
     "start": "webpack-dev-server",
     "clean": "rimraf dist",
-    "production": "cross-env npm run clean && webpack --config webpack.production.config.js --progress --profile --colors",
-    "lint": "eslint ./src/**/**.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "coverage": "jest --coverage",
-    "precommit": "cross-env npm run lint && npm test",
-    "prepush": "cross-env npm run lint && npm test"
+    "production": "cross-env npm run clean && webpack --config webpack.production.config.js --progress --profile --colors"
   },
   "author": "Aexol",
   "license": "MIT",
@@ -58,12 +52,6 @@
     "css-loader": "0.28.7",
     "enzyme": "3.1.0",
     "enzyme-adapter-react-16": "1.0.2",
-    "eslint": "3.19.0",
-    "eslint-config-airbnb": "15.1.0",
-    "eslint-loader": "1.8.0",
-    "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-jsx-a11y": "5.1.0",
-    "eslint-plugin-react": "7.2.0",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.4",
     "html-webpack-plugin": "2.30.0",
@@ -85,17 +73,5 @@
   "repository": {
     "type": "git",
     "url": ""
-  },
-  "jest": {
-    "setupFiles": [
-      "<rootDir>/shim.js"
-    ],
-    "mapCoverage": true,
-    "collectCoverageFrom": [
-      "app/**/*.{js,jsx,ts,tsx}"
-    ],
-    "testMatch": [
-      "**/?(*.)(spec|test).js?(x)"
-    ]
   }
 }

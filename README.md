@@ -9,7 +9,7 @@ React Aexol - React, Repatch, syncano, super stack
 1. **Install [Node 4.0.0 or greater](https://nodejs.org)**
 2. **Install [Git](https://git-scm.com/downloads)**.
 
-####Docs
+#### Docs
 [https://aexol.github.io](https://aexol.github.io)
 
 #### Docs to components such as sortable, modal etc...

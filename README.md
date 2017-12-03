@@ -10,7 +10,7 @@ React Aexol - React, Repatch, syncano, super stack
 2. **Install [Git](https://git-scm.com/downloads)**.
 
 #### Docs
-[https://aexol.github.io](https://aexol.github.io)
+[https://aexol.github.io/react-syncano/](https://aexol.github.io/react-syncano/)
 
 #### Docs to components such as sortable, modal etc...
 1. **ReactRouterV4** for navigation [ReactRouterV4](https://reacttraining.com/react-router/web/guides/quick-start)

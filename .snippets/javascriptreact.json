@@ -1,0 +1,58 @@
+{
+	"Aexol React div with className": {
+		"prefix": "div",
+		"body": "<div className='$1'>$2</div>"
+	},
+	"Aexol React Redux Container File": {
+		"prefix": "arrcf",
+		"body": "import React, { PropTypes } from 'react';\nimport { connect } from 'react-redux';\nimport * as actions from '../actions';\nimport {withRouter, Switch, Route, Link} from 'react-router-dom';\n\n@connect(\n  state => ({\n    ...state\n  }), {\n    ...actions\n  }\n)\nclass $1 extends React.Component {\n  render () {\n    return (\n      <div className='${1}' />\n    )\n  }\n}\nexport default withRouter(${1});"
+	},
+	"Aexol React Class Component": {
+		"prefix": "arcc",
+		"body": "import React, { PropTypes } from 'react'\nclass $1 extends React.Component {\n  render () {\n    return (\n      <div className=\"${1}\">\n      </div>\n    )\n  }\n}\nexport default ${1}"
+	},
+	"Aexol React Stateless Class Component": {
+		"prefix": "arscc",
+		"body": "import React, { PropTypes } from 'react'\nconst $1 = ({$2}) =>(\n  <div className=\"${1}\">\n  </div>\n)\nexport default ${1}"
+	},
+	"Aexol React Redux Thunk Action": {
+		"prefix": "arra",
+		"body": "export const $1 = ($2) => state => (dispatch,getState) => {\n  $3\n}"
+	},
+	"Aexol React Text Input": {
+		"prefix": "arti",
+		"body": "<input type=\"text\" placeholder=\"$1\" value={${1}} onChange={\n  (e)=>{\n    this.setState({${1}:e.target.value})\n  }\n} />"
+	},
+	"Aexol React TextArea": {
+		"prefix": "arta",
+		"body": "<textarea placeholder=\"$1\" value={${1}} onChange={\n  (e)=>{\n    this.setState({${1}:e.target.value})\n  }\n} />"
+	},
+	"Aexol React Select": {
+		"prefix": "ars",
+		"body": "<Select name=\"$1\" onChange={(e) => {\n  this.setState({\n    ${1}: e\n  });\n}} options={$2.map(k => ({\n  value: k.$3,\n  label: k.$4\n}))} placeholder=\"${1}\" value={${1}}/>"
+	},
+	"Aexol React Dropzone": {
+		"prefix": "ard",
+		"body": "<Dropzone className=\"DropBox\" onDrop={onDrop}>\n  <div className=\"DropDescription\">\n    $1\n  </div>\n</Dropzone>"
+	},
+	"Syncano Socket Starter":{
+		"prefix": "synsta",
+		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response, logger, users, socket, event } = Server(ctx)\n  $1\n}"
+	},
+	"Syncano Socket Starter Standard":{
+		"prefix": "synstd",
+		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response} = Server(ctx)\n  try{\n    $1\n    return response.json($2)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+	},
+	"Syncano Socket Starter Standard Args":{
+		"prefix": "synstda",
+		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response} = Server(ctx)\n  try{\n    const { $1 } = ctx.args\n    $2\n    return response.json($3)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+	},
+	"Syncano Socket Starter Standard User":{
+		"prefix": "synstdu",
+		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response} = Server(ctx)\n  try{\n    const { user } = ctx.meta\n    $1\n    return response.json($2)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+	},
+	"Syncano Socket Starter Standard User Args":{
+		"prefix": "synstdua",
+		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response} = Server(ctx)\n  try{\n    const { user } = ctx.meta\n    const { $1 } = ctx.args\n    $2\n    return response.json($3)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+	}
+}

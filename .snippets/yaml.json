@@ -1,0 +1,74 @@
+{
+	"Syncano class param":{
+		"prefix":"scp",
+		"body":"- name: $1\n  type: $2\n  filter_index: $3\n$4"
+	},
+	"Syncano class param user":{
+		"prefix":"scu",
+		"body":"- name: $1\n  type: reference\n  target: user\n  filter_index: true\n$2"
+	},
+	"Syncano class param reference":{
+		"prefix":"scrf",
+		"body":"- name: $1\n  type: reference\n  target: $2\n  filter_index: true\n$3"
+	},
+	"Syncano class param relation":{
+		"prefix":"scrl",
+		"body":"- name: $1\n  type: relation\n  target: $2\n  filter_index: true\n$3"
+	},
+	"Syncano class param string":{
+		"prefix":"scs",
+		"body":"- name: $1\n  type: string\n  filter_index: true\n$2"
+	},
+	"Syncano class param text":{
+		"prefix":"sct",
+		"body":"- name: $1\n  type: text\n  filter_index: true\n$2"
+	},
+	"Syncano class param geopoint":{
+		"prefix":"scg",
+		"body":"- name: $1\n  type: geopoint\n  filter_index: true\n$2"
+	},
+	"Syncano class param integer":{
+		"prefix":"sci",
+		"body":"- name: $1\n  type: integer\n  filter_index: true\n$2"
+	},
+	"Syncano class param float":{
+		"prefix":"scf",
+		"body":"- name: $1\n  type: float\n  filter_index: true\n$2"
+	},
+	"Syncano class param boolean":{
+		"prefix":"scb",
+		"body":"- name: $1\n  type: boolean\n  filter_index: true\n$2"
+	},
+	"Syncano class param datetime":{
+		"prefix":"scd",
+		"body":"- name: $1\n  type: datetime\n  filter_index: true\n$2"
+	},
+	"Syncano endpoint":{
+		"prefix":"sen",
+		"body":"$1:\n  description: $2\n  file: $3\n  parameters:\n    $4"
+	},
+	"Syncano param":{
+		"prefix": "spa",
+		"body": "$1:\n  type: $2\n  description: $3\n  example: $4"
+	},
+	"Syncano param simple string":{
+		"prefix": "sps",
+		"body": "$1:\n  type: string\n  description: $1\n  example: $1"
+	},
+	"Syncano param simple boolean":{
+		"prefix": "spb",
+		"body": "$1:\n  type: boolean\n  description: $1\n  example: true"
+	},
+	"Syncano param simple text":{
+		"prefix": "spt",
+		"body": "$1:\n  type: text\n  description: $1\n  example: $1"
+	},
+	"Syncano param simple integer":{
+		"prefix": "spi",
+		"body": "$1:\n  type: integer\n  description: $1\n  example: 33"
+	},
+	"Syncano response":{
+		"prefix": "sre",
+		"body": "$1:\n  description: $2"
+	}
+}

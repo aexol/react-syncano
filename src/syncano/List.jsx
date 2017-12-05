@@ -5,6 +5,7 @@ import {withRouter, Switch, Route} from 'react-router-dom'
 import ModalSet from './media/ModalSet'
 import Loading from './utils/Loading'
 import {display} from '../display'
+import Select from 'react-select'
 import './List.scss'
 
 @connect(
@@ -20,15 +21,32 @@ class List extends React.Component {
     super(props)
     this.state = {}
   }
+  componentWillReceiveProps(props){
+    if(this.props.model !== props.model){
+      this.setState({
+        filtr:undefined,
+        search:''
+      })
+    }
+  }
   render () {
     const {model} = this.props
-    const {values, open, search} = this.state
+    const {values, open, search, filtr} = this.state
     if (!model) {
       return <div className='ChooseModel'>Choose a model</div>
     }
     let renderedObjects = this.props[model.name]
-    if(search){
-      renderedObjects = renderedObjects.filter( o=> `${o[display(model.name)]}`.toLowerCase().indexOf(search.toLowerCase()) !== -1 )
+    if (search) {
+      let getter = display(model.name)
+      if(filtr){
+        getter = filtr.value
+      }
+      renderedObjects = renderedObjects.filter(
+        o =>
+          `${o[getter]}`
+            .toLowerCase()
+            .indexOf(search.toLowerCase()) !== -1
+      )
     }
     return (
       <div className=''>
@@ -51,6 +69,23 @@ class List extends React.Component {
                 search: e.target.value
               })
             }}
+          />
+        </div>
+        <div className='SyncanoFilters'>
+          <Select
+            onChange={e => {
+              this.setState({
+                filtr: e,
+                search:''
+              })
+            }}
+            value={filtr}
+            options={model.fields
+              .filter(f => f.type === 'text' || f.type === 'textarea')
+              .map(f => ({
+                label: f.name,
+                value: f.name
+              }))}
           />
         </div>
         <div className='SyncanoList'>

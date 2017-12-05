@@ -134,11 +134,9 @@ class FormGenerator extends React.Component {
   }
   render () {
     const {fields, submitText, invalid = []} = this.props
-    console.log(fields)
     const fieldsRender = fields.map(f => {
       let Field = {...f}
       if (Field.target) {
-        console.log(Field)
         if (typeof this.props[Field.target] === 'undefined') {
           return
         }

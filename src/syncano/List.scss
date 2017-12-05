@@ -14,7 +14,10 @@
 .SyncanoNav {
   display: flex;
   min-height: 60px;
-
+  width: 100%;
+  .Select{
+    flex:1;
+  }
   .SyncanoLink {
     font-size: 18px;
     padding: 10px 30px;

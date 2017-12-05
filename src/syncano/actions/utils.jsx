@@ -23,6 +23,7 @@ export const castField = field => {
       break
     case 'relation':
       addons.type = 'select'
+      addons.multi = true
       break
     case 'reference':
       addons.type = 'select'

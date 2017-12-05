@@ -1,13 +1,18 @@
 import React, {PropTypes} from 'react'
-import Select from 'react-select'
-import {Creatable} from 'react-select'
 import 'react-select/dist/react-select.css'
-import Geosuggest from 'react-geosuggest'
 import classnames from 'classnames'
 import {connect} from 'react-redux'
-import { display } from "../../display";
-import MyDatePicker from '../MyDatePicker';
-
+import {display} from '../../display'
+import {
+  DatepickerField,
+  FileField,
+  GeoField,
+  SelectField,
+  TagField,
+  TextareaField,
+  TextField
+} from './fields'
+import receive from './receivers'
 const getBase64 = (file, callback) => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
@@ -22,201 +27,23 @@ const validators = {
   normal: {},
   syncano: {
     select: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
-    tag: e => (Array.isArray(e) ? e.map(p => p.value) : e.value)
+    tag: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
+    geo: e => ({
+      latitude:e.split(',')[0],
+      longitude:e.split(',')[0]
+    })
   }
 }
 
 const fieldElements = {
-  //TODO: datetime input
-  text: ({name, placeholder, inputType, className = '', invalid}, t) => (
-    <div
-    className={classnames({
-      forgenInput: true,
-      [className]: true,
-    })}
-    key={name}
-    >
-      <input
-        className={classnames({
-          changed: t.state.fields[name] !== t.state.initial[name],
-          invalid
-        })}
-        key={name}
-        onChange={e => {
-          t.setState({
-            fields: {
-              ...t.state.fields,
-              [name]: e.target.value
-            }
-          })
-        }}
-        placeholder={placeholder || name}
-        type={inputType || 'text'}
-        value={t.state.fields[name]}
-      />
-    </div>
-  ),
-  textarea: ({name, placeholder, className = '', invalid}, t) => (
-    <div
-      className={classnames({
-        forgenInput: true,
-        [className]: true,
-      })}
-      key={name}
-    >
-      <textarea
-        className={classnames({
-          changed: t.state.fields[name] !== t.state.initial[name],
-          invalid
-        })}
-        onChange={e => {
-          t.setState({
-            fields: {
-              ...t.state.fields,
-              [name]: e.target.value
-            }
-          })
-        }}
-        placeholder={placeholder || name}
-        value={t.state.fields[name]}
-      />
-    </div>
-  ),
-  select: (
-    {name, placeholder, label="id", value="id", values, multi, className = '', invalid},
-    t
-  ) => (
-    <Select
-      className={classnames({
-        forgenInput: true,
-        changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true,
-        invalid
-      })}
-      key={name}
-      multi={multi || false}
-      name={placeholder || name}
-      onChange={e => {
-        t.setState({
-          fields: {
-            ...t.state.fields,
-            [name]: e
-          }
-        })
-      }}
-      options={values.map(k => ({
-        key: `${name}-${k[value]}`,
-        value: k[value],
-        label: k[label]
-      }))}
-      placeholder={placeholder || name}
-      value={t.state.fields[name]}
-    />
-  ),
-  file: ({name, placeholder, className = '', invalid}, t) => (
-    <div className='formgenFile' key={name}>
-      <input
-        className={classnames({
-          [className]: true,
-          forgenInput: true,
-          changed: t.state.fields[name] !== t.state.initial[name],
-          invalid
-        })}
-        onChange={e => {
-          const fileName = e.target.files[0]
-          getBase64(fileName, r => {
-            t.setState({
-              fields: {
-                ...t.state.fields,
-                [name]: r
-              }
-            })
-          })
-        }}
-        placeholder={placeholder || name}
-        type='file'
-      />
-      <a
-        className='file_holder'
-        href={
-          t.state.fields[name] !== t.state.initial[name]
-            ? ''
-            : t.state.initial[name] ? t.state.initial[name] : ''
-        }
-      >
-        {t.state.fields[name] !== t.state.initial[name]
-          ? ''
-          : t.state.initial[name] ? t.state.initial[name] : ''}
-      </a>
-    </div>
-  ),
-  geo: ({name, placeholder, location, radius, className = '', invalid}, t) => (
-    <Geosuggest
-      className={classnames({
-        forgenInput: true,
-        changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true,
-        invalid
-      })}
-      initialValue={t.state.initial[name]}
-      key={name}
-      location={location}
-      name={name}
-      onSuggestSelect={e => {
-        t.setState({
-          fields: {
-            ...t.state.fields,
-            [name]: e
-          }
-        })
-      }}
-      placeholder={placeholder}
-      radius={radius}
-      value={t.state.fields[name]}
-    />
-  ),
-  tag: ({name, placeholder, multi, className = '', invalid}, t) => (
-    <Creatable
-      className={classnames({
-        forgenInput: true,
-        changed: t.state.fields[name] !== t.state.initial[name],
-        [className]: true,
-        invalid
-      })}
-      key={name}
-      multi={multi || true}
-      name={placeholder || name}
-      onChange={e => {
-        t.setState({
-          fields: {
-            ...t.state.fields,
-            [name]: e
-          }
-        })
-      }}
-      placeholder={placeholder || name}
-      value={t.state.fields[name]}
-    />
-  ),
-  datepicker: ({name, className = '', invalid}, t) => (
-    <div
-      className={classnames({
-        'date-picker': true,
-        [className]: true,
-        invalid
-      })}
-      key={name}
-    >
-      <MyDatePicker
-        selected={this.state.startDate}
-        onChange={this.handleChange}
-        showTimeSelect
-        timeFormat="HH:mm"
-        timeIntervals={5}
-        dateFormat="LLL"
-      />
-    </div>
-  )
+  // TODO: datetime input
+  text: TextField,
+  textarea: TextareaField,
+  select: SelectField,
+  file: FileField,
+  geo: GeoField,
+  tag: TagField,
+  datepicker: DatepickerField
 }
 @connect(
   state => ({
@@ -248,7 +75,9 @@ class FormGenerator extends React.Component {
     const {fields, validator, values} = nextProps
     var newFields = {}
     for (var f of fields) {
-      newFields[f.name] = values[f.name] || ''
+      newFields[f.name] = values[f.name]
+        ? receive({data: values[f.name], ...f})
+        : ''
     }
     var updateDict = {
       initial: {
@@ -266,14 +95,14 @@ class FormGenerator extends React.Component {
     this.setState(updateDict)
   }
   validate () {
-    const {validator = 'syncano', fields, isFormData = true} = this.props
+    const {validator = 'syncano', fields, isFormData = false} = this.props
     var sfields = {
       ...this.state.fields
     }
     const filteredValidate = Object.keys(sfields).filter(
       k => sfields[k] !== this.state.initial[k]
     )
-    const returnData = filteredValidate.reduce(
+    let returnData = filteredValidate.reduce(
       (accumulator, currentValue, currentIndex, array) => {
         accumulator[currentValue] = sfields[currentValue]
         return accumulator
@@ -290,26 +119,38 @@ class FormGenerator extends React.Component {
         }
       }
     }
+    if (isFormData) {
+      returnData = new FormData()
+      for (var [key, value] of returnData) {
+        fd.append(
+          key,
+          Array.isArray(value) || typeof value === 'object'
+            ? JSON.stringify(value)
+            : value
+        )
+      }
+    }
     this.props.validate(returnData)
   }
   render () {
     const {fields, submitText, invalid = []} = this.props
+    console.log(fields)
     const fieldsRender = fields.map(f => {
       let Field = {...f}
-      if(Field.target){
-        if(typeof this.props[Field.target] ==="undefined"){
+      if (Field.target) {
+        console.log(Field)
+        if (typeof this.props[Field.target] === 'undefined') {
           return
         }
         Field.values = this.props[Field.target]
-        Field.label  = display(Field.target)
+        Field.label = display(Field.target)
       }
-      return fieldElements[Field.type](
-        {
-          ...Field,
-          invalid: invalid[Field.name]
-        },
-        this
-      )
+      const Component = fieldElements[Field.type]
+      return Component({
+        ...Field,
+        invalid: invalid[Field.name],
+        t: this
+      })
     })
     return (
       <div className='FormGen'>

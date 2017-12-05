@@ -50,14 +50,6 @@ class Config extends React.Component {
         m => `${m.model}:${m.type}:${m.owner_field}`
       )
     }
-    let computedValues = {
-      models: preComputedValues.models.map(m => ({label: m, value: m})),
-      logged_in: preComputedValues.logged_in.map(m => ({label: m, value: m})),
-      object_level: preComputedValues.object_level.map(m => ({
-        label: m,
-        value: m
-      }))
-    }
     return (
       <div className='Config'>
         <Tip>
@@ -102,7 +94,7 @@ class Config extends React.Component {
             syncanoRestFrameworkConfigure(data)
           }}
           fields={configFields}
-          values={computedValues}
+          values={preComputedValues}
         />
       </div>
     )

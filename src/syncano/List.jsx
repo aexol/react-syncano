@@ -36,6 +36,7 @@ class List extends React.Component {
       return <div className='ChooseModel'>Choose a model</div>
     }
     let renderedObjects = this.props[model.name]
+    console.log(renderedObjects)
     if (search) {
       let getter = display(model.name)
       if(filtr){

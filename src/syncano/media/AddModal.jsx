@@ -8,7 +8,6 @@ import {connect} from 'react-redux'
 import * as actions from '../actions'
 @connect(
   state => ({
-    ...state
   }),
   {
     syncanoAdd:actions.syncanoAdd

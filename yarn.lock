@@ -4279,6 +4279,16 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+nlp-syllables@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/nlp-syllables/-/nlp-syllables-0.0.5.tgz#d2935693fdb32c0184c45c4b81e35835aee382c9"
+  dependencies:
+    nlp_compromise ">=4.12.0"
+
+nlp_compromise@>=4.12.0:
+  version "6.5.5"
+  resolved "https://registry.yarnpkg.com/nlp_compromise/-/nlp_compromise-6.5.5.tgz#5747a41879fc7e8f46d7551865d01fd8637a8308"
+
 no-case@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.1.tgz#7aeba1c73a52184265554b7dc03baf720df80081"

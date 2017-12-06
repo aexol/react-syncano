@@ -15,6 +15,7 @@
     "js-cookie": "^2.1.4",
     "konva": "1.7.6",
     "moment": "^2.19.2",
+    "nlp-syllables": "0.0.5",
     "object-assign": "4.1.0",
     "rc-progress": "2.2.2",
     "react": "16.0.0",

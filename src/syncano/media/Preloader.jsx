@@ -13,6 +13,6 @@ export const Preloader = (props = {}) => (
       duration={800}
       {...props}
     />
-    {props.text && <div className='PreloaderText' style={{ fontWeight:100}}>{props.text}</div>}
+    {props.text && <div className='PreloaderText' style={{ fontWeight: 100, paddingTop: '20px'}}>{props.text}</div>}
   </div>
 )

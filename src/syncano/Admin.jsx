@@ -12,6 +12,7 @@ import Config from './Config'
 import Model from "./Model";
 import classnames from 'classnames'
 import {PreloaderScreen} from './media/PreloaderScreen'
+
 @connect(
   state => ({
     ...state
@@ -20,6 +21,7 @@ import {PreloaderScreen} from './media/PreloaderScreen'
     ...actions
   }
 )
+
 class SyncanoAdmin extends React.Component {
   constructor (props) {
     super(props)

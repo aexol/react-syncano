@@ -118,6 +118,7 @@
 
       .SyncanoNavContainer {
         display: flex;
+        flex-wrap: wrap;
 
         .SyncanoLink {
           padding: 10px 30px;

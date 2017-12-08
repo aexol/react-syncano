@@ -98,12 +98,12 @@ export const syncanoAdd = ({model, data}) => state => dispatch => {
       model,
       data
     })
-    .then(json =>
-      dispatch({
+    .then(json => {
+      dispatch(state => ({
         ...state,
         [model]: [...state[model], json]
-      })
-    )
+      }))
+    })
 }
 export const syncanoUpdate = ({model, data, id}) => state => dispatch => {
   s
@@ -125,12 +125,12 @@ export const syncanoDelete = ({model, id}) => state => dispatch => {
       model,
       id
     })
-    .then(json =>
-      dispatch({
+    .then(json => {
+      dispatch(state => ({
         ...state,
-        [model]: [state[model].filter(o => o.id !== parseInt(id))]
-      })
-    )
+        [model]: state[model].filter(o => o.id !== parseInt(id))
+      }))
+    })
 }
 export const syncanoRestFrameworkConfigure = data => state => (
   dispatch,

@@ -9,7 +9,7 @@ import {
   removeUsername,
   removeToken
 } from '../server/config'
-import {castField} from './utils'
+import {castField, generateUniq} from './utils'
 export const syncanoGeneric = ({name, f}) => state => dispatch => {
   s.post(name).then(json => {
     dispatch(f)
@@ -93,15 +93,21 @@ export const syncanoList = ({model}) => state => dispatch => {
     )
 }
 export const syncanoAdd = ({model, data}) => state => dispatch => {
+  const id = state[model].length + 1
+  dispatch(state => ({
+    ...state,
+    [model]: [...state[model], {...data, id}]
+  }))
   s
     .post('rest-framework/add', {
       model,
       data
     })
     .then(json => {
+      // dispatch the difference later
       dispatch(state => ({
         ...state,
-        [model]: [...state[model], json]
+        [model]: state[model].map(m => (m.id === id ? json : m))
       }))
     })
 }

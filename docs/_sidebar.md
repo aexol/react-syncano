@@ -1,5 +1,7 @@
 - [Home](/)
 - [Quick Start](quickstart.md)
 - [Snippets](snippets.md)
+- [Actions](actions.md)
 - Examples
   - [Bookstore](examples/bookstore.md)
+- [Roadmap](roadmap.md)

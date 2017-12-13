@@ -1,3 +1,7 @@
+import {
+  element
+} from '../../../../../Library/Caches/typescript/2.6/node_modules/@types/prop-types'
+
 export const castField = field => {
   let addons = {}
   switch (field.type) {
@@ -39,4 +43,24 @@ export const castField = field => {
     ...field,
     ...addons
   }
+}
+export const generateUniq = () => {
+  function s4 () {
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+  }
+  return `${s4()}-${s4()}`
+}
+export const duts = ({state, element, value, array = false}) => {
+  let updates = element.split('.')
+  const reUpdate = (updates, value) => {
+    if (!updates.length) {
+      return value
+    }
+    let name = updates.pop()
+    return reUpdate(updates, {
+      ...updates.reduce((a, b) => (a[b] ? a[b] : {}), state),
+      [name]: value
+    })
+  }
+  return reUpdate(updates, value)
 }

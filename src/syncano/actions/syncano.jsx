@@ -9,8 +9,8 @@ import {
   removeUsername,
   removeToken
 } from '../server/config'
-import {castField, generateUniq} from './utils'
-export const syncanoGeneric = ({name, f}) => state => dispatch => {
+import { castField, generateUniq, toFormData } from './utils'
+export const syncanoGeneric = ({ name, f }) => state => dispatch => {
   s.post(name).then(json => {
     dispatch(f)
   })
@@ -34,8 +34,8 @@ export const syncanoGetConfig = () => state => dispatch => {
     }))
   })
 }
-export const syncanoValidate = ({username, token}) => state => dispatch => {
-  s.post('rest-auth/validate', {username, token}).then(json => {
+export const syncanoValidate = ({ username, token }) => state => dispatch => {
+  s.post('rest-auth/validate', { username, token }).then(json => {
     if (json.valid) {
       s.setToken(token)
     } else {
@@ -48,8 +48,8 @@ export const syncanoValidate = ({username, token}) => state => dispatch => {
     }))
   })
 }
-export const syncanoRefreshToken = ({username, token}) => state => dispatch => {
-  s.post('rest-auth/refresh', {username, token}).then(json => {
+export const syncanoRefreshToken = ({ username, token }) => state => dispatch => {
+  s.post('rest-auth/refresh', { username, token }).then(json => {
     setToken(json.token)
     dispatch(state => ({
       ...state,
@@ -58,8 +58,8 @@ export const syncanoRefreshToken = ({username, token}) => state => dispatch => {
     }))
   })
 }
-export const syncanoLogin = ({username, password}) => state => dispatch => {
-  s.post('rest-auth/login', {username, password}).then(json => {
+export const syncanoLogin = ({ username, password }) => state => dispatch => {
+  s.post('rest-auth/login', { username, password }).then(json => {
     setToken(json.token)
     setUsername(json.username)
     s.setToken(json.token)
@@ -80,7 +80,7 @@ export const syncanoLogout = () => state => dispatch => {
     token: ''
   }))
 }
-export const syncanoList = ({model}) => state => dispatch => {
+export const syncanoList = ({ model }) => state => dispatch => {
   s
     .get('rest-framework/list', {
       model
@@ -92,32 +92,31 @@ export const syncanoList = ({model}) => state => dispatch => {
       }))
     )
 }
-export const syncanoAdd = ({model, data}) => state => dispatch => {
+export const syncanoAdd = ({ model, data }) => state => dispatch => {
   const id = state[model].length + 1
   dispatch(state => ({
     ...state,
-    [model]: [...state[model], {...data, id}]
+    [model]: [...state[model], { ...data, id }]
   }))
   s
-    .post('rest-framework/add', {
+    .post('rest-framework/add', toFormData({
       model,
-      data
-    })
+      ...data
+    }))
     .then(json => {
-      // dispatch the difference later
       dispatch(state => ({
         ...state,
         [model]: state[model].map(m => (m.id === id ? json : m))
       }))
     })
 }
-export const syncanoUpdate = ({model, data, id}) => state => dispatch => {
+export const syncanoUpdate = ({ model, data, id }) => state => dispatch => {
   s
-    .patch('rest-framework/update', {
+    .patch('rest-framework/update', toFormData({
       model,
       id,
-      data
-    })
+      ...data
+    }))
     .then(json => {
       dispatch(state => ({
         ...state,
@@ -125,7 +124,7 @@ export const syncanoUpdate = ({model, data, id}) => state => dispatch => {
       }))
     })
 }
-export const syncanoDelete = ({model, id}) => state => dispatch => {
+export const syncanoDelete = ({ model, id }) => state => dispatch => {
   s
     .patch('rest-framework/remove', {
       model,
@@ -142,7 +141,7 @@ export const syncanoRestFrameworkConfigure = data => state => (
   dispatch,
   getState
 ) => {
-  s.post('rest-framework/configure', {config: data}).then(json => {
+  s.post('rest-framework/configure', { config: data }).then(json => {
     dispatch(state => ({
       ...state,
       config: json.config

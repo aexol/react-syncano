@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import {Preloader} from './Preloader'
-export const PreloaderScreen = (props={}) => (
+export const PreloaderScreen = (props = {}) => (
   <div
     style={{
       width: '100%',

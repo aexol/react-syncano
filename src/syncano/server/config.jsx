@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 import Syncano from 'syncano-client'
-export const INSTANCE_NAME = 'twilight-feather-5200'
+export const INSTANCE_NAME = 'socket-development'
 export const s = new Syncano(INSTANCE_NAME)
 export const removeToken = () => {
   Cookies.remove(`${INSTANCE_NAME}-token`)

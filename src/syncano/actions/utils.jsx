@@ -1,4 +1,3 @@
-
 export const castField = field => {
   let addons = {}
   switch (field.type) {
@@ -42,12 +41,12 @@ export const castField = field => {
   }
 }
 export const generateUniq = () => {
-  function s4 () {
+  function s4() {
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
   }
   return `${s4()}-${s4()}`
 }
-export const duts = ({state, element, value, array = false}) => {
+export const duts = ({ state, element, value, array = false }) => {
   let updates = element.split('.')
   const reUpdate = (updates, value) => {
     if (!updates.length) {
@@ -61,3 +60,9 @@ export const duts = ({state, element, value, array = false}) => {
   }
   return reUpdate(updates, value)
 }
+export const toFormData = o =>
+  Object.keys(o).reduce((a, b) => {
+    let toAppend = o[b] instanceof File ? [o[b], o[b].name] : [o[b]]
+    a.append(b, ...toAppend)
+    return a
+  }, new FormData())

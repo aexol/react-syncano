@@ -1,14 +1,14 @@
-const { resolve } = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const { resolve } = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const config = {
   devtool: 'cheap-module-source-map',
 
   entry: [
-    './index.jsx',
+    './index.jsx'
   ],
 
   context: resolve(__dirname, 'src'),
@@ -16,7 +16,7 @@ const config = {
   output: {
     filename: 'bundle.js',
     path: resolve(__dirname, 'dist'),
-    publicPath: '',
+    publicPath: ''
   },
 
   plugins: [
@@ -24,19 +24,19 @@ const config = {
     new HtmlWebpackPlugin({
       template: `${__dirname}/src/index.html`,
       filename: 'index.html',
-      inject: 'body',
+      inject: 'body'
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
-      debug: false,
+      debug: false
     }),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false
     }),
     new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }),
     new ExtractTextPlugin({ filename: './styles/style.css', disable: false, allChunks: true }),
-    new CopyWebpackPlugin([{ from: './vendors', to: 'vendors' }]),
+    new CopyWebpackPlugin([{ from: './vendors', to: 'vendors' }])
   ],
 
   module: {
@@ -44,7 +44,7 @@ const config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: 'babel-loader'
       },
       {test: /\.css$/, loader: 'style-loader!css-loader'},
       {
@@ -54,28 +54,28 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            { loader: 'sass-loader', query: { sourceMap: false } },
+            { loader: 'sass-loader', query: { sourceMap: false } }
           ],
           publicPath: '../'
-        }),
+        })
       },
       {
         test: /\.(png|ico|jpg|gif|woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?|[ot]tf(\?v=\d+.\d+.\d+)?|svg(\?v=\d+\.\d+\.\d+)?)$/,
         use: [
           {
-            loader:'url-loader',
-            options:{
-              limit:10000
+            loader: 'url-loader',
+            options: {
+              limit: 10000
             }
           }
         ]
       },
-      { test: /\.eot(\?v=\d+.\d+.\d+)?$/, use: 'file-loader?name=fonts/[name].[ext]' },
+      { test: /\.eot(\?v=\d+.\d+.\d+)?$/, use: 'file-loader?name=fonts/[name].[ext]' }
     ]
   },
   resolve: {
-    extensions: ['*','.js', '.jsx','.json']
+    extensions: ['*', '.js', '.jsx', '.json']
   }
-};
+}
 
-module.exports = config;
+module.exports = config

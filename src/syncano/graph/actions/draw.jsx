@@ -19,20 +19,20 @@ export const drawMove = ({x, y, id}) => state => (dispatch, getState) => {
     drawY: y
   }))
 }
-export const drawEnd = ({x,y, id}) => state => (dispatch, getState) => {
-  let endpoints = state.graphEndpoints.endpoints.filter( e=> e.id !== id )
-  //TODO: filter already connected inputs
-  console.log("DRAWEND",x,y)
-  let hitAreas = endpoints.map( e=> ({
-    id:e.id,
-    fx:e.x,
-    fy:e.y + constants.DOT_POSITION.y(0) - constants.ROW/2.0,
-    tx:e.x + constants.WIDTH/2.0,
-    ty:e.y + constants.DOT_POSITION.y(e.inputs.length)+ constants.ROW/2.0
+export const drawEnd = ({x, y, id}) => state => (dispatch, getState) => {
+  let endpoints = state.graphEndpoints.endpoints.filter(e => e.id !== id)
+  // TODO: filter already connected inputs
+  console.log('DRAWEND', x, y)
+  let hitAreas = endpoints.map(e => ({
+    id: e.id,
+    fx: e.x,
+    fy: e.y + constants.DOT_POSITION.y(0) - constants.ROW / 2.0,
+    tx: e.x + constants.WIDTH / 2.0,
+    ty: e.y + constants.DOT_POSITION.y(e.inputs.length) + constants.ROW / 2.0
   }))
-  //TODO: find hitareas for separate input
-  hitAreas.forEach( area => {
-    if(x>area.fx && x<area.tx && y>area.fy && y<area.ty){
+  // TODO: find hitareas for separate input
+  hitAreas.forEach(area => {
+    if (x > area.fx && x < area.tx && y > area.fy && y < area.ty) {
       console.log(`Draw in area of endpoint ${area.id}`)
     }
   })

@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-const FileField = ({name, placeholder, className = '', invalid, t}) => (
+const FileField = ({ name, placeholder, className = '', invalid, t }) => (
   <div className='formgenFile' key={name}>
     <input
       className={classnames({
@@ -10,14 +10,11 @@ const FileField = ({name, placeholder, className = '', invalid, t}) => (
         invalid
       })}
       onChange={e => {
-        const fileName = e.target.files[0]
-        getBase64(fileName, r => {
-          t.setState({
-            fields: {
-              ...t.state.fields,
-              [name]: r
-            }
-          })
+        t.setState({
+          fields: {
+            ...t.state.fields,
+            [name]: e.target.files[0]
+          }
         })
       }}
       placeholder={placeholder || name}

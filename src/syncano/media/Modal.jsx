@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
-import classnames from 'classnames';
-import './Modal.scss';
+import React, {PropTypes} from 'react'
+import classnames from 'classnames'
+import './Modal.scss'
 
 export class Modal extends React.Component {
   render () {
@@ -23,7 +23,7 @@ export class ModalHeader extends React.Component {
   render () {
     const {
       toggle
-    } = this.props;
+    } = this.props
     return (
       <div className='ModalHeader'>
         <span> {this.props.children}</span>
@@ -56,7 +56,7 @@ export class ModalChangePassword extends React.Component {
     return (
       <div
         className={classnames({
-          'change-password': true,
+          'change-password': true
         })}
       >
         <div className='Dialog'>

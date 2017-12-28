@@ -1,10 +1,10 @@
 import {s} from '../server/config'
-class See{
-  constructor(appid,c,userScope=false){
+class See {
+  constructor (appid, c, userScope = false) {
     this.appid = appid
     this.userScope = userScope
-    new Proxy(c,{
-      apply: (target, thisArg, argumentList)=>{
+    new Proxy(c, {
+      apply: (target, thisArg, argumentList) => {
         console.log(target, thisArg, argumentList)
       }
     })

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Provider} from 'react-redux'
 import App from './App'
-import Admin from '../syncano/Admin.jsx';
+import Admin from '../syncano/Admin.jsx'
 import {HashRouter as Router, Route, Link, Switch} from 'react-router-dom'
 class Root extends Component {
   render () {
@@ -22,6 +22,6 @@ class Root extends Component {
   }
 }
 Root.propTypes = {
-  store: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 }
 export default Root

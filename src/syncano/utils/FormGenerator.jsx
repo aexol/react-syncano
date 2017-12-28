@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import 'react-select/dist/react-select.css'
 import classnames from 'classnames'
-import {connect} from 'react-redux'
-import {display} from '../../display'
+import { connect } from 'react-redux'
+import { display } from '../../display'
 import {
   DatepickerField,
   FileField,
@@ -29,8 +29,8 @@ const validators = {
     select: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
     tag: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
     geo: e => ({
-      latitude:e.split(',')[0],
-      longitude:e.split(',')[0]
+      latitude: e.split(',')[0],
+      longitude: e.split(',')[0]
     })
   }
 }
@@ -52,9 +52,9 @@ const fieldElements = {
   {}
 )
 class FormGenerator extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-    const {fields} = this.props
+    const { fields } = this.props
     var newFields = {}
     for (var f of fields) {
       newFields[f.name] = ''
@@ -68,15 +68,15 @@ class FormGenerator extends React.Component {
       }
     }
   }
-  componentWillMount () {
+  componentWillMount() {
     this.componentWillReceiveProps(this.props)
   }
-  componentWillReceiveProps (nextProps) {
-    const {fields, validator, values} = nextProps
+  componentWillReceiveProps(nextProps) {
+    const { fields, validator, values } = nextProps
     var newFields = {}
     for (var f of fields) {
       newFields[f.name] = values[f.name]
-        ? receive({data: values[f.name], ...f})
+        ? receive({ data: values[f.name], ...f })
         : ''
     }
     var updateDict = {
@@ -94,8 +94,8 @@ class FormGenerator extends React.Component {
     }
     this.setState(updateDict)
   }
-  validate () {
-    const {validator = 'syncano', fields, isFormData = false} = this.props
+  validate() {
+    const { validator = 'syncano', fields, isFormData = false } = this.props
     var sfields = {
       ...this.state.fields
     }
@@ -132,10 +132,10 @@ class FormGenerator extends React.Component {
     }
     this.props.validate(returnData)
   }
-  render () {
-    const {fields, submitText, invalid = []} = this.props
+  render() {
+    const { fields, submitText, invalid = [] } = this.props
     const fieldsRender = fields.map(f => {
-      let Field = {...f}
+      let Field = { ...f }
       if (Field.target) {
         if (typeof this.props[Field.target] === 'undefined') {
           return

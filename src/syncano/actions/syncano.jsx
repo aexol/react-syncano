@@ -82,7 +82,7 @@ export const syncanoLogout = () => state => dispatch => {
 }
 export const syncanoList = ({ model }) => state => dispatch => {
   s
-    .get('rest-framework/list', {
+    .post('rest-framework/list', {
       model
     })
     .then(json =>

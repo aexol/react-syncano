@@ -47,7 +47,7 @@ class Config extends React.Component {
       models: models.map(m => `${m.model}:${m.type}`),
       logged_in: logged_in.map(m => `${m.model}:${m.type}`),
       object_level: object_level.map(
-        m => `${m.model}:${m.type}:${m.owner_field}`
+        m => `${m.model}:${m.type}:${m.owner}`
       )
     }
     return (
@@ -68,7 +68,7 @@ class Config extends React.Component {
           <p>
             Object level: specify models available for logged in users who are owners of object with permissions in format
             {' '}
-            <strong>model:permissions:owner_field</strong>
+            <strong>model:permissions:owner</strong>
           </p>
         </Tip>
         <FormGenerator
@@ -87,7 +87,7 @@ class Config extends React.Component {
               object_level: data.object_level.map(o => ({
                 model: o.split(':')[0],
                 type: o.split(':')[1],
-                owner_field: o.split(':')[2]
+                owner: o.split(':')[2]
               }))
             }
             console.log(data)

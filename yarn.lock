@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@syncano/client@0.5.0-alpha.258e41bd":
+  version "0.5.0-alpha.258e41bd"
+  resolved "https://registry.yarnpkg.com/@syncano/client/-/client-0.5.0-alpha.258e41bd.tgz#1eafeb624de36e0e870c7e78380c48401897f81c"
+  dependencies:
+    axios "^0.15.3"
+
 "@types/node@^6.0.46":
   version "6.0.90"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.90.tgz#0ed74833fa1b73dcdb9409dcb1c97ec0a8b13b02"
@@ -6333,12 +6339,6 @@ symbol-observable@^1.0.2:
 symbol-tree@^3.2.1:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
-
-syncano-client@0.2.6-2:
-  version "0.2.6-2"
-  resolved "https://registry.yarnpkg.com/syncano-client/-/syncano-client-0.2.6-2.tgz#46865a43102f9ad54d4a1018729cb9ce0e3ad40d"
-  dependencies:
-    axios "^0.15.3"
 
 tapable@^0.2.7:
   version "0.2.8"

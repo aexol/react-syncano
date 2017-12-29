@@ -112,7 +112,7 @@ export const syncanoAdd = ({ model, data }) => state => dispatch => {
 }
 export const syncanoUpdate = ({ model, data, id }) => state => dispatch => {
   s
-    .patch('rest-framework/update', toFormData({
+    .post('rest-framework/update', toFormData({
       model,
       id,
       ...data
@@ -126,7 +126,7 @@ export const syncanoUpdate = ({ model, data, id }) => state => dispatch => {
 }
 export const syncanoDelete = ({ model, id }) => state => dispatch => {
   s
-    .patch('rest-framework/remove', {
+    .post('rest-framework/remove', {
       model,
       id
     })

@@ -1,28 +1,29 @@
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import classnames from 'classnames'
 import Autosuggest from './Autosuggest'
-const GeoField = ({
+const AutosuggestField = ({
   name,
   placeholder,
-  location,
-  radius,
+  load,
+  list,
   className = '',
   invalid,
   t
 }) => (
-  <Autosuggest
-    initialValue={t.state.fields[name]}
-    load={load}
-    name={name}
-    list={list}
-    onSelect={e => {
-      t.setState({
-        fields: {
-          ...t.state.fields,
-          [name]: e
-        }
-      })
-    }}
-  />
-)
-export default GeoField
+    <Autosuggest
+      initialValue={t.state.fields[name]}
+      load={load}
+      name={name}
+      placeholder={placeholder}
+      list={list}
+      onSelect={e => {
+        t.setState({
+          fields: {
+            ...t.state.fields,
+            [name]: e
+          }
+        })
+      }}
+    />
+  )
+export default AutosuggestField

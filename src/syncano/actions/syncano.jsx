@@ -148,6 +148,17 @@ export const syncanoRestFrameworkConfigure = data => state => (
     }))
   })
 }
+export const syncanoGeosuggest = ({ keyword, params }) => state => dispatch => {
+  s.post('google-maps/suggest', {
+    keyword,
+    params
+  }).then(suggestList => {
+    dispatch(state => ({
+      ...state,
+      suggestList
+    }))
+  })
+}
 export const getString = (name, content = 'Some text') => state => dispatch => {
   let str = getState().uni.text
   str = str || []

@@ -6340,6 +6340,12 @@ symbol-tree@^3.2.1:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
 
+syncano-client@0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/syncano-client/-/syncano-client-0.2.9.tgz#a7ebf5a43c89993b6c9912490e123cfe55c5674c"
+  dependencies:
+    axios "^0.15.3"
+
 tapable@^0.2.7:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.8.tgz#99372a5c999bf2df160afc0d74bed4f47948cd22"

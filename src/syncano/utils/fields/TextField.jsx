@@ -30,6 +30,7 @@ const TextField = ({
           })
         }}
         placeholder={placeholder || name}
+        name={name}
         type={inputType || 'text'}
         value={t.state.fields[name]}
       />

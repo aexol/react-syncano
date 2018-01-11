@@ -7,7 +7,6 @@ const AutosuggestField = ({
   load,
   list,
   className = '',
-  invalid,
   t
 }) => (
     <Autosuggest

@@ -20,13 +20,12 @@ class DatepickerField extends React.Component {
   }
 
   render () {
-    const {name, className = '', invalid, t} = this.props
+    const {name, className = '', t} = this.props
     return (
       <div
         className={classnames({
           'date-picker': true,
           [className]: true,
-          invalid
         })}
         key={name}
       >

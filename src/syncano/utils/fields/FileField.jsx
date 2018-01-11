@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-const FileField = ({ name, placeholder, className = '', invalid, t }) => (
+const FileField = ({ name, placeholder, className = '', t }) => (
   <div className='formgenFile' key={name}>
     <input
       className={classnames({
         [className]: true,
         forgenInput: true,
         changed: t.state.fields[name] !== t.state.initial[name],
-        invalid
       })}
       onChange={e => {
         t.setState({

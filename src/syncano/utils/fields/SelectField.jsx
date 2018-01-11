@@ -9,7 +9,6 @@ const SelectField = ({
   values,
   multi,
   className = '',
-  invalid,
   t
 }) => (
   <Select
@@ -17,7 +16,6 @@ const SelectField = ({
       forgenInput: true,
       changed: t.state.fields[name] !== t.state.initial[name],
       [className]: true,
-      invalid
     })}
     key={name}
     multi={multi || false}

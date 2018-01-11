@@ -2,13 +2,12 @@ import React, {PropTypes} from 'react'
 import {Creatable} from 'react-select'
 import classnames from 'classnames'
 
-const TagField = ({name, placeholder, multi, className = '', invalid, t}) => (
+const TagField = ({name, placeholder, multi, className = '', t}) => (
   <Creatable
     className={classnames({
       forgenInput: true,
       changed: t.state.fields[name] !== t.state.initial[name],
       [className]: true,
-      invalid
     })}
     key={name}
     multi={multi || true}

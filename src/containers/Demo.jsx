@@ -1,6 +1,16 @@
-import React, {PropTypes} from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import FormGenerator from "../syncano/utils/FormGenerator";
+
+const MyFieldWrapper = ({ children, errors = [], ...props }) => (
+  <div className="FieldWrapper">
+    <label>{props.name}</label>
+    {children}
+    {errors.map(e => <div className='errors' key={e}>{e}</div>)}
+  </div>
+)
+
 @connect(
   state => ({
     valid: state.valid
@@ -10,10 +20,41 @@ import {withRouter} from 'react-router-dom'
   }
 )
 class Home extends React.Component {
-  render () {
+  constructor(props) {
+    super(props)
+    this.state = {
+      textareaerrors: []
+    }
+  }
+  render() {
+    const textareaerror = "Blad textarea"
+    const fieldsDemo = [
+      {
+        name: "text",
+        type: "text",
+        required: true,
+        pattern: /^\d+$/
+      },
+      {
+        name: "textarea",
+        type: "textarea",
+        errors: this.state.textareaerrors
+      }
+    ]
     return (
       <div className='Demo'>
-        
+        {/* Simple form */}
+        <FormGenerator validate={() => {
+          this.setState({
+            textareaerrors: ['blad textarea']
+          })
+        }} fields={fieldsDemo} />
+        {/* Alternative form with own wrapper */}
+        <FormGenerator AlternativeWrapper={MyFieldWrapper} validate={() => {
+          this.setState({
+            textareaerrors: ['blad textarea']
+          })
+        }} fields={fieldsDemo} />
       </div>
     )
   }

@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import classnames from 'classnames'
-const TextareaField = ({name, placeholder, className = '', invalid, t}) => (
+const TextareaField = ({name, placeholder, className = '', t}) => (
   <div
     className={classnames({
       formgenInput: true,
@@ -11,7 +11,6 @@ const TextareaField = ({name, placeholder, className = '', invalid, t}) => (
     <textarea
       className={classnames({
         changed: t.state.fields[name] !== t.state.initial[name],
-        invalid
       })}
       onChange={e => {
         t.setState({

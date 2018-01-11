@@ -20,7 +20,6 @@ class GeoField extends React.Component {
       syncanoGeosuggest,
       suggestList,
       className = '',
-      invalid,
       params = {},
       t
     } = this.props
@@ -29,7 +28,6 @@ class GeoField extends React.Component {
         name={name}
         placeholder={placeholder}
         className={className}
-        invalid={invalid}
         list={suggestList}
         load={(e) => {
           syncanoGeosuggest({

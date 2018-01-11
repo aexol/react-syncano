@@ -13,6 +13,7 @@ import {
   TextField
 } from './fields'
 import receive from './receivers'
+import FieldWrapper from "./FieldWrapper";
 const getBase64 = (file, callback) => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
@@ -65,7 +66,8 @@ class FormGenerator extends React.Component {
       },
       initial: {
         ...newFields
-      }
+      },
+      errors: {}
     }
   }
   componentWillMount() {
@@ -94,7 +96,8 @@ class FormGenerator extends React.Component {
     }
     this.setState(updateDict)
   }
-  validate() {
+  validate = (e) => {
+    e.preventDefault()
     const { validator = 'syncano', fields, isFormData = false } = this.props
     var sfields = {
       ...this.state.fields
@@ -133,7 +136,7 @@ class FormGenerator extends React.Component {
     this.props.validate(returnData)
   }
   render() {
-    const { fields, submitText, invalid = [] } = this.props
+    const { fields, submitText, AlternativeWrapper = FieldWrapper } = this.props
     const fieldsRender = fields.map(f => {
       let Field = { ...f }
       if (Field.target) {
@@ -144,24 +147,22 @@ class FormGenerator extends React.Component {
         Field.label = display(Field.target)
       }
       const Component = fieldElements[Field.type]
-      return Component({
-        ...Field,
-        invalid: invalid[Field.name],
-        t: this
-      })
+      let { errors, ...FieldValues } = Field
+      FieldValues = {
+        ...FieldValues,
+        pattern: FieldValues.pattern ? FieldValues.pattern.toString().replace(/\//g, "") : undefined
+      }
+      return (
+        <AlternativeWrapper {...FieldValues} key={FieldValues.name} errors={errors}>
+          <Component t={this} {...FieldValues} />
+        </AlternativeWrapper>
+      )
     })
     return (
-      <div className='FormGen'>
+      <form onSubmit={this.validate} className='FormGen'>
         {fieldsRender}
-        <div
-          className='Submit'
-          onClick={() => {
-            this.validate()
-          }}
-        >
-          {submitText || 'Submit'}
-        </div>
-      </div>
+        <input className='Submit' type="submit" value={submitText || "submit"} />
+      </form>
     )
   }
 }

@@ -37,7 +37,6 @@ class Autosuggest extends React.Component {
       list = [],
       name = "autosuggest",
       placeholder,
-      invalid
     } = this.props
     return (
       <div className="Autosuggest">

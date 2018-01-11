@@ -58,6 +58,25 @@ export const syncanoRefreshToken = ({ username, token }) => state => dispatch =>
     }))
   })
 }
+export const syncanoRegister = ({username, password}) => state => dispatch => {
+  s.post('rest-auth/register', {username, password}).then(json => {
+    setToken(json.token)
+    setUsername(json.username)
+    s.setToken(json.token)
+    dispatch(state => ({
+      ...state,
+      username: json.username,
+      token: json.token,
+      valid: true,
+      errorRegister: false
+    }))
+  }).catch(error => {
+    dispatch(state => ({
+      ...state,
+      errorRegister: true
+    }))
+  })
+}
 export const syncanoLogin = ({ username, password }) => state => dispatch => {
   s.post('rest-auth/login', { username, password }).then(json => {
     setToken(json.token)
@@ -67,7 +86,14 @@ export const syncanoLogin = ({ username, password }) => state => dispatch => {
       ...state,
       username: json.username,
       token: json.token,
-      valid: true
+      valid: true,
+      errorLogin: false
+    }))
+  })
+  .catch(error => {
+    dispatch(state => ({
+      ...state,
+      errorLogin: true
     }))
   })
 }

@@ -1,6 +1,5 @@
 const receive = ({type, data, target}) => {
   const receivers = {
-    geo: data => `${data.latitude},${data.longitude}`,
     text: data => data,
     tag: data => data.map(d => ({label: d, value: d}))
   }

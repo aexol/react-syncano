@@ -12,7 +12,7 @@ import * as actions from '../../actions/index'
     syncanoGeosuggest: actions.syncanoGeosuggest
   }
 )
-class GeoField extends React.Component {
+export default class GeoField extends React.Component {
   render() {
     const {
       name,

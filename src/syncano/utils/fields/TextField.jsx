@@ -5,6 +5,7 @@ const TextField = ({
   placeholder,
   inputType,
   className = '',
+  Component = <input />,
   t,
   ...props
 }) => (
@@ -15,7 +16,7 @@ const TextField = ({
       })}
       key={name}
     >
-      <input
+      <Component
         {...props}
         className={classnames({
           changed: t.state.fields[name] !== t.state.initial[name],

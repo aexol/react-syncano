@@ -7,6 +7,7 @@ const AutosuggestField = ({
   load,
   list,
   className = '',
+  Component,
   t
 }) => (
     <Autosuggest
@@ -15,6 +16,7 @@ const AutosuggestField = ({
       name={name}
       placeholder={placeholder}
       list={list}
+      Component={Component}
       onSelect={e => {
         t.setState({
           fields: {

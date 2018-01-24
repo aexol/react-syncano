@@ -9,9 +9,10 @@ const SelectField = ({
   values,
   multi,
   className = '',
+  Component = Select,
   t
 }) => (
-  <Select
+  <Component
     className={classnames({
       forgenInput: true,
       changed: t.state.fields[name] !== t.state.initial[name],

@@ -1,11 +1,11 @@
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import classnames from 'classnames'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 
 class DatepickerField extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       startDate: moment()
@@ -13,14 +13,19 @@ class DatepickerField extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange (date) {
+  handleChange(date) {
     this.setState({
       startDate: date
     })
   }
 
-  render () {
-    const {name, className = '', t} = this.props
+  render() {
+    const {
+      name,
+      className = '',
+      Component = DatePicker,
+      t
+    } = this.props
     return (
       <div
         className={classnames({
@@ -29,7 +34,7 @@ class DatepickerField extends React.Component {
         })}
         key={name}
       >
-        <DatePicker
+        <Component
           selected={this.state.startDate}
           onChange={this.handleChange}
           showTimeSelect

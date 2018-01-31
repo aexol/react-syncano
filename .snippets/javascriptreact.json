@@ -7,6 +7,10 @@
 		"prefix": "arrcf",
 		"body": "import React, { PropTypes } from 'react';\nimport { connect } from 'react-redux';\nimport * as actions from '../actions';\nimport {withRouter, Switch, Route, Link} from 'react-router-dom';\n\n@connect(\n  state => ({\n    ...state\n  }), {\n    ...actions\n  }\n)\nclass $1 extends React.Component {\n  render () {\n    return (\n      <div className='${1}' />\n    )\n  }\n}\nexport default withRouter(${1});"
 	},
+	"Aexol React Native Component": {
+		"prefix": "anc",
+		"body": "import React from 'react'\nimport { View } from 'react-native'\n\nclass $1 extends React.Component {\n  render () {\n    return (\n      <View>\n      </View>\n    )\n  }\n}\nexport default ${1}"
+	},
 	"Aexol React Class Component": {
 		"prefix": "arcc",
 		"body": "import React, { PropTypes } from 'react'\nclass $1 extends React.Component {\n  render () {\n    return (\n      <div className=\"${1}\">\n      </div>\n    )\n  }\n}\nexport default ${1}"
@@ -15,9 +19,13 @@
 		"prefix": "arscc",
 		"body": "import React, { PropTypes } from 'react'\nconst $1 = ({$2}) =>(\n  <div className=\"${1}\">\n  </div>\n)\nexport default ${1}"
 	},
+	"Aexol React Redux Thunk Syncano Action": {
+		"prefix": "arrs",
+		"body": "export const $1 = ($2) => state => dispatch => {\n  s.post('$3',${2}).then( $4 => {\n    dispatch( state=> ({\n      ...state,\n     ${4}\n    }))\n  }).catch( error => {\n    dispatch( state=> ({\n      ...state,\n     error\n    }))\n  })\n}"
+	},
 	"Aexol React Redux Thunk Action": {
 		"prefix": "arra",
-		"body": "export const $1 = ($2) => state => (dispatch,getState) => {\n  $3\n}"
+		"body": "export const $1 = ($2) => state => dispatch => {\n  $3\n}"
 	},
 	"Aexol React Text Input": {
 		"prefix": "arti",
@@ -37,22 +45,104 @@
 	},
 	"Syncano Socket Starter":{
 		"prefix": "synsta",
-		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response, logger, users, socket, event } = Server(ctx)\n  $1\n}"
+		"body": "import Server from '@syncano/core'\nexport default async ctx => {\n  const {data, response, logger, users, socket, event } = new Server(ctx)\n  $1\n}"
 	},
 	"Syncano Socket Starter Standard":{
 		"prefix": "synstd",
-		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response} = Server(ctx)\n  try{\n    $1\n    return response.json($2)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+		"body": "import Server from '@syncano/core'\nexport default async ctx => {\n  const {data, response} = new Server(ctx)\n  try{\n    $1\n    return response.json($2)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
 	},
 	"Syncano Socket Starter Standard Args":{
 		"prefix": "synstda",
-		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response} = Server(ctx)\n  try{\n    const { $1 } = ctx.args\n    $2\n    return response.json($3)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+		"body": "import Server from '@syncano/core'\nexport default async ctx => {\n  const {data, response} = new Server(ctx)\n  try{\n    const { $1 } = ctx.args\n    $2\n    return response.json($3)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
 	},
 	"Syncano Socket Starter Standard User":{
 		"prefix": "synstdu",
-		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response} = Server(ctx)\n  try{\n    const { user } = ctx.meta\n    $1\n    return response.json($2)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+		"body": "import Server from '@syncano/core'\nexport default async ctx => {\n  const {data, response} = new Server(ctx)\n  try{\n    const { user } = ctx.meta\n    $1\n    return response.json($2)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
 	},
 	"Syncano Socket Starter Standard User Args":{
 		"prefix": "synstdua",
-		"body": "import Server from 'syncano-server'\nexport default async ctx => {\n  const {data, response} = Server(ctx)\n  try{\n    const { user } = ctx.meta\n    const { $1 } = ctx.args\n    $2\n    return response.json($3)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+		"body": "import Server from '@syncano/core'\nexport default async ctx => {\n  const {data, response} = new Server(ctx)\n  try{\n    const { user } = ctx.meta\n    const { $1 } = ctx.args\n    $2\n    return response.json($3)\n  } catch({message}){\n    return response.json(message,400)\n   }\n}"
+	},
+	"syncano-validated-socket-runner":{
+    "prefix": "svs-runner",
+    "body": [
+      "import Server from 'syncano-server';",
+      "",
+      "class MiddlewareError extends Error {",
+      "  constructor(details) {",
+      "    super('middleware error');",
+      "    this.details = details;",
+      "  }",
+      "}",
+      "",
+      "function runMiddleware(ctx, server, runner, middleware, options) {",
+      "  const {response, socket} = new Server;",
+      "  if (Object.keys(middleware).length === 0) {",
+      "    return execRunner(ctx, runner, ctx.args, server).then(resp => {",
+      "      return resp;",
+      "    });",
+      "  }",
+      "  return socket",
+      "    .post('middleware-socket/execute', {",
+      "      args: ctx.args,",
+      "      meta: ctx.meta,",
+      "      middleware,",
+      "      options",
+      "    })",
+      "    .then(",
+      "      resp => {",
+      "        const {args, middlewareResult} = resp;",
+      "        return execRunner(ctx, runner, args, server).then(resp => {",
+      "          return resp;",
+      "        });",
+      "      },",
+      "      e => {",
+      "        let errHandler = e => {",
+      "          if (e.response) {",
+      "            return response.json(e.response.data, e.response.status);",
+      "          } else {",
+      "            return response.json({e}, 500);",
+      "          }",
+      "        };",
+      "        return errHandler(e);",
+      "      }",
+      "    );",
+      "}",
+      "",
+      "function execRunner(ctx, runner, args, server) {",
+      "  return runner(ctx, args, server).then(resp => {",
+      "    return resp;",
+      "  });",
+      "}",
+      "",
+      "export default (ctx, runner, middleware, options) => {",
+      "  const server = new Server(ctx);",
+      "  const {response, logger} = new Server;",
+      "  const {debug} = logger(ctx.meta.executor);",
+      "  middleware = middleware || {};",
+      "  options = options || {};",
+      "  return runMiddleware(ctx, server, runner, middleware, options).then(resp => {",
+      "    return resp;",
+      "  });",
+      "};"
+    ]
+  },
+  "syncano-validated-socket":{
+    "prefix": "svs",
+    "body": [
+      "import runner from './runner';",
+      "",
+      "function run(ctx, args, server) {",
+      "  const {response} = new Server;",
+      "  return Promise.resolve(response.json({}));",
+      "}",
+      "",
+      "let middleware = {",
+      "};",
+      "",
+      "export default ctx => {",
+      "  return runner(ctx, run, middleware);",
+      "};"
+		]
 	}
 }

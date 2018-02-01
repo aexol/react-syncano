@@ -37,11 +37,11 @@ class Autosuggest extends React.Component {
       list = [],
       name = "autosuggest",
       placeholder,
-      Component = <input />
+      ...props
     } = this.props
     return (
       <div className="Autosuggest">
-        <Component onChange={this.onChange} value={value} type="text" list={name} placeholder={placeholder || name} />
+        <input {...props} onChange={this.onChange} value={value} type="text" list={name} placeholder={placeholder || name} />
         <datalist id={name}>
           {list && list.map((i, index) => <option key={index} value={i} />)}
         </datalist>

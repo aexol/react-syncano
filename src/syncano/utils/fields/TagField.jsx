@@ -8,9 +8,11 @@ const TagField = ({
   multi,
   className = '',
   Component = Creatable,
-  t
+  t,
+  ...props
 }) => (
     <Component
+      {...props}
       className={classnames({
         forgenInput: true,
         changed: t.state.fields[name] !== t.state.initial[name],

@@ -4,8 +4,9 @@ const TextareaField = ({
   name,
   placeholder,
   className = '',
-  Component = <textarea />,
-  t 
+  Component = () => <textarea />,
+  t,
+  ...props
 }) => (
     <div
       className={classnames({
@@ -15,6 +16,7 @@ const TextareaField = ({
       key={name}
     >
       <Component
+        {...props}
         className={classnames({
           changed: t.state.fields[name] !== t.state.initial[name],
         })}

@@ -21,11 +21,13 @@ export default class GeoField extends React.Component {
       suggestList,
       className = '',
       params = {},
-      Component,
-      t
+      Component = AutosuggestField,
+      t,
+      ...props
     } = this.props
     return (
-      <AutosuggestField
+      <Component
+        {...props}
         name={name}
         placeholder={placeholder}
         className={className}

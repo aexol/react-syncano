@@ -7,10 +7,12 @@ const AutosuggestField = ({
   load,
   list,
   className = '',
-  Component,
-  t
+  Component = Autosuggest,
+  t,
+  ...props
 }) => (
-    <Autosuggest
+    <Component
+      {...props}
       initialValue={t.state.fields[name]}
       load={load}
       name={name}

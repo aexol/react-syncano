@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { display } from '../../display'
 import {
-  DatepickerField,
+  DatetimeField,
   FileField,
   GeoField,
   SelectField,
@@ -12,6 +12,7 @@ import {
   TextareaField,
   TextField
 } from './fields'
+
 import receive from './receivers'
 import FieldWrapper from "./FieldWrapper";
 const getBase64 = (file, callback) => {
@@ -44,7 +45,7 @@ const fieldElements = {
   file: FileField,
   geo: GeoField,
   tag: TagField,
-  datepicker: DatepickerField
+  datetime: DatetimeField
 }
 @connect(
   state => ({

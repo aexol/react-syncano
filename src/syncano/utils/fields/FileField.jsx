@@ -5,10 +5,12 @@ const FileField = ({
   placeholder,
   className = '',
   Component = <input />,
-  t
+  t,
+  ...props
 }) => (
     <div className='formgenFile' key={name}>
       <Component
+        {...props}
         className={classnames({
           [className]: true,
           forgenInput: true,

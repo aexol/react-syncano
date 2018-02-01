@@ -10,6 +10,7 @@ import {
   removeToken
 } from '../server/config'
 import { castField, generateUniq, toFormData } from './utils'
+import { error } from 'util';
 export const syncanoGeneric = ({ name, f }) => state => dispatch => {
   s.post(name).then(json => {
     dispatch(f)
@@ -58,8 +59,8 @@ export const syncanoRefreshToken = ({ username, token }) => state => dispatch =>
     }))
   })
 }
-export const syncanoRegister = ({username, password}) => state => dispatch => {
-  s.post('rest-auth/register', {username, password}).then(json => {
+export const syncanoRegister = ({ username, password }) => state => dispatch => {
+  s.post('rest-auth/register', { username, password }).then(json => {
     setToken(json.token)
     setUsername(json.username)
     s.setToken(json.token)
@@ -90,12 +91,12 @@ export const syncanoLogin = ({ username, password }) => state => dispatch => {
       errorLogin: false
     }))
   })
-  .catch(error => {
-    dispatch(state => ({
-      ...state,
-      errorLogin: true
-    }))
-  })
+    .catch(error => {
+      dispatch(state => ({
+        ...state,
+        errorLogin: true
+      }))
+    })
 }
 export const syncanoLogout = () => state => dispatch => {
   removeUsername()
@@ -116,7 +117,12 @@ export const syncanoList = ({ model }) => state => dispatch => {
         ...state,
         [model]: json
       }))
-    )
+    ).catch(error => {
+      dispatch(state => ({
+        ...state,
+        restError: error
+      }))
+    })
 }
 export const syncanoAdd = ({ model, data }) => state => dispatch => {
   const id = state[model].length + 1
@@ -134,6 +140,11 @@ export const syncanoAdd = ({ model, data }) => state => dispatch => {
         ...state,
         [model]: state[model].map(m => (m.id === id ? json : m))
       }))
+    }).catch(error => {
+      dispatch(state => ({
+        ...state,
+        restError: error
+      }))
     })
 }
 export const syncanoUpdate = ({ model, data, id }) => state => dispatch => {
@@ -148,6 +159,11 @@ export const syncanoUpdate = ({ model, data, id }) => state => dispatch => {
         ...state,
         [model]: [...state[model].map(o => (o.id === json.id ? json : o))]
       }))
+    }).catch(error => {
+      dispatch(state => ({
+        ...state,
+        restError: error
+      }))
     })
 }
 export const syncanoDelete = ({ model, id }) => state => dispatch => {
@@ -160,7 +176,12 @@ export const syncanoDelete = ({ model, id }) => state => dispatch => {
       dispatch(state => ({
         ...state,
         [model]: state[model].filter(o => o.id !== parseInt(id))
-      }))
+      })).catch(error => {
+        dispatch(state => ({
+          ...state,
+          restError: error
+        }))
+      })
     })
 }
 export const syncanoRestFrameworkConfigure = data => state => (

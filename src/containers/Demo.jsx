@@ -39,6 +39,10 @@ class Home extends React.Component {
         name: "textarea",
         type: "textarea",
         errors: this.state.textareaerrors
+      },
+      {
+        name: "datetime",
+        type: "datetimes"
       }
     ]
     return (

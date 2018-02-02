@@ -4,7 +4,7 @@ const TextareaField = ({
   name,
   placeholder,
   className = '',
-  Component = () => <textarea />,
+  Component = (props) => <textarea {...props} />,
   t,
   ...props
 }) => (

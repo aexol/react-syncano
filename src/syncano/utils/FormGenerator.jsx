@@ -138,6 +138,7 @@ class FormGenerator extends React.Component {
   }
   render() {
     const { fields, submitText, AlternativeWrapper = FieldWrapper } = this.props
+    const { Submit = props => <input className='Submit' type="submit" value={submitText || "submit"} {...props} /> } = this.props
     const fieldsRender = fields.map(f => {
       let Field = { ...f }
       if (Field.target) {
@@ -162,7 +163,7 @@ class FormGenerator extends React.Component {
     return (
       <form onSubmit={this.validate} className='FormGen'>
         {fieldsRender}
-        <input className='Submit' type="submit" value={submitText || "submit"} />
+        <Submit />
       </form>
     )
   }

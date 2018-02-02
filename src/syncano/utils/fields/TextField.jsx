@@ -5,7 +5,7 @@ const TextField = ({
   placeholder,
   inputType,
   className = '',
-  Component = () => <input />,
+  Component = (props) => <input {...props} />,
   t,
   ...props
 }) => (

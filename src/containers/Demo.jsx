@@ -41,8 +41,16 @@ class Home extends React.Component {
         errors: this.state.textareaerrors
       },
       {
+        name: "file",
+        type: "file",
+      },
+      {
         name: "datetime",
-        type: "datetimes"
+        type: "datetime"
+      },
+      {
+        name: "geo",
+        type: "geo"
       }
     ]
     return (

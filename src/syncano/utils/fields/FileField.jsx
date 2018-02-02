@@ -4,7 +4,7 @@ const FileField = ({
   name,
   placeholder,
   className = '',
-  Component = (props) => <input {...props} />,
+  Component = (props) => <input type="file" {...props} />,
   t,
   ...props
 }) => (

@@ -82,11 +82,8 @@ class FormGenerator extends React.Component {
     }
   }
   componentWillMount() {
-    this.componentWillReceiveProps(this.props)
-  }
-  componentWillReceiveProps(nextProps) {
-    const { fields, validator, values } = nextProps
-    var newFields = {}
+    const { fields, validator, values } = this.props
+    let newFields = {}
     for (var f of fields) {
       newFields[f.name] = values[f.name]
         ? receive({ data: values[f.name], ...f })

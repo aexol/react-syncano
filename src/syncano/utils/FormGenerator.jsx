@@ -35,10 +35,6 @@ const validators = {
   syncano: {
     select: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
     tag: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
-    geo: e => ({
-      latitude: e.split(',')[0],
-      longitude: e.split(',')[0]
-    })
   }
 }
 
@@ -79,6 +75,9 @@ class FormGenerator extends React.Component {
       initial: {
         ...newFields
       },
+      changed: {
+
+      },
       errors: {}
     }
   }
@@ -114,9 +113,7 @@ class FormGenerator extends React.Component {
     var sfields = {
       ...this.state.fields
     }
-    const filteredValidate = Object.keys(sfields).filter(
-      k => sfields[k] !== this.state.initial[k]
-    )
+    const filteredValidate = Object.keys(sfields).filter(k => !!this.state.changed[k])
     let returnData = filteredValidate.reduce(
       (accumulator, currentValue, currentIndex, array) => {
         accumulator[currentValue] = sfields[currentValue]
@@ -152,6 +149,10 @@ class FormGenerator extends React.Component {
       fields: {
         ...this.state.fields,
         [name]: value
+      },
+      changed: {
+        ...this.state.changed,
+        [name]: true
       }
     })
   }
@@ -175,7 +176,7 @@ class FormGenerator extends React.Component {
       }
       return (
         <AlternativeWrapper {...FieldValues} key={i} errors={errors}>
-          <Component modifyField={this.modifyField} fieldValue={this.state.fields[Field.name]} {...FieldValues} />
+          <Component changed={!!this.state.changed[Field.name]} modifyField={this.modifyField} fieldValue={this.state.fields[Field.name]} {...FieldValues} />
         </AlternativeWrapper>
       )
     })

@@ -4,6 +4,19 @@ class Autosuggest extends React.Component {
     super(props)
     this.state = {}
   }
+  componentWillMount() {
+    const { fieldValue='' } = this.props
+    this.setState({
+      value: fieldValue
+    })
+  }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.fieldValue && this.state.value === ''){
+      this.setState({
+        value:nextProps.fieldValue
+      })
+    }
+  }
   onChange = (e) => {
     const { load, onSelect } = this.props
     const { value } = e.target
@@ -11,21 +24,6 @@ class Autosuggest extends React.Component {
     if (value.length > 2) {
       load(value)
       onSelect(value)
-    }
-  }
-  componentDidUpdate(prevProps) {
-    const {
-        value = "",
-      initial = true
-      } = this.state
-    const {
-        initialValue
-      } = this.props
-    if (initialValue !== prevProps.initialValue && initial) {
-      this.setState({
-        value: initialValue,
-        initial: false
-      })
     }
   }
   render() {

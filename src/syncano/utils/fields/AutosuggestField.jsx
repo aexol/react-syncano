@@ -8,22 +8,22 @@ const AutosuggestField = ({
   list,
   className = '',
   Component = Autosuggest,
-  t,
+  modifyField,
+  fieldValue,
+  changed,
   ...props
 }) => (
     <Component
       {...props}
-      initialValue={t.state.fields[name]}
+      initialValue={fieldValue}
       load={load}
       name={name}
       placeholder={placeholder}
       list={list}
       onSelect={e => {
-        t.setState({
-          fields: {
-            ...t.state.fields,
-            [name]: e
-          }
+        modifyField({
+          name,
+          value: e
         })
       }}
     />

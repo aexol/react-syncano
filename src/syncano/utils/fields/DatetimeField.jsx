@@ -24,27 +24,27 @@ class DatetimeField extends React.Component {
       className = '',
       placeholder,
       Component = Datetime,
-      t,
+      modifyField,
+      fieldValue,
+      changed,
       ...props
     } = this.props
     return (
       <Component
         {...props}
         className={classnames({
-          changed: t.state.fields[name] !== t.state.initial[name]
+          changed
         })}
         //className={`formgenInput ${t.state.fields[name] !== t.state.initial[name] ? "changed" : "" }`}
         inputProps={{ placeholder: placeholder ? placeholder : name }}
         key={name}
-        onChange={(e) => {
-          t.setState({
-            fields: {
-              ...t.state.fields,
-              [name]: e
-            }
+        onChange={e => {
+          modifyField({
+            name,
+            value: e
           })
         }}
-        value={t.state.fields[name]} />
+        value={fieldValue} />
     )
   }
 }

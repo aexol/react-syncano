@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
+import { JsonEditor } from 'react-json-edit'
 const ClassicTextarea = (props = {}) => <textarea {...props} />
 const TextareaField = ({
   name,
@@ -18,20 +19,12 @@ const TextareaField = ({
       })}
       key={name}
     >
-      <Component
-        {...props}
-        className={classnames({
-          changed,
-        })}
-        onChange={e => {
+        <JsonEditor value={fieldValue} propagateChanges={(e)=>{
           modifyField({
             name,
-            value: e.target.value
+            value:e
           })
-        }}
-        placeholder={placeholder || name}
-        value={fieldValue}
-      />
+        }}/>
     </div>
   )
 export default TextareaField

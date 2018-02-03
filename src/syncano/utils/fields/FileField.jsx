@@ -1,11 +1,14 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
+const ClassicFileInput = (props = {}) => <input type="file" {...props} />
 const FileField = ({
   name,
   placeholder,
   className = '',
-  Component = (props) => <input type="file" {...props} />,
-  t,
+  Component = ClassicFileInput,
+  modifyField,
+  fieldValue,
+  changed,
   ...props
 }) => (
     <div className='formgenFile' key={name}>
@@ -14,14 +17,12 @@ const FileField = ({
         className={classnames({
           [className]: true,
           forgenInput: true,
-          changed: t.state.fields[name] !== t.state.initial[name],
+          changed,
         })}
         onChange={e => {
-          t.setState({
-            fields: {
-              ...t.state.fields,
-              [name]: e.target.files[0]
-            }
+          modifyField({
+            name,
+            value: e.target.files[0]
           })
         }}
         placeholder={placeholder || name}
@@ -29,15 +30,9 @@ const FileField = ({
       />
       <a
         className='file_holder'
-        href={
-          t.state.fields[name] !== t.state.initial[name]
-            ? ''
-            : t.state.initial[name] ? t.state.initial[name] : ''
-        }
+        href={fieldValue instanceof File ? '' : fieldValue}
       >
-        {t.state.fields[name] !== t.state.initial[name]
-          ? ''
-          : t.state.initial[name] ? t.state.initial[name] : ''}
+        {fieldValue instanceof File ? '' : fieldValue}
       </a>
     </div>
   )

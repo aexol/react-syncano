@@ -6,31 +6,31 @@ const TagField = ({
   name,
   placeholder,
   multi,
+  modifyField,
+  fieldValue,
+  changed,
   className = '',
   Component = Creatable,
-  t,
   ...props
 }) => (
     <Component
       {...props}
       className={classnames({
         forgenInput: true,
-        changed: t.state.fields[name] !== t.state.initial[name],
+        changed,
         [className]: true,
       })}
       key={name}
       multi={multi || true}
       name={placeholder || name}
       onChange={e => {
-        t.setState({
-          fields: {
-            ...t.state.fields,
-            [name]: e
-          }
+        modifyField({
+          name,
+          value: e
         })
       }}
       placeholder={placeholder || name}
-      value={t.state.fields[name]}
+      value={fieldValue}
     />
   )
 export default TagField

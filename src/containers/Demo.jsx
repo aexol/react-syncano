@@ -36,21 +36,80 @@ class Home extends React.Component {
         pattern: /^\d+$/
       },
       {
-        name: "textarea",
-        type: "textarea",
-        errors: this.state.textareaerrors
-      },
-      {
         name: "file",
         type: "file",
+      },
+      {
+        name: "tag",
+        type: "tag"
       },
       {
         name: "datetime",
         type: "datetime"
       },
       {
+        name: "object",
+        type: "object"
+      },
+      {
         name: "geo",
         type: "geo"
+      },
+      {
+        name: "float",
+        type: "float"
+      },
+      {
+        name: "integer",
+        type: "integer"
+      },
+      {
+        name: "boolean",
+        type: "boolean"
+      },
+      {
+        name: 'reference',
+        type: 'reference',
+        values: [
+          {
+            id: 1,
+            name: "Ref 1"
+          },
+          {
+            id: 2,
+            name: "Ref 2"
+          },
+          {
+            id: 3,
+            name: "Ref 3"
+          },
+          {
+            id: 4,
+            name: "Ref 4"
+          }
+        ]
+      },
+      {
+        name: 'relation',
+        type: 'relation',
+        values: [
+          {
+            id: 1,
+            name: "Ref 1"
+          },
+          {
+            id: 2,
+            name: "Ref 2"
+          },
+          {
+            id: 3,
+            name: "Ref 3"
+          },
+          {
+            id: 4,
+            name: "Ref 4"
+          }
+        ]
       }
     ]
     return (
@@ -62,11 +121,11 @@ class Home extends React.Component {
           })
         }} fields={fieldsDemo} />
         {/* Alternative form with own wrapper */}
-        <FormGenerator AlternativeWrapper={MyFieldWrapper} validate={() => {
+        {/* <FormGenerator AlternativeWrapper={MyFieldWrapper} validate={() => {
           this.setState({
             textareaerrors: ['blad textarea']
           })
-        }} fields={fieldsDemo} />
+        }} fields={fieldsDemo} /> */}
       </div>
     )
   }

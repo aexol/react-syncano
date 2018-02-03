@@ -1,40 +1,44 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-const TextField = ({
-  name,
-  placeholder,
-  inputType,
-  className = '',
-  Component = (props) => <input {...props} />,
-  t,
-  ...props
-}) => (
-    <div
-      className={classnames({
-        formgenInput: true,
-        [className]: true
-      })}
-      key={name}
-    >
-      <Component
-        {...props}
+const ClassicInput = (props = {}) => <input type="text" {...props} />
+class TextField extends React.Component {
+  render() {
+    const {
+      name,
+      placeholder,
+      inputType,
+      modifyField,
+      fieldValue,
+      changed,
+      className = '',
+      Component = ClassicInput,
+      ...props
+    } = this.props
+    return (
+      <div
         className={classnames({
-          changed: t.state.fields[name] !== t.state.initial[name],
+          formgenInput: true,
+          [className]: true
         })}
-        key={name}
-        onChange={e => {
-          t.setState({
-            fields: {
-              ...t.state.fields,
-              [name]: e.target.value
-            }
-          })
-        }}
-        placeholder={placeholder || name}
-        name={name}
-        type={inputType || 'text'}
-        value={t.state.fields[name]}
-      />
-    </div>
-  )
+      >
+        <Component
+          {...props}
+          className={classnames({
+            changed
+          })}
+          onChange={e => {
+            modifyField({
+              name,
+              value: e.target.value
+            })
+          }}
+          placeholder={placeholder || name}
+          name={name}
+          type={inputType || 'text'}
+          value={fieldValue}
+        />
+      </div>
+    )
+  }
+}
 export default TextField

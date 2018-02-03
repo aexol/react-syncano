@@ -22,7 +22,9 @@ export default class GeoField extends React.Component {
       className = '',
       params = {},
       Component = AutosuggestField,
-      t,
+      modifyField,
+      fieldValue,
+      changed,
       ...props
     } = this.props
     return (
@@ -31,8 +33,8 @@ export default class GeoField extends React.Component {
         name={name}
         placeholder={placeholder}
         className={className}
+        modifyField={modifyField}
         list={suggestList}
-        t={t}
         load={(e) => {
           syncanoGeosuggest({
             keyword: e,

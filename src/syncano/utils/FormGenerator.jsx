@@ -10,11 +10,16 @@ import {
   SelectField,
   TagField,
   TextareaField,
-  TextField
+  ObjectField,
+  RelationField,
+  TextField,
+  NumberField,
+  BooleanField
 } from './fields'
 
 import receive from './receivers'
-import FieldWrapper from "./FieldWrapper";
+import FieldWrapper from "./FieldWrapper"
+import SubmitComponent from './SubmitComponent'
 const getBase64 = (file, callback) => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
@@ -38,14 +43,20 @@ const validators = {
 }
 
 const fieldElements = {
-  // TODO: datetime input
-  text: TextField,
-  textarea: TextareaField,
+  string: TextField,
+  boolean: BooleanField,
+  integer: NumberField,
+  float: NumberField,
+  relation: RelationField,
+  text: TextareaField,
   select: SelectField,
   file: FileField,
   geo: GeoField,
   tag: TagField,
-  datetime: DatetimeField
+  datetime: DatetimeField,
+  object: ObjectField,
+  relation: RelationField,
+  reference: SelectField
 }
 @connect(
   state => ({
@@ -136,10 +147,18 @@ class FormGenerator extends React.Component {
     }
     this.props.validate(returnData)
   }
+  modifyField = ({ name, value }) => {
+    this.setState({
+      fields: {
+        ...this.state.fields,
+        [name]: value
+      }
+    })
+  }
   render() {
     const { fields, submitText, AlternativeWrapper = FieldWrapper } = this.props
-    const { Submit = props => <input className='Submit' type="submit" value={submitText || "submit"} {...props} /> } = this.props
-    const fieldsRender = fields.map(f => {
+    const { Submit = SubmitComponent } = this.props
+    const fieldsRender = fields.map((f, i) => {
       let Field = { ...f }
       if (Field.target) {
         if (typeof this.props[Field.target] === 'undefined') {
@@ -155,8 +174,8 @@ class FormGenerator extends React.Component {
         pattern: FieldValues.pattern ? FieldValues.pattern.toString().replace(/\//g, "") : undefined
       }
       return (
-        <AlternativeWrapper {...FieldValues} key={FieldValues.name} errors={errors}>
-          <Component t={this} {...FieldValues} />
+        <AlternativeWrapper {...FieldValues} key={i} errors={errors}>
+          <Component modifyField={this.modifyField} fieldValue={this.state.fields[Field.name]} {...FieldValues} />
         </AlternativeWrapper>
       )
     })

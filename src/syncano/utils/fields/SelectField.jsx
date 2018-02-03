@@ -4,40 +4,40 @@ import classnames from 'classnames'
 const SelectField = ({
   name,
   placeholder,
-  label = 'id',
+  label = 'name',
   value = 'id',
   values,
   multi,
   className = '',
   Component = Select,
-  t,
+  modifyField,
+  fieldValue,
+  changed,
   ...props
 }) => (
     <Component
       {...props}
       className={classnames({
         forgenInput: true,
-        changed: t.state.fields[name] !== t.state.initial[name],
+        changed,
         [className]: true,
       })}
       key={name}
       multi={multi || false}
       name={placeholder || name}
       onChange={e => {
-        t.setState({
-          fields: {
-            ...t.state.fields,
-            [name]: e
-          }
+        modifyField({
+          name,
+          value: e
         })
       }}
       options={values.map(k => ({
         key: `${name}-${k[value]}`,
-        value: k[value],
-        label: k[label]
+        value: k[value] ,
+        label: k[label] || k[value]
       }))}
       placeholder={placeholder || name}
-      value={t.state.fields[name]}
+      value={fieldValue}
     />
   )
 export default SelectField

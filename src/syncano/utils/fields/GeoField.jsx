@@ -34,6 +34,8 @@ export default class GeoField extends React.Component {
         placeholder={placeholder}
         className={className}
         modifyField={modifyField}
+        fieldValue={fieldValue}
+        changed={changed}
         list={suggestList}
         load={(e) => {
           syncanoGeosuggest({

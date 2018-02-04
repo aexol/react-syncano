@@ -34,6 +34,8 @@ const validators = {
   normal: {},
   syncano: {
     select: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
+    reference: e => e.value,
+    relation: e => e.map(p => p.value),
     tag: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
   }
 }

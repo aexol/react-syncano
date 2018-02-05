@@ -1,4 +1,4 @@
-const {resolve} = require('path')
+const { resolve } = require('path')
 
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -36,7 +36,7 @@ const config = {
         loaders: ['babel-loader'],
         exclude: /node_modules/
       },
-      {test: /\.css$/, loader: 'style-loader!css-loader'},
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
       {
         test: /\.scss$/,
         use: [
@@ -65,6 +65,10 @@ const config = {
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
         use: 'file-loader?&name=fonts/[name].[ext]'
+      },
+      {
+        test: /\.yml$/,
+        loader: 'yml-loader'
       }
     ]
   },
@@ -89,8 +93,8 @@ const config = {
       disable: false,
       allChunks: true
     }),
-    new CopyWebpackPlugin([{from: 'vendors', to: 'vendors'}]),
-    new OpenBrowserPlugin({url: 'http://localhost:8080'}),
+    new CopyWebpackPlugin([{ from: 'vendors', to: 'vendors' }]),
+    new OpenBrowserPlugin({ url: 'http://localhost:8080' }),
     new webpack.HotModuleReplacementPlugin()
   ]
 }

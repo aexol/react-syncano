@@ -14,7 +14,7 @@ const config = {
   context: resolve(__dirname, 'src'),
 
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle[hash].js',
     path: resolve(__dirname, 'dist'),
     publicPath: ''
   },
@@ -35,7 +35,7 @@ const config = {
       beautify: false
     }),
     new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }),
-    new ExtractTextPlugin({ filename: './styles/style.css', disable: false, allChunks: true }),
+    new ExtractTextPlugin({ filename: './styles/style[hash].css', disable: false, allChunks: true }),
     new CopyWebpackPlugin([{ from: './vendors', to: 'vendors' }])
   ],
 
@@ -70,7 +70,14 @@ const config = {
           }
         ]
       },
-      { test: /\.eot(\?v=\d+.\d+.\d+)?$/, use: 'file-loader?name=fonts/[name].[ext]' }
+      { 
+        test: /\.eot(\?v=\d+.\d+.\d+)?$/, 
+        use: 'file-loader?name=fonts/[name].[ext]' 
+      },
+      {
+        test: /\.yml$/,
+        loader: 'yml-loader'
+      }
     ]
   },
   resolve: {

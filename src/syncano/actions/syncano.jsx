@@ -1,5 +1,4 @@
 import React from 'react'
-import EditableString from '../EditableString'
 import {
   s,
   setToken,
@@ -206,27 +205,16 @@ export const syncanoGeosuggest = ({ keyword, params }) => state => dispatch => {
     }))
   })
 }
-export const getString = (name, content = 'Some text') => state => dispatch => {
-  let str = getState().uni.text
-  str = str || []
-  if (str.length === 0) {
-    return 'Loading ...'
-  }
-  return (
-    <EditableString
-      save={(id, s) => {
-        dispatch(
-          syncanoUpdate({
-            id,
-            model: 'text',
-            data: {
-              content: s
-            }
-          })
-        )
-      }}
-      name={name}
-      content={content}
-    />
-  )
+export const syncanoWait = ({name}) => state => dispatch => {
+  dispatch( state => ({
+    ...state,
+    syncanoWaiting:true
+  }))
+}
+
+export const syncanoEndWait = ({name}) => state => dispatch => {
+  dispatch( state => ({
+    ...state,
+    syncanoWaiting:false
+  }))
 }

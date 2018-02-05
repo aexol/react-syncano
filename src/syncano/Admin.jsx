@@ -7,7 +7,6 @@ import {withRouter, Switch, Route, Link} from 'react-router-dom'
 import './Admin.scss'
 import FormGen from './utils/FormGenerator'
 import List from './List'
-import Migrate from './Migrate'
 import Config from './Config'
 import Model from "./Model";
 import classnames from 'classnames'
@@ -136,9 +135,6 @@ class SyncanoAdmin extends React.Component {
           <Link to={`${match.url}/manage`} className='SyncanoCategory'>
             Manage
           </Link>
-          <Link to={`${match.url}/migrate`} className='SyncanoCategory'>
-            Migrate
-          </Link>
           <Link to={`${match.url}/model`} className='SyncanoCategory'>
             Model
           </Link>
@@ -201,10 +197,6 @@ class SyncanoAdmin extends React.Component {
             </div>
           </div>
           <Switch>
-            <Route
-              render={() => <Migrate model={model} />}
-              path='/admin/migrate'
-            />
             <Route
               render={() => <List model={model} />}
               path='/admin/manage'

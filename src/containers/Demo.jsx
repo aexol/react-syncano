@@ -113,7 +113,11 @@ class Home extends React.Component {
       }
     ]
     return (
-      <div className='Demo'>
+      <div className='Demo' style={{
+        width:320,
+        margin:'auto'
+      }}>
+        <h3>Demo form</h3>
         {/* Simple form */}
         <FormGenerator validate={() => {
           this.setState({

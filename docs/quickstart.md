@@ -40,7 +40,13 @@ $ syncano-cli create my-socket-name
 Navigate to socket directory and create your models in your neewly created shiny socket as defined in: [Link to socket docs](https://syncano.github.io/syncano-node-cli/#/building-sockets/data-classes)
 ## Using your project
 1. Go back to place where you've cloned this repo.
-2. Run command:
+2. Edit src/syncano.yml file
+```
+instance: socket-development
+app: admin
+```
+Type your syncano instance name and your app name. App name is useful when you have multiple syncano applications running on the same instance.
+3. Run command:
 ```sh
 $ yarn run start
 ```
@@ -50,8 +56,8 @@ Hello! Everything is up and runnin.
 Now you can start creating your ultra-fast marvelous react-repatch-syncano app. 
 Happy coding.
 ```
-3. Navigate to admin panel [admin](localhost:8080/#/admin) and login with your superuser.
-4. As you see you have 4 panels here MANAGE, MODEL[TBD], CONFIG, MIGRATE
+4. Navigate to admin panel [admin](localhost:8080/#/admin) and login with your superuser.
+5. As you see you have 4 panels here MANAGE, MODEL[TBD], CONFIG, MIGRATE
 
 
 ## Config

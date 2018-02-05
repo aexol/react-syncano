@@ -72,9 +72,6 @@ This is the same stuff that logged in but on object level.
 ## Manage
 Manage your models here
 
-## Migrate
-Migrate models from external rest source
-
 ## Model
 To be done. Platform for mocking endpoint connections
 

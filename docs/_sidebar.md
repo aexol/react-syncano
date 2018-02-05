@@ -3,5 +3,6 @@
 - [Snippets](snippets.md)
 - [Actions](actions.md)
 - Examples
+  - [Forms](examples/forms.md)
   - [Bookstore](examples/bookstore.md)
 - [Roadmap](roadmap.md)

@@ -106,6 +106,21 @@ class FormGenerator extends React.Component {
     }
     this.setState(updateDict)
   }
+  componentWillReceiveProps(nextProps){
+    const { values } = this.props
+    if(nextProps.values && nextProps.values !== values){
+      let updateDict = {}
+      for(var key of Object.keys(this.state.fields)){
+        updateDict[key] = nextProps.values[key]
+      }
+      this.setState({
+        fields:{
+          ...this.state.fields,
+          ...updateDict
+        }
+      })
+    }
+  }
   validate = (e) => {
     e.preventDefault()
     const { validator = 'syncano', fields, isFormData = false } = this.props

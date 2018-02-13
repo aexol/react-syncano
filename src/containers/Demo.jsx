@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import FormGenerator from "../syncano/utils/FormGenerator";
-
+import { withSyncano } from "../syncano/decorators";
 const MyFieldWrapper = ({ children, errors = [], ...props }) => (
   <div className="FieldWrapper">
     <label>{props.name}</label>
@@ -11,14 +10,7 @@ const MyFieldWrapper = ({ children, errors = [], ...props }) => (
   </div>
 )
 
-@connect(
-  state => ({
-    valid: state.valid
-  }),
-  {
-    // Put actions here
-  }
-)
+@withSyncano()
 class Home extends React.Component {
   constructor(props) {
     super(props)
@@ -30,8 +22,8 @@ class Home extends React.Component {
     const textareaerror = "Blad textarea"
     const fieldsDemo = [
       {
-        name: "text",
-        type: "text",
+        name: "string",
+        type: "string",
         required: true,
         pattern: /^\d+$/
       },
@@ -114,8 +106,8 @@ class Home extends React.Component {
     ]
     return (
       <div className='Demo' style={{
-        width:320,
-        margin:'auto'
+        width: 320,
+        margin: 'auto'
       }}>
         <h3>Demo form</h3>
         {/* Simple form */}

@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react'
 import 'react-select/dist/react-select.css'
 import classnames from 'classnames'
-import { connect } from 'react-redux'
-import { display } from '../../display'
 import {
   DatetimeField,
   FileField,
@@ -20,6 +18,7 @@ import {
 import receive from './receivers'
 import FieldWrapper from "./FieldWrapper"
 import SubmitComponent from './SubmitComponent'
+import { withSyncano } from '../decorators';
 const getBase64 = (file, callback) => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
@@ -56,12 +55,9 @@ const fieldElements = {
   relation: RelationField,
   reference: SelectField
 }
-@connect(
-  state => ({
-    ...state
-  }),
-  {}
-)
+
+
+@withSyncano()
 class FormGenerator extends React.Component {
   constructor(props) {
     super(props)
@@ -180,7 +176,7 @@ class FormGenerator extends React.Component {
           return
         }
         Field.values = this.props[Field.target]
-        Field.label = display(Field.target)
+        Field.label = Field.display || 'id'
       }
       const Component = fieldElements[Field.type]
       let { errors, ...FieldValues } = Field

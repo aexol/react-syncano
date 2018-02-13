@@ -1,8 +1,7 @@
 import React, {PropTypes} from 'react'
-import {connect} from 'react-redux'
-import * as actions from './actions'
 import FormGenerator from './utils/FormGenerator'
 import Tip from './utils/Tip'
+import { withSyncano } from './decorators'
 const configFields = [
   {
     type: 'tag',
@@ -21,16 +20,8 @@ const configFields = [
   }
 ]
 
-@connect(
-  state => ({
-    models: state.models,
-    config: state.config
-  }),
-  {
-    syncanoRestFrameworkConfigure: actions.syncanoRestFrameworkConfigure,
-    syncanoGetConfig:actions.syncanoGetConfig
-  }
-)
+
+@withSyncano()
 class Config extends React.Component {
   componentWillMount () {
     const {syncanoGetConfig} = this.props

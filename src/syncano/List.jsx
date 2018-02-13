@@ -1,21 +1,12 @@
 import React, {PropTypes} from 'react'
-import {connect} from 'react-redux'
-import * as actions from './actions'
 import {withRouter, Switch, Route} from 'react-router-dom'
 import ModalSet from './media/ModalSet'
 import Loading from './utils/Loading'
-import {display} from '../display'
 import Select from 'react-select'
 import './List.scss'
+import { withSyncano } from './decorators'
 
-@connect(
-  state => ({
-    ...state
-  }),
-  {
-    ...actions
-  }
-)
+@withSyncano()
 class List extends React.Component {
   constructor (props) {
     super(props)
@@ -36,9 +27,8 @@ class List extends React.Component {
       return <div className='ChooseModel'>Choose a model</div>
     }
     let renderedObjects = this.props[model.name]
-    console.log(renderedObjects)
     if (search) {
-      let getter = display(model.name)
+      let getter = 'id'
       if(filtr){
         getter = filtr.value
       }
@@ -101,7 +91,7 @@ class List extends React.Component {
                   })
                 }}
               >
-                {m[display(model.name)]}
+                {m.id}
               </div>
               <div
                 onClick={() => {

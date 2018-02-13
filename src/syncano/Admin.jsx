@@ -1,40 +1,28 @@
-import React, {PropTypes} from 'react'
-import {connect} from 'react-redux'
-import * as actions from './actions'
+import React, { PropTypes } from 'react'
 import ModalSet from './media/ModalSet'
-import {INSTANCE_NAME} from './server/config'
-import {withRouter, Switch, Route, Link} from 'react-router-dom'
+import { INSTANCE_NAME } from './server/config'
+import { withRouter, Switch, Route, Link } from 'react-router-dom'
 import './Admin.scss'
 import FormGen from './utils/FormGenerator'
 import List from './List'
 import Config from './Config'
 import Model from "./Model";
 import classnames from 'classnames'
-import {PreloaderScreen} from './media/PreloaderScreen'
+import { PreloaderScreen } from './media/PreloaderScreen'
+import { withSyncano } from './decorators'
 
-@connect(
-  state => ({
-    ...state
-  }),
-  {
-    ...actions
-  }
-)
-
+@withSyncano()
 class SyncanoAdmin extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {}
   }
-  componentWillMount () {
-    const {valid, token, username} = this.props
-    console.log(this.props)
-    if (token && valid !== true) {
-      this.props.syncanoValidate({token, username})
-    }
+  componentWillMount() {
+    const { syncanoValid } = this.props
+    syncanoValid()
   }
-  componentDidUpdate (prevProps) {
-    const {valid, token, username, models} = this.props
+  componentDidUpdate(prevProps) {
+    const { valid, token, username, models } = this.props
     if (!models) {
       this.props.syncanoSetModels()
     }
@@ -50,8 +38,8 @@ class SyncanoAdmin extends React.Component {
       })
     }
   }
-  render () {
-    const {token, valid, match, models} = this.props
+  render() {
+    const { token, valid, match, models } = this.props
     const {
       open,
       active,
@@ -74,11 +62,11 @@ class SyncanoAdmin extends React.Component {
             fields={[
               {
                 name: 'username',
-                type: 'text'
+                type: 'string'
               },
               {
                 name: 'password',
-                type: 'text',
+                type: 'string',
                 inputType: 'password'
               }
             ]}
@@ -89,7 +77,7 @@ class SyncanoAdmin extends React.Component {
         </div>
       </div>
     )
-    if (!valid && typeof token ==="undefined") {
+    if (!valid && typeof token === "undefined") {
       return loginScreen
     }
     if (valid === null) {
@@ -206,7 +194,7 @@ class SyncanoAdmin extends React.Component {
               path='/admin/config'
             />
             <Route
-              render={() => <Model /> }
+              render={() => <Model />}
               path='/admin/model'
             />
           </Switch>

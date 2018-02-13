@@ -1,6 +1,22 @@
 # Built-in actions
 React-syncano comes with a plenty of built-in actions to use with rest-framework.
 
+## Generic
+
+### Syncano
+This action is a generic action for gathering something from syncano socket and pushing the response to redux state
+
+```js
+  syncano('rest-framework/list',{model:'dummy'}, dummy => ({dummy}))
+```
+
+This function receive response and injects it to store with key name dummy
+
+```js
+  syncano('some-socket/func')
+```
+This function injects response to state with name provided in response. In this case our response must be an object.
+
 ## Schema
 
 ### Syncano Get Models
@@ -25,8 +41,13 @@ Logs out user
 ```js
 syncanoLogout()
 ```
-### syncanoValidate
+### syncanoValid
 This action is used to validate token stored in local storage or cookies
+```js
+syncanoValid()
+```
+### syncanoValidate
+This action is used to validate token stored in local storage or cookies with you having control over username and token
 ```js
 syncanoValidate({
   username:'me',

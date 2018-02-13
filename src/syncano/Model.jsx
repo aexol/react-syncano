@@ -5,14 +5,9 @@ import {withRouter, Switch, Route, Link} from 'react-router-dom'
 import {Layer, Rect, Stage, Group} from 'react-konva'
 import Endpoint from './graph/Endpoint'
 import Grid from './graph/Grid'
-@connect(
-  state => ({
-    ...state
-  }),
-  {
-    ...actions
-  }
-)
+import { withSyncano } from './decorators';
+
+@withSyncano()
 class Model extends React.Component {
   render () {
     return (

@@ -10,9 +10,32 @@ import {
 } from '../server/config'
 import { castField, generateUniq, toFormData } from './utils'
 import { error } from 'util';
-export const syncanoGeneric = ({ name, f }) => state => dispatch => {
-  s.post(name).then(json => {
-    dispatch(f)
+export const syncano = (
+  name,
+  args = {},
+  success = json => json,
+  error = err => err
+) => state => dispatch => {
+  let a = args
+  let sc = success
+  let er = error
+  if(typeof(args) === "function"){
+    a = {}
+    sc = args
+    er = success
+  }
+  s.post(name, a).then(json => {
+    let extraArgs = sc(json, state)
+    dispatch(state => ({
+      ...state,
+      ...extraArgs
+    }))
+  }).catch(e => {
+    let extraArgs = er(e, state)
+    dispatch(state => ({
+      ...state,
+      ...extraArgs
+    }))
   })
 }
 export const syncanoSetModels = () => state => dispatch => {
@@ -35,6 +58,27 @@ export const syncanoGetConfig = () => state => dispatch => {
   })
 }
 export const syncanoValidate = ({ username, token }) => state => dispatch => {
+  s.post('rest-auth/validate', { username, token }).then(json => {
+    if (json.valid) {
+      s.setToken(token)
+    } else {
+      removeToken()
+      removeUsername()
+    }
+    return dispatch(state => ({
+      ...state,
+      valid: json.valid
+    }))
+  })
+}
+export const syncanoValid = () => state => dispatch => {
+  const { username, token } = state
+  if (!username || !token) {
+    return dispatch(state => ({
+      ...state,
+      valid: false
+    }))
+  }
   s.post('rest-auth/validate', { username, token }).then(json => {
     if (json.valid) {
       s.setToken(token)
@@ -205,16 +249,16 @@ export const syncanoGeosuggest = ({ keyword, params }) => state => dispatch => {
     }))
   })
 }
-export const syncanoWait = ({name}) => state => dispatch => {
-  dispatch( state => ({
+export const syncanoWait = ({ name }) => state => dispatch => {
+  dispatch(state => ({
     ...state,
-    syncanoWaiting:true
+    syncanoWaiting: true
   }))
 }
 
-export const syncanoEndWait = ({name}) => state => dispatch => {
-  dispatch( state => ({
+export const syncanoEndWait = ({ name }) => state => dispatch => {
+  dispatch(state => ({
     ...state,
-    syncanoWaiting:false
+    syncanoWaiting: false
   }))
 }

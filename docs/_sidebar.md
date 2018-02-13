@@ -1,6 +1,7 @@
 - [Home](/)
 - [Quick Start](quickstart.md)
 - [Snippets](snippets.md)
+- [Decorators](decorators.md)
 - [Actions](actions.md)
 - Examples
   - [Forms](examples/forms.md)

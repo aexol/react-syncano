@@ -74,6 +74,10 @@
     "webpack-dev-server": "2.9.3"
   },
   "keywords": [],
+  "syncano":{
+    "instance":"socket-development",
+    "app":"admin"
+  },
   "repository": {
     "type": "git",
     "url": ""

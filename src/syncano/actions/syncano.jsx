@@ -38,6 +38,9 @@ export const syncano = (
     }))
   })
 }
+export const socket = fn => state=> dispatch => {
+  dispatch(syncano(...fn))
+}
 export const syncanoSetModels = () => state => dispatch => {
   s.post('rest-framework/schema').then(json => {
     dispatch(state => ({

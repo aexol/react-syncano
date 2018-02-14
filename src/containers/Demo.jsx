@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react'
 import { withRouter } from 'react-router-dom'
 import FormGenerator from "../syncano/utils/FormGenerator";
-import { withSyncano } from "../syncano/decorators";
+import { withSyncano } from "../syncano/decorators"
+import { generateFile } from "../syncano/generator";
+import * as actions from '../syncano/generator/generated'
 const MyFieldWrapper = ({ children, errors = [], ...props }) => (
   <div className="FieldWrapper">
     <label>{props.name}</label>
@@ -17,6 +19,17 @@ class Home extends React.Component {
     this.state = {
       textareaerrors: []
     }
+  }
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps)
+  }
+  componentWillMount() {
+    const { socket, syncanoValid } = this.props
+    syncanoValid()
+    socket(actions.restFrameworkList({
+      model: 'dummy',
+      success: dummy => ({ dummy }),
+    }))
   }
   render() {
     const textareaerror = "Blad textarea"

@@ -3,9 +3,10 @@
   "version": "0.3.0",
   "description": "Aexol react repatch syncano insane repo",
   "scripts": {
-    "start": "webpack-dev-server",
+    "generate-syncano-apis": "sh bin/gen_socket_apis.sh",
+    "start": "npm run generate-syncano-apis && webpack-dev-server",
     "clean": "rimraf dist",
-    "production": "cross-env npm run clean && webpack --config webpack.production.config.js --progress --profile --colors"
+    "production": "npm run generate-syncano-apis && cross-env npm run clean && webpack --config webpack.production.config.js --progress --profile --colors"
   },
   "author": "Aexol",
   "license": "MIT",
@@ -61,6 +62,8 @@
     "html-webpack-plugin": "2.30.0",
     "husky": "0.15.0-beta.2",
     "jest": "21.2.0",
+    "js-yaml": "3.10.0",
+    "lodash.camelcase": "4.3.0",
     "node-sass": "4.5.3",
     "open-browser-webpack-plugin": "0.0.5",
     "react-addons-test-utils": "15.6.2",
@@ -74,9 +77,10 @@
     "webpack-dev-server": "2.9.3"
   },
   "keywords": [],
-  "syncano":{
-    "instance":"socket-development",
-    "app":"admin"
+  "syncano": {
+    "instance": "socket-development",
+    "app": "admin",
+    "apiJs": "src/syncano/generator/generated.js"
   },
   "repository": {
     "type": "git",

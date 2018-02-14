@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie'
 import Syncano from 'syncano-client'
-import yamlConfig from '../../syncano.yml'
-export const INSTANCE_NAME = yamlConfig.instance
-export const TOKEN_NAME = `${INSTANCE_NAME}-${yamlConfig.app}`
+const yamlConfig = require('../../../package.json')
+export const INSTANCE_NAME = yamlConfig.syncano.instance
+export const TOKEN_NAME = `${INSTANCE_NAME}-${yamlConfig.syncano.app}`
 export const s = new Syncano(INSTANCE_NAME)
 export const removeToken = () => {
   Cookies.remove(`${TOKEN_NAME}-token`)

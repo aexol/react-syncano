@@ -3,6 +3,23 @@ React-syncano comes with a plenty of built-in actions to use with rest-framework
 
 ## Generic
 
+### Socket
+This is the only function you should use. It brings all your syncano backend functions into front.
+First of all import pregenerated functions:
+```js
+import * as actions from '../syncano/generator/generated'
+```
+
+As you see you have all your backend functions exposed to front-end!
+
+```js
+  socket(actions.restFrameworkList({
+    model: 'dummy',
+    success: dummy => ({ dummy }),
+  }))
+```
+As you see it takes function from your syncano backend and in success it mutates store injecting the response to it.
+
 ### Syncano
 This action is a generic action for gathering something from syncano socket and pushing the response to redux state
 

@@ -19,18 +19,21 @@ class Home extends React.Component {
       textareaerrors: []
     }
   }
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps)
+  componentWillReceiveProps(nextProps) {
+    const { socket } = this.props
+    if (this.props.valid !== nextProps.valid && nextProps.valid) {
+      socket(actions.restFrameworkList({
+        model: 'dummy',
+        success: dummy => ({ dummy }),
+      }))
+    }
   }
   componentWillMount() {
     const { socket, syncanoValid } = this.props
     syncanoValid()
-    socket(actions.restFrameworkList({
-      model: 'dummy',
-      success: dummy => ({ dummy }),
-    }))
   }
   render() {
+    const { dummy = [] } = this.props
     const textareaerror = "Blad textarea"
     const fieldsDemo = [
       {
@@ -134,6 +137,27 @@ class Home extends React.Component {
             textareaerrors: ['blad textarea']
           })
         }} fields={fieldsDemo} /> */}
+        <h3>Dummies</h3>
+        <div style={{
+          display:'flex',
+          flexFlow:'row wrap',
+          width:180,
+          height:180
+        }}>
+          {dummy.map(d => (
+            <div style={{
+              width: 50,
+              height: 50,
+              borderWidth: 1,
+              margin:'auto',
+              borderColor: 'red',
+              borderStyle: 'solid',
+              display:'flex',
+              alignItems:'center',
+              justifyContent:'center'
+            }}>{d.id}</div>
+          ))}
+        </div>
       </div>
     )
   }

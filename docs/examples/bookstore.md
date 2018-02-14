@@ -61,19 +61,9 @@ path-to-repo/src/containers/Home.jsx
 ```
 And change the code of this component to look like this
 ```js
-@connect(
-  state => ({
-    valid: state.valid,
-    book: state.book
-  }),
-  {
-    // Put actions here
-  }
-)
+import { withSyncano } from "../syncano/decorators"
+@withSyncano()
 class Home extends React.Component {
-  componentWillMount(){
-    const
-  }
   render () {
     const {
       book =[]
@@ -94,24 +84,16 @@ class Home extends React.Component {
 ```
 So we have a list of books but its empty, because we need to gather it from backend somehow.
 ```js
-import * as syncanoActions from '../syncano/actions'
+import * as actions from '../syncano/generator/generated'
 ```
 Add this at the top of Home.jsx file. Now we need to gather data from backend
 
 ```js
-@connect(
-  state => ({
-    valid: state.valid,
-    book: state.book
-  }),
-  {
-    syncanoList:syncanoActions.syncanoList
-  }
-)
+@withSyncano()
 class Home extends React.Component {
   componentWillMount(){
-    const { syncanoList } = this.props
-    syncanoList("book")
+    const { socket } = this.props
+    socket(actions.restFrameworkList({model:'book',success:book=>({book})}))
   }
   //.... rest of code
 }

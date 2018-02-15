@@ -22,6 +22,17 @@ As you see you have all your backend functions exposed to front-end!
   )
 ```
 As you see it takes function from your syncano backend and in success it mutates store injecting the response to it.
+If you want to gather some values from store:
+
+```js
+  socket(
+    state => actions.restFrameworkList({
+      model: 'dummy',
+    }).then(dummy => ({
+      dummy:state.dummy ? [...state.dummy,...dummy] : dummy
+    }))
+  )
+```
 
 ## Schema
 

@@ -26,7 +26,7 @@ class Home extends React.Component {
         actions.restFrameworkList({
           model: 'dummy',
         }).then(dummy => ({
-          dummy
+          dummy,
         }))
       )
     }

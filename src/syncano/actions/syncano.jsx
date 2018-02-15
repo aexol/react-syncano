@@ -14,10 +14,14 @@ const _mutated = (name,args,fnmt) => {
   return s.post(name,args).then( json => fnmt(json) )
 }
 export const socket = fn => state => dispatch => {
-  fn.then( mutated => dispatch(state => ({
+  let func = fn
+  if(!(fn instanceof Promise)){
+    func = fn(state)
+  }
+  func.then( mutated => dispatch(state => ({
     ...state,
     ...mutated
-  }))).catch(mutated => dispatch(state=> ({
+  }))).catch( mutated => dispatch(state=> ({
     ...state,
     ...mutated
   })))

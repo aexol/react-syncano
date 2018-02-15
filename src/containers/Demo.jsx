@@ -22,10 +22,13 @@ class Home extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { socket } = this.props
     if (this.props.valid !== nextProps.valid && nextProps.valid) {
-      socket(actions.restFrameworkList({
-        model: 'dummy',
-        success: dummy => ({ dummy }),
-      }))
+      socket(
+        actions.restFrameworkList({
+          model: 'dummy',
+        }).then(dummy => ({
+          dummy
+        }))
+      )
     }
   }
   componentWillMount() {
@@ -139,22 +142,22 @@ class Home extends React.Component {
         }} fields={fieldsDemo} /> */}
         <h3>Dummies</h3>
         <div style={{
-          display:'flex',
-          flexFlow:'row wrap',
-          width:180,
-          height:180
+          display: 'flex',
+          flexFlow: 'row wrap',
+          width: 180,
+          height: 180
         }}>
           {dummy.map(d => (
             <div style={{
               width: 50,
               height: 50,
               borderWidth: 1,
-              margin:'auto',
+              margin: 'auto',
               borderColor: 'red',
               borderStyle: 'solid',
-              display:'flex',
-              alignItems:'center',
-              justifyContent:'center'
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>{d.id}</div>
           ))}
         </div>

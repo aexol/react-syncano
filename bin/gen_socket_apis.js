@@ -9,27 +9,30 @@ let endpoint = ({ name, metadata: { parameters, description = '' } }) => {
   if (parameters) {
     params = Object.keys(parameters);
     outParams = params.map(p => `'${p}':${camelCase(p, '-')}`);
-    params = params.map(p => camelCase(p, '-')).join(',\n\t');
+    params = params.map(p => camelCase(p, '-')).join(',\n\t\t');
     docparams = Object.keys(parameters).map(p => ` * @param {${parameters[p].type}} ${camelCase(p, '-')} - ${parameters[p].description}`)
-    docparams = '\n'+docparams.join('\n')
-    firstLine = params + ',\n\t';
+    docparams = '\n' + docparams.join('\n')
+    firstLine = params
   }
 
   return `
 /**
  * ${description}${docparams}
  */
-export const ${camelName} = ({
-    ${firstLine}success = json => json,
-    error = err => err
-} = {}) => {
-        return ['${name}',
+export const ${camelName} = (
+  {
+    ${firstLine}
+  } = {},
+  options={
+    method:'post'
+  }
+) => {
+        return s[options.method](
+        '${name}',
         {
             ${outParams}
-        },
-        success,
-        error
-    ]
+        }
+      )
 }
 `;
 };
@@ -39,6 +42,7 @@ const generateFile = sockets => {
 // Any changes made to this file WILL be discarded
 // during next build.
   `;
+  allFile += `\n import {s} from '../server/config'\n`
   for (var sock of sockets.objects) {
     allFile += endpoint(sock);
     allFile += '\n';

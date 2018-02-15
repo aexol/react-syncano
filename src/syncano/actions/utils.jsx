@@ -60,9 +60,46 @@ export const duts = ({ state, element, value, array = false }) => {
   }
   return reUpdate(updates, value)
 }
-export const toFormData = o =>
-  Object.keys(o).reduce((a, b) => {
-    let toAppend = o[b] instanceof File ? [o[b], o[b].name] : [o[b]]
-    a.append(b, ...toAppend)
-    return a
-  }, new FormData())
+export const shouldFormData = (obj, namespace) => {
+  var formKey
+  var isFd = false
+  for (var property in obj) {
+    if (obj.hasOwnProperty(property)) {
+      if (namespace) {
+        formKey = namespace + '[' + property + ']'
+      } else {
+        formKey = property
+      }
+      if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+        var hasFd = shouldFormData(obj[property], property)
+        if (hasFd) {
+          return true
+        }
+      } else {
+        if (obj[property] instanceof File) {
+          return true
+        }
+      }
+    }
+  }
+  return false
+}
+export const toFormData = (obj, form, namespace) => {
+  var fd = form || new FormData()
+  var formKey
+  for (var property in obj) {
+    if (obj.hasOwnProperty(property)) {
+      if (namespace) {
+        formKey = namespace + '[' + property + ']'
+      } else {
+        formKey = property
+      }
+      if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+        objectToFormData(obj[property], fd, property)
+      } else {
+        fd.append(formKey, obj[property])
+      }
+    }
+  }
+  return fd
+}

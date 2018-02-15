@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import Syncano from 'syncano-client'
+import Syncano from '@syncano/client'
 const yamlConfig = require('../../../package.json')
 export const INSTANCE_NAME = yamlConfig.syncano.instance
 export const TOKEN_NAME = `${INSTANCE_NAME}-${yamlConfig.syncano.app}`

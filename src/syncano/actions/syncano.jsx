@@ -8,38 +8,19 @@ import {
   removeUsername,
   removeToken
 } from '../server/config'
-import { castField, generateUniq, toFormData } from './utils'
+import { castField, generateUniq, toFormData, shouldFormData } from './utils'
 import { error } from 'util';
-export const syncano = (
-  name,
-  args = {},
-  success = json => json,
-  error = err => err
-) => state => dispatch => {
-  let a = args
-  let sc = success
-  let er = error
-  if(typeof(args) === "function"){
-    a = {}
-    sc = args
-    er = success
-  }
-  s.post(name, a).then(json => {
-    let extraArgs = sc(json, state)
-    dispatch(state => ({
-      ...state,
-      ...extraArgs
-    }))
-  }).catch(e => {
-    let extraArgs = er(e, state)
-    dispatch(state => ({
-      ...state,
-      ...extraArgs
-    }))
-  })
+const _mutated = (name,args,fnmt) => {
+  return s.post(name,args).then( json => fnmt(json) )
 }
-export const socket = fn => state=> dispatch => {
-  dispatch(syncano(...fn))
+export const socket = fn => state => dispatch => {
+  fn.then( mutated => dispatch(state => ({
+    ...state,
+    ...mutated
+  }))).catch(mutated => dispatch(state=> ({
+    ...state,
+    ...mutated
+  })))
 }
 export const syncanoSetModels = () => state => dispatch => {
   s.post('rest-framework/schema').then(json => {

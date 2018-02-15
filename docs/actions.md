@@ -13,26 +13,15 @@ import * as actions from '../syncano/generator/generated'
 As you see you have all your backend functions exposed to front-end!
 
 ```js
-  socket(actions.restFrameworkList({
-    model: 'dummy',
-    success: dummy => ({ dummy }),
-  }))
+  socket(
+    actions.restFrameworkList({
+      model: 'dummy',
+    }).then(dummy => ({
+      dummy
+    }))
+  )
 ```
 As you see it takes function from your syncano backend and in success it mutates store injecting the response to it.
-
-### Syncano
-This action is a generic action for gathering something from syncano socket and pushing the response to redux state
-
-```js
-  syncano('rest-framework/list',{model:'dummy'}, dummy => ({dummy}))
-```
-
-This function receive response and injects it to store with key name dummy
-
-```js
-  syncano('some-socket/func')
-```
-This function injects response to state with name provided in response. In this case our response must be an object.
 
 ## Schema
 

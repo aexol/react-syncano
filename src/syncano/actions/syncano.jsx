@@ -9,23 +9,25 @@ import {
   removeToken
 } from '../server/config'
 import { castField, generateUniq, toFormData, shouldFormData } from './utils'
-import { error } from 'util';
-const _mutated = (name,args,fnmt) => {
-  return s.post(name,args).then( json => fnmt(json) )
-}
-export const socket = fn => state => dispatch => {
+export const socket = fn => state => dispatch => new Promise((resolve, reject) => {
   let func = fn
-  if(!(fn instanceof Promise)){
+  if (!(fn instanceof Promise)) {
     func = fn(state)
   }
-  func.then( mutated => dispatch(state => ({
-    ...state,
-    ...mutated
-  }))).catch( mutated => dispatch(state=> ({
-    ...state,
-    ...mutated
-  })))
-}
+  func.then(mutated => {
+    dispatch(state => ({
+      ...state,
+      ...mutated
+    }))
+    resolve()
+  }).catch(mutated => {
+    dispatch(state => ({
+      ...state,
+      ...mutated
+    }))
+    reject()
+  })
+})
 export const syncanoSetModels = () => state => dispatch => {
   s.post('rest-framework/schema').then(json => {
     dispatch(state => ({

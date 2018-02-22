@@ -12,7 +12,8 @@ const config = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './index.jsx'
+    './index.jsx',
+    'babel-polyfill'
   ],
 
   output: {
@@ -44,7 +45,12 @@ const config = {
             loader: 'style-loader' // creates style nodes from JS strings
           },
           {
-            loader: 'css-loader' // translates CSS into CommonJS
+            loader: 'css-loader', // translates CSS into CommonJS
+            options: {
+              sourceMap: true,
+              // modules: true,
+              // localIdentName: '[local]___[hash:base64:5]'
+            } 
           },
           {
             loader: 'sass-loader' // compiles Sass to CSS

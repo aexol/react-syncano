@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@syncano/client": "0.9.0-alpha.a6cfda17",
+    "babel-polyfill": "6.26.0",
     "classnames": "^2.2.5",
     "cross-env": "5.1.1",
     "js-cookie": "^2.1.4",

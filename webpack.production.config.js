@@ -8,7 +8,8 @@ const config = {
   devtool: 'cheap-module-source-map',
 
   entry: [
-    './index.jsx'
+    './index.jsx',
+    'babel-polyfill'
   ],
 
   context: resolve(__dirname, 'src'),

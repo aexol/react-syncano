@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Switch, Route} from 'react-router-dom'
 import Home from './Home'
 import Demo from './Demo'
-import './App.scss'
+import Apps from './App.scss'
 @connect(
   state => ({
     ...state
@@ -12,6 +12,7 @@ import './App.scss'
 )
 class AppContainer extends React.Component {
   render () {
+    console.log(Apps)
     return (
       <div className='App'>
         <Switch>

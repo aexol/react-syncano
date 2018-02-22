@@ -95,7 +95,7 @@ export const toFormData = (obj, form, namespace) => {
         formKey = property
       }
       if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-        objectToFormData(obj[property], fd, property)
+        toFormData(obj[property], fd, property)
       } else {
         fd.append(formKey, obj[property])
       }

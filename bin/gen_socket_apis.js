@@ -22,16 +22,16 @@ let endpoint = ({ name, metadata: { parameters, description = '' } }) => {
 export const ${camelName} = (
   {
     ${firstLine}
-  } = {},
+  },
   options={
     method:'post'
   }
 ) => {
         return s[options.method](
         '${name}',
-        {
+        toFormDataOrObject({
             ${outParams}
-        }
+        })
       )
 }
 `;
@@ -43,6 +43,27 @@ const generateFile = sockets => {
 // during next build.
   `;
   allFile += `\n import {s} from '../server/config'\n`
+  allFile += `
+const toFormDataOrObject = (obj, form, namespace) => {
+  var fd = new FormData()
+  var formKey
+  var isJson = true
+  for (var property in obj) {
+    if(obj[property] instanceof File){
+      isJson = false
+    }
+    if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+      fd.append(formKey, JSON.stringify(obj[property]))
+    } else {
+      fd.append(formKey, obj[property])
+    }
+  }
+  if(isJson){
+    return obj
+  }
+  return fd
+}
+`
   for (var sock of sockets.objects) {
     allFile += endpoint(sock);
     allFile += '\n';

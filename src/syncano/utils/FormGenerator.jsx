@@ -193,7 +193,7 @@ class FormGenerator extends React.Component {
     return (
       <form onSubmit={this.validate} className='FormGen'>
         {fieldsRender}
-        <Submit />
+        <Submit submitText={submitText}/>
       </form>
     )
   }

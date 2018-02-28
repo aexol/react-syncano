@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-const SubmitComponent = (props = {submitText}) =>
+const SubmitComponent = ({submitText}) =>
     <input
         className='Submit'
         type="submit"

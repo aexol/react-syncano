@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-import Autosuggest from './Autosuggest'
+import Autosuggest from './components/Autosuggest'
 const AutosuggestField = ({
   name,
   placeholder,

@@ -1,51 +1,77 @@
-import React, {PropTypes} from 'react'
-import {withRouter, Switch, Route} from 'react-router-dom'
+import React, { PropTypes } from 'react'
+import { withRouter, Switch, Route } from 'react-router-dom'
 import ModalSet from './media/ModalSet'
 import Loading from './utils/Loading'
-import Select from 'react-select'
 import './List.scss'
 import { withSyncano } from './decorators'
-
+import MultiSelect from "./utils/fields/components/MultiSelect";
+import FormGenerator from './utils/FormGenerator'
+import { filterRules } from "./utils/filterRules";
 @withSyncano()
 class List extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
+  state = {
+    filtr: [],
+    display: { value: 'id' }
   }
-  componentWillReceiveProps(props){
-    if(this.props.model !== props.model){
+  componentWillReceiveProps(props) {
+    if (this.props.model !== props.model) {
+      let [predictStringField] = props.model.fields.filter(f => f.type === 'string')
+      if (predictStringField) {
+        predictStringField = predictStringField.name
+        predictStringField = { label: predictStringField, value: predictStringField }
+      }
       this.setState({
-        filtr:undefined,
-        search:''
+        display: predictStringField,
+        search: ''
       })
     }
   }
-  render () {
-    const {model} = this.props
-    const {values, open, search, filtr} = this.state
+  render() {
+    const { model } = this.props
+    const { values, open, search, filtr, display } = this.state
     if (!model) {
       return <div className='ChooseModel'>Choose a model</div>
     }
     let renderedObjects = this.props[model.name]
-    if (search) {
-      let getter = 'id'
-      if(filtr){
-        getter = filtr.value
+    let filterKeys = Object.keys(filtr)
+    if (filterKeys.length) {
+      for (var f of filterKeys) {
+        renderedObjects = filterRules({
+          value: filtr[f],
+          values: renderedObjects,
+          name: f,
+          type: model.fields.find(field => field.name === f).type
+        })
       }
-      renderedObjects = renderedObjects.filter(
-        o =>
-          `${o[getter]}`
-            .toLowerCase()
-            .indexOf(search.toLowerCase()) !== -1
-      )
     }
     return (
-      <div className=''>
+      <div className='SyncanoManage'>
         <div className='SyncanoNav'>
+
+          <label>Display values by:</label>
+          <MultiSelect
+            onChange={e => {
+              this.setState({
+                display: e,
+                search: ''
+              })
+            }}
+            style={{
+              width: 200
+            }}
+            placeholder="Display"
+            value={display}
+            options={model.fields
+              .filter(f => f.type === 'string')
+              .map(f => ({
+                label: f.name,
+                value: f.name
+              }))}
+          />
           <div
             className='SyncanoLink'
             onClick={() => {
-              this.setState({open: 'add'})
+              this.setState({ open: 'add' })
             }}
           >
             Add
@@ -63,21 +89,23 @@ class List extends React.Component {
           />
         </div>
         <div className='SyncanoFilters'>
-          <Select
-            onChange={e => {
-              this.setState({
-                filtr: e,
-                search:''
-              })
-            }}
-            value={filtr}
-            options={model.fields
-              .filter(f => f.type === 'text' || f.type === 'textarea')
-              .map(f => ({
-                label: f.name,
-                value: f.name
-              }))}
-          />
+          {model.fields.filter(
+            f => f.type === 'string'
+          ).map(f =>
+            <FormGenerator
+              key={f.name}
+              fields={[f]}
+              validate={(e) => {
+                this.setState({
+                  filtr: {
+                    ...this.state.filtr,
+                    ...e
+                  }
+                })
+              }}
+              Submit={() => <div className='div'></div>}
+            />
+          )}
         </div>
         <div className='SyncanoList'>
           {renderedObjects.map(m => (
@@ -87,17 +115,17 @@ class List extends React.Component {
                 onClick={() => {
                   this.setState({
                     open: 'update',
-                    values: {...m}
+                    values: { ...m }
                   })
                 }}
               >
-                {m.id}
+                {display ? m[display.value] || m.id : m.id}
               </div>
               <div
                 onClick={() => {
                   this.setState({
                     open: 'delete',
-                    values: {id: m.id}
+                    values: { id: m.id }
                   })
                 }}
                 className='deleteButton'

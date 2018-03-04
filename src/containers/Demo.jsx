@@ -129,7 +129,8 @@ class Home extends React.Component {
       }}>
         <h3>Demo form</h3>
         {/* Simple form */}
-        <FormGenerator validate={() => {
+        <FormGenerator validate={(e) => {
+          console.log(e)
           this.setState({
             textareaerrors: ['blad textarea']
           })

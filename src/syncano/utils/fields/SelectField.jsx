@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import Select from 'react-select'
+import MultiSelect from './components/MultiSelect'
 import classnames from 'classnames'
 const SelectField = ({
   name,
@@ -7,9 +7,9 @@ const SelectField = ({
   label = 'name',
   value = 'id',
   values,
-  multi,
+  multi = false,
   className = '',
-  Component = Select,
+  Component = MultiSelect,
   modifyField,
   fieldValue,
   changed,
@@ -23,7 +23,7 @@ const SelectField = ({
         [className]: true,
       })}
       key={name}
-      multi={multi || false}
+      multi={multi}
       name={placeholder || name}
       onChange={e => {
         modifyField({

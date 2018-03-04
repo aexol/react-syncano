@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import 'react-select/dist/react-select.css'
 import classnames from 'classnames'
 import {
   DatetimeField,
@@ -15,10 +14,10 @@ import {
   BooleanField
 } from './fields'
 
-import receive from './receivers'
 import FieldWrapper from "./FieldWrapper"
 import SubmitComponent from './SubmitComponent'
 import { withSyncano } from '../decorators';
+import moment from 'moment'
 const getBase64 = (file, callback) => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
@@ -36,7 +35,24 @@ const validators = {
     reference: e => e.value,
     relation: e => e.map(p => p.value),
     tag: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
+    array: e => (Array.isArray(e) ? e.map(p => p.value) : e.value),
+    float: e => parseFloat(e),
+    integer: e => parseInt(e),
+    datetime: e => e.toISOString()
   }
+}
+const receive = ({ data, type }) => {
+  let types = {
+    text: data => data || '',
+    string: data => data || '',
+    tag: data => data ? data.map(d => ({ label: d, value: d })) : [],
+    array: data => data ? data.map(d => ({ label: d, value: d })) : [],
+    relation: data => data ? data.map(d => ({ label: d, value: d })) : [],
+    reference: data => data ? ({ label: data, value: data }) : [],
+    datetime: data => moment(data),
+  }[type]
+  types = types ? types(data) : data
+  return types
 }
 
 const fieldElements = {
@@ -49,72 +65,46 @@ const fieldElements = {
   select: SelectField,
   file: FileField,
   geo: GeoField,
+  geopoint: ObjectField,
   tag: TagField,
   datetime: DatetimeField,
   object: ObjectField,
   relation: RelationField,
-  reference: SelectField
+  reference: SelectField,
+  array: TagField
 }
 
 
 @withSyncano()
 class FormGenerator extends React.Component {
+  state = {
+    errors: {},
+    fields: {},
+    changed: {}
+  }
   constructor(props) {
     super(props)
+  }
+  receiveFields = (values) => {
     const { fields } = this.props
-    var newFields = {}
-    for (var f of fields) {
-      newFields[f.name] = ''
+    let updateDict = {}
+    let changesDict = { ...this.state.changed }
+    for (var { name, type } of fields) {
+      updateDict[name] = receive({ data: values[name], type })
+      changesDict[name] = false
     }
-    this.state = {
-      fields: {
-        ...newFields
-      },
-      initial: {
-        ...newFields
-      },
-      changed: {
-
-      },
-      errors: {}
-    }
+    this.setState({ fields: updateDict, changed: changesDict })
   }
   componentWillMount() {
-    const { fields, validator, values } = this.props
-    let newFields = {}
-    for (var f of fields) {
-      newFields[f.name] = values[f.name]
-        ? receive({ data: values[f.name], ...f })
-        : ''
-    }
-    var updateDict = {
-      initial: {
-        ...newFields
-      }
-    }
-    if (Object.keys(values).length > 0) {
-      updateDict = {
-        ...updateDict,
-        fields: {
-          ...newFields
-        }
-      }
-    }
-    this.setState(updateDict)
-  }
-  componentWillReceiveProps(nextProps){
     const { values } = this.props
-    if(nextProps.values && nextProps.values !== values){
-      let updateDict = {}
-      for(var key of Object.keys(this.state.fields)){
-        updateDict[key] = nextProps.values[key]
-      }
-      this.setState({
-        fields:{
-          ...this.state.fields,
-          ...updateDict
-        }
-      })
+    if (values) {
+      this.receiveFields(values)
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    const { values, fields } = this.props
+    if (nextProps.values && nextProps.values !== values) {
+      this.receiveFields(nextProps.values)
     }
   }
   validate = (e) => {
@@ -169,7 +159,8 @@ class FormGenerator extends React.Component {
   render() {
     const { fields, submitText, AlternativeWrapper = FieldWrapper } = this.props
     const { Submit = SubmitComponent } = this.props
-    const fieldsRender = fields.map((f, i) => {
+    let filteredFields = fields.map(({ filter_index, ...props }) => ({ ...props }))
+    const fieldsRender = filteredFields.map((f, i) => {
       let Field = { ...f }
       if (Field.target) {
         if (typeof this.props[Field.target] === 'undefined') {
@@ -193,7 +184,7 @@ class FormGenerator extends React.Component {
     return (
       <form onSubmit={this.validate} className='FormGen'>
         {fieldsRender}
-        <Submit submitText={submitText}/>
+        <Submit submitText={submitText} />
       </form>
     )
   }

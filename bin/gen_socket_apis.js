@@ -53,9 +53,9 @@ const toFormDataOrObject = (obj, form, namespace) => {
       isJson = false
     }
     if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-      fd.append(formKey, JSON.stringify(obj[property]))
+      fd.append(property, JSON.stringify(obj[property]))
     } else {
-      fd.append(formKey, obj[property])
+      fd.append(property, obj[property])
     }
   }
   if(isJson){

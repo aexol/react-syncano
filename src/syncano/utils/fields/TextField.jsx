@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-const ClassicInput = (props = {}) => <input type="text" {...props} />
+const ClassicInput = ({value,onChange,...props}) => <input type="text" value={value} onChange={onChange} {...props} />
 class TextField extends React.Component {
   render() {
     const {

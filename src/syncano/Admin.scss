@@ -153,41 +153,7 @@
       }
     }
 
-    .SyncanoList {
-      display: flex;
-      flex-flow: row wrap;
-      align-items: flex-start;
-      max-height: 100%;
-      overflow: auto;
-      padding: 10px;
-
-      .SyncanoObject {
-        margin: 5px;
-        padding: 10px 12px 10px 20px;
-        background: $color-four;
-        display: flex;
-
-        .displayName {
-          cursor: pointer;
-          transition: .25s ease-out;
-
-          &:hover {
-            color: $main-color;
-          }
-        }
-
-        .deleteButton {
-          cursor: pointer;
-          margin-left: 15px;
-          background: $color-four;
-          transition: .25s ease-out;
-
-          &:hover{
-            color: $color-five;
-          }
-        }
-      }
-    }
+  
   }
 
   @media (max-width: 1279px) {

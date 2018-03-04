@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Creatable } from 'react-select'
+import Tag from './components/Tag'
 import classnames from 'classnames'
 
 const TagField = ({
@@ -10,7 +11,7 @@ const TagField = ({
   fieldValue,
   changed,
   className = '',
-  Component = Creatable,
+  Component = Tag,
   ...props
 }) => (
     <Component

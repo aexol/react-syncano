@@ -8,7 +8,7 @@ import {
   removeUsername,
   removeToken
 } from '../server/config'
-import { castField, generateUniq, toFormData, shouldFormData } from './utils'
+import { generateUniq, toFormData, shouldFormData } from './utils'
 export const socket = fn => state => dispatch => new Promise((resolve, reject) => {
   let func = fn
   if (!(fn instanceof Promise)) {
@@ -33,8 +33,7 @@ export const syncanoSetModels = () => state => dispatch => {
     dispatch(state => ({
       ...state,
       models: json.map(m => ({
-        ...m,
-        fields: m.fields.map(f => castField(f))
+        ...m
       }))
     }))
   })

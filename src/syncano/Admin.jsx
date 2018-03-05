@@ -17,36 +17,36 @@ class SyncanoAdmin extends React.Component {
     super(props)
     this.state = {}
   }
-  componentWillMount() {
-    const { syncanoValid } = this.props
-    syncanoValid()
-  }
-  componentDidUpdate(prevProps) {
+  init = (props) => {
     const { valid, token, username, models } = this.props
-    if (!models) {
+    if (props.valid && !valid) {
       this.props.syncanoSetModels()
     }
-    if (
-      valid === true &&
-      typeof prevProps.models === 'undefined' &&
-      typeof models !== 'undefined'
-    ) {
-      models.forEach(m => {
+    if (props.models && !models) {
+      props.models.forEach(m => {
         this.props.syncanoList({
           model: m.name
         })
       })
     }
+    if (!props.valid && valid) {
+
+    }
+  }
+  componentWillMount() {
+    const { syncanoValid } = this.props
+    syncanoValid()
+  }
+  componentWillReceiveProps(nextProps) {
+    this.init(nextProps)
   }
   render() {
     const { token, valid, match, models } = this.props
     const {
       open,
       active,
-      model,
       values,
       invalid = {},
-      isOpen,
       showCategories
     } = this.state
     const loginScreen = (
@@ -77,13 +77,14 @@ class SyncanoAdmin extends React.Component {
         </div>
       </div>
     )
-    if (!valid && typeof token === "undefined") {
+    console.log(valid)
+    if (!valid && valid !== null) {
       return loginScreen
     }
     if (valid === null) {
       return <PreloaderScreen size={64} text='Validating token...' />
     }
-    if (typeof models === 'undefined') {
+    if (!models) {
       return <PreloaderScreen size={64} text='Loading models...' />
     }
     return (
@@ -120,77 +121,42 @@ class SyncanoAdmin extends React.Component {
             'show-categories': showCategories
           })}
         >
-          <Link to={`${match.url}/manage`} className='SyncanoCategory'>
-            Manage
+          <div className='Models'>
+            <div className='SyncanoCategoryTitle'>models</div>
+            {models
+              .filter(m => typeof this.props[m.name] !== 'undefined')
+              .map(m => (
+                <Link key={m.name} to={`${match.url}/manage/${m.name}`} className='SyncanoCategory'>
+                  {m.name}
+                </Link>
+              ))}
+          </div>
+          <div className='Settings'>
+            <div className='SyncanoCategoryTitle'>settings</div>
+            <Link to={`${match.url}/model`} className='SyncanoCategory'>
+              Model
           </Link>
-          <Link to={`${match.url}/model`} className='SyncanoCategory'>
-            Model
+            <Link to={`${match.url}/config`} className='SyncanoCategory'>
+              Config
           </Link>
-          <Link to={`${match.url}/config`} className='SyncanoCategory'>
-            Config
-          </Link>
+          </div>
+          <div
+            className='SyncanoCategory'
+            onClick={() => {
+              this.props.syncanoLogout()
+            }}
+          >
+            logout
+          </div>
         </div>
         <div className='SyncanoContainer'>
-          <div
-            className={classnames({
-              SyncanoNavigation: true,
-              open: isOpen
-            })}
-          >
-            <div
-              className={classnames({
-                hamburger: true,
-                toggle: isOpen
-              })}
-              onClick={() => {
-                this.setState({
-                  isOpen: !isOpen
-                })
-              }}
-            >
-              <div className='bar' />
-              <div className='bar' />
-              <div className='bar' />
-              <div className='bar' />
-              <div className='bar' />
-              <div className='bar' />
-            </div>
-            <div className='SyncanoNavContainer'>
-              {models
-                .filter(m => typeof this.props[m.name] !== 'undefined')
-                .map(m => (
-                  <div
-                    key={m.name}
-                    className='SyncanoLink'
-                    onClick={() => {
-                      this.setState({
-                        model: m
-                      })
-                    }}
-                  >
-                    {m.name}
-                  </div>
-                ))}
-            </div>
-            <div className='UserSettings'>
-              <div
-                className='logOut'
-                onClick={() => {
-                  this.props.syncanoLogout()
-                }}
-              >
-                logout
-              </div>
-              <div className='changePassword'>change password</div>
-            </div>
-          </div>
           <Switch>
             <Route
-              render={() => <List model={model} />}
-              path='/admin/manage'
+              render={() => <List />}
+              path='/admin/manage/:model/'
             />
             <Route
-              render={() => <Config model={model} />}
+              render={() => <Config />}
               path='/admin/config'
             />
             <Route

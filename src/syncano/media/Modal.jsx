@@ -26,8 +26,8 @@ export class ModalHeader extends React.Component {
     } = this.props
     return (
       <div className='ModalHeader'>
-        <span> {this.props.children}</span>
         <div className='Close' onClick={toggle}><div>×</div></div>
+        <span> {this.props.children}</span>
       </div>
     )
   }

@@ -24,7 +24,7 @@
 
       input {
         margin-bottom: 10px;
-        padding:10px;
+        padding:15px;
         border: 0;
         border-bottom: 2px solid $main-color;
         width: 100%;
@@ -52,17 +52,32 @@
     background: $color-one;
     color: $color-two;
     box-sizing: border-box;
-    padding: 30px 0;
     position: fixed;
     height: 100%;
     z-index: 9;
-
+    .Models, .Settings{
+      display: flex;
+      flex-flow: column nowrap
+    }
+    .Models{
+      background: $menu-models;
+    }
+    .Settings{
+      background: $menu-settings;
+    }
+    .SyncanoCategoryTitle{
+      font-weight: 700;
+      color:$color-white;
+      font-size: 14px;
+      font-family: 'Lato', sans-serif;
+      padding: 15px 30px;
+    }
     .SyncanoCategory {
       padding: 15px 30px;
       color: $color-two;
       text-decoration: none;
       text-transform: uppercase;
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 200;
       font-family: 'Lato', sans-serif;
       transition: .35s ease-out;
@@ -79,128 +94,9 @@
     padding-left: 200px;
     width: 100%;
 
-    .SyncanoNavigation {
-      display: flex;
-      justify-content: space-between;
-      background: $color-three;
-      width: 100%;
-      min-height: 50px;
-
-      .hamburger {
-        display: none;
-        position: relative;
-        margin: 0 0 0 auto;
-        width: 24px;
-        height: 25px;
-        padding: 17.5px 24px;
-        transition: .5s ease-out;
-        cursor: pointer;
-        z-index: 4;
-
-        .bar {
-          height: 3px;
-          width: 50%;
-          background-color: $color-two;
-          display: block;
-          margin: 1px;
-          transition: .5s ease-out;
-
-          &:nth-child(odd) {
-            border-radius: 9px 0 0 9px;
-          }
-
-          &:nth-child(even) {
-            border-radius: 0 9px 9px 0;
-            transform: translate(12px, -4px);
-          }
-        }
-      }
-
-      .SyncanoNavContainer {
-        display: flex;
-        flex-wrap: wrap;
-
-        .SyncanoLink {
-          padding: 10px 30px;
-          line-height: 50px;
-          text-transform: uppercase;
-          cursor: pointer;
-          transition: .35s ease-out;
-
-          &:hover {
-            background: $color-two;
-            color: $color-one;
-          }
-        }
-      }
-
-      .UserSettings {
-        font-size: 15px;
-        display: flex;
-        line-height: 50px;
-        text-transform: uppercase;
-        background: $color-four;
-        cursor: pointer;
-
-        .logOut, {
-          padding: 10px 30px;
-        }
-
-        .changePassword {
-          padding: 10px 20px;
-          white-space: nowrap;
-        }
-      }
-    }
-
-  
   }
 
-  @media (max-width: 1279px) {
 
-    .SyncanoContainer {
-
-      .SyncanoNavigation {
-
-        .UserSettings {
-
-          .logOut {
-            padding: 10px 0 10px 20px;
-          }
-
-          .changePassword {
-            padding: 10px 15px;
-          }
-        }
-
-        .SyncanoNavContainer {
-
-          .SyncanoLink {
-            padding: 10px 15px;
-          }
-        }
-      }
-    }
-  }
-
-  @media (max-width: 1023px) {
-
-    .SyncanoContainer {
-
-      .SyncanoNavigation {
-        flex-direction: column;
-
-        .SyncanoNavContainer {
-          order: 2;
-        }
-
-        .UserSettings {
-          order: 1;
-          justify-content: flex-end;
-        }
-      }
-    }
-  }
 
   @media (max-width: 767px) {
 
@@ -232,77 +128,6 @@
 
     .SyncanoContainer {
       padding-left: 0;
-
-      .SyncanoNavigation {
-
-        &.open {
-
-            .UserSettings {
-              display: block;
-            }
-
-            .SyncanoNavContainer {
-              display: block;
-            }
-        }
-
-        .UserSettings {
-          flex-direction: column;
-          text-align: right;
-          display: none;
-
-          .logOut {
-            border-bottom: 2px solid $color-three;
-            padding: 10px 15px;
-          }
-        }
-
-        .SyncanoNavContainer {
-          flex-direction: column;
-          text-align: right;
-          display: none;
-
-          .SyncanoLink {
-            border-bottom: 2px solid $color-four;
-          }
-        }
-
-        .hamburger {
-          display: block;
-
-          &.toggle {
-
-            .bar {
-
-              &:nth-child(1) {
-                transform: translate(1px, 5px) rotate(45deg);
-              }
-
-              &:nth-child(2) {
-                transform: translate(9px, 1px) rotate(-45deg);
-              }
-
-              &:nth-child(3) {
-                transform: translate(-12px, 0);
-                opacity: 0;
-              }
-
-              &:nth-child(4) {
-                transform: translate(24px, -4px);
-                opacity: 0;
-              }
-
-              &:nth-child(5) {
-                transform: translate(1px, -3px) rotate(-45deg);
-              }
-
-              &:nth-child(6) {
-                transform: translate(9px, -7px) rotate(45deg);
-              }
-            }
-          }
-        }
-      }
     }
   }
 

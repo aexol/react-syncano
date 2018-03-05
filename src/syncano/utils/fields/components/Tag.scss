@@ -38,6 +38,10 @@
         line-height: 1.4;
         padding: 5px 15px;
         margin: 5px 5px 5px 0;
+        &:hover{
+          background: $main-color;
+          color: #fff;
+        }
       }
 
       .value-choosen {
@@ -48,6 +52,7 @@
         position: absolute;
         top: 0;
         right: 0;
+        color:white;
         padding: 3px 5px;
       }
     }

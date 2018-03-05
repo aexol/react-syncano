@@ -135,7 +135,7 @@ export const syncanoLogout = () => state => dispatch => {
   removeToken()
   dispatch(state => ({
     ...state,
-    valid: null,
+    valid: false,
     token: ''
   }))
 }

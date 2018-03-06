@@ -52,10 +52,12 @@ class SyncanoAdmin extends React.Component {
     const loginScreen = (
       <div className='SyncanoAdmin'>
         <div className='SyncanoLogin'>
+          <img src={require('../images/logo-aexol-footer.png')} />
           <div className='SyncanoInstanceName'>
+          Instance:
             {INSTANCE_NAME === 'YOUR_INSTANCE_NAME_HERE'
               ? 'Please set your syncano instance name in src/server/config.jsx'
-              : INSTANCE_NAME}
+              : INSTANCE_NAME }
           </div>
           <FormGen
             invalid={invalid}
@@ -73,6 +75,7 @@ class SyncanoAdmin extends React.Component {
             validate={e => {
               this.props.syncanoLogin(e)
             }}
+            submitText={'Sign in'}
           />
         </div>
       </div>

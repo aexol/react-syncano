@@ -9,7 +9,7 @@ export const Preloader = (props = {}) => (
       type={ICON_TYPE.OVAL}
       size={32}
       strokeWidth={8} // min: 1, max: 50
-      strokeColor='#F0AD4E'
+      strokeColor='#46546e'
       duration={800}
       {...props}
     />

@@ -11,7 +11,7 @@ import { withSyncano } from './decorators';
 class Model extends React.Component {
   render () {
     return (
-      <div className='Model' style={{width:"100%",height:"calc(100% - 70px)",background: '#888'}}>
+      <div className='Model' style={{width:"100%",height:"100%",background: '#888', boxSizing: 'border-box'}}>
         <Grid />
       </div>
     )

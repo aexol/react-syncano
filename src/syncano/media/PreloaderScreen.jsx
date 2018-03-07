@@ -1,5 +1,6 @@
-import React, {PropTypes} from 'react'
-import {Preloader} from './Preloader'
+import React, { PropTypes } from 'react'
+import { Preloader } from './Preloader'
+
 export const PreloaderScreen = (props = {}) => (
   <div
     style={{
@@ -7,10 +8,11 @@ export const PreloaderScreen = (props = {}) => (
       height: '100%',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      fontFamily: 'Lato',
     }}
     className='PreloaderScreen'
   >
-    <Preloader {...props} />
+    <Preloader { ...props } />
   </div>
 )

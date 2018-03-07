@@ -1,4 +1,4 @@
-@import '../vars.scss';
+@import '../varsSyncano.scss';
 
 .SyncanoAdmin {
   background: url('../images/backgroundAdmin.jpg') center center no-repeat / cover;
@@ -6,15 +6,33 @@
   height: 100%;
   display: flex;
   flex-flow: row nowrap;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', sans-serif;
+
+  &.ContentAdmin {
+    background: $syncano-admin-color-one;
+  }
 
   .SyncanoLogin {
     width:320px;
     margin: auto;
 
+    .Logo {
+      padding-bottom: 20px;
+
+      img {
+        display: block;
+        width: 60px;
+        height: auto;
+        margin: 0 auto;
+      }
+    }
+
     .SyncanoInstanceName {
-      color:#777;
-      padding: 10px;
+      color: $syncano-admin-color-two;
+      padding: 15px;
+      font-weight: 300;
+      text-align: center;
+      font-size: 16px;
     }
 
     .FormGen {
@@ -22,10 +40,10 @@
       flex-flow: column nowrap;
 
       .FieldWrapper {
-        border: 1px solid #9aa3b2;
+        border: 1px solid $syncano-admin-color-two;
         border-radius: 50px;
         margin-bottom: 20px;
-        background: rgba(255,255,255,0.2);
+        background: $syncano-admin-color-three;
         position: relative;
 
         &::after {
@@ -36,7 +54,7 @@
           border-radius: 100%;
           top: 5px;
           left: 5px;
-          background: #9aa3b2;
+          background: $syncano-admin-color-two;
           background-repeat: no-repeat;
           background-position: center center;
         }
@@ -69,23 +87,30 @@
         box-shadow: none;
         appearance: none;
         -webkit-appearance: none;
-        color: #9aa3b2;
-        font-size: 16px;
-        text-transform: capitalize;
+        color: $syncano-admin-color-two;
+        font-size: 15px;
+
+        &:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 30px #fff inset;
+          border-radius: 50px;
+          background-color: transparent;
+        }
 
         &::placeholder {
-          color: #babdcd;
+          color: $syncano-admin-color-two;
           font-weight: 300;
+          text-transform: capitalize;
         }
       }
 
       .Submit {
         cursor: pointer;
-        background: #c4c6d3;
+        background: $syncano-admin-color-two;
         align-self: flex-end;
         padding: 10px;
-        color: #46546e;
+        color: $syncano-admin-color-four;
         border-radius: 50px;
+        font-size: 16px;
       }
     }
   }
@@ -95,57 +120,112 @@
   }
 
   .SyncanoCategories {
-    display: flex;
-    flex-flow: column nowrap;
-    min-width: 200px;
-    background: $color-one;
-    color: $color-two;
+    display: block;
+    min-width: 230px;
+    background: $syncano-admin-color-five;
+    color: $syncano-admin-color-one;
     box-sizing: border-box;
     position: fixed;
-    height: 100%;
     z-index: 9;
-    .Models, .Settings{
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+
+    .SyncanoLogoCompany {
+      padding: 30px;
+
+      p {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 300;
+        padding-top: 10px;
+        letter-spacing: 1.5px;
+        font-family: 'Roboto';
+      }
+
+      img {
+        display: block;
+        height: 80px;
+        width: auto;
+        margin: 0 auto;
+      }
+    }
+
+    .Models,
+    .Settings {
       display: flex;
       flex-flow: column nowrap
     }
-    .Models{
-      background: $menu-models;
+
+    .Models {
+      background: $syncano-admin-color-two;
+      padding: 10px 0;
     }
-    .Settings{
-      background: $menu-settings;
+
+    .Settings {
+      background: $syncano-admin-color-two;
+      padding: 10px 0;
     }
-    .SyncanoCategoryTitle{
+
+    .SyncanoCategoryTitle {
       font-weight: 700;
-      color:$color-white;
+      color: $syncano-admin-color-five;
       font-size: 14px;
-      font-family: 'Lato', sans-serif;
+      font-family: 'Roboto', sans-serif;
       padding: 15px 30px;
     }
+
     .SyncanoCategory {
       padding: 15px 30px;
-      color: $color-two;
+      color: $syncano-admin-color-four;
       text-decoration: none;
       text-transform: uppercase;
       font-size: 14px;
-      font-weight: 200;
-      font-family: 'Lato', sans-serif;
+      font-weight: 500;
+      font-family: 'Roboto', sans-serif;
       transition: .35s ease-out;
-      letter-spacing: 2px;
+      letter-spacing: 1.2px;
+      cursor: pointer;
+      position: relative;
+
+      &.LogOut {
+        color: $syncano-admin-color-one;
+        font-weight: 300;
+
+        &:hover {
+          background: $syncano-admin-color-one;
+          color: $syncano-admin-color-five;
+          font-weight: 500;
+        }
+      }
 
       &:hover {
-        background: $color-two;
-        color: $color-one;
+        background: $syncano-admin-color-one;
+        color: $syncano-admin-color-five;
+
+        &::before {
+          z-index: -1;
+          position: absolute;
+          content: "";
+          bottom: 15px;
+          left: 10px;
+          width: 50%;
+          top: 80%;
+          max-width: 100%;
+          background: $syncano-admin-color-four;
+          box-shadow: 0 15px 10px $syncano-admin-color-four;
+          transform: rotate(-3deg);
+        }
       }
     }
   }
 
   .SyncanoContainer {
-    padding-left: 200px;
+    padding-left: 230px;
     width: 100%;
-
   }
-
-
 
   @media (max-width: 767px) {
 
@@ -153,25 +233,25 @@
       display: none;
 
       &.show-categories {
-        display: flex;
-        padding-top: 65px;
+        display: block;
+        padding-top: 45px;
       }
     }
 
     .open-categories {
-      background: $color-one;
+      background: $syncano-admin-color-five;
       display: block;
       position: fixed;
       top: 0;
       left: 0;
-      padding: 15px;
+      padding: 10px;
       cursor: pointer;
       z-index: 10;
       transition: .35s ease-out;
 
       &.arrow-toggle {
         transform: rotate(180deg);
-        left: 140px;
+        left: 180px;
       }
     }
 
@@ -195,11 +275,11 @@
   }
 
   .modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,.7);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
   }
 }

@@ -1,4 +1,4 @@
-@import '../../vars.scss';
+@import '../../varsSyncano.scss';
 
 .ChooseModel {
   width: 100%;
@@ -7,117 +7,230 @@
   padding-top: 100px;
   justify-content: center;
   text-transform: uppercase;
-  color: $color-five;
+  color: $syncano-admin-color-seven;
   font-size: 20px;
 }
-.SyncanoManage{
-  .SyncanoFilters{
+
+.SyncanoManage {
+
+  .SyncanoFilters {
     display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    background-color: $main-color;
-    color:$color-white;
+    align-items: flex-start;
+    justify-content: space-between;
+    background: $syncano-admin-color-two;
+    color: $syncano-admin-color-one;
     padding: 20px;
-    .AddButton{
-      width: 100px;
-      height: 100px;
-      background: $color-one;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+
+    .AddButton {
+      min-width: 100px;
+      min-height: 100px;
+      background: $syncano-admin-color-five;
       position: relative;
-      margin-bottom: -70px;
-      margin-top: -100px;
-      margin-left: auto;
       cursor: pointer;
-      .Horizontal{
-        transition:$transition;
+      margin-top: 10px;
+
+      .Horizontal {
+        transition: $transition;
         width: 50px;
         height: 2px;
-        background: white;
+        background: $syncano-admin-color-one;
         position: absolute;
         top:49px;
         left:25px;
       }
-      .Vertical{
-        transition:$transition;
+
+      .Vertical {
+        transition: $transition;
         width: 2px;
         height: 50px;
-        background: $color-white;
+        background: $syncano-admin-color-one;
         position: absolute;
         top:25px;
         left:49px;
       }
-      &:hover{
-        .Horizontal{
-          background: $color-white;
-        }
-        .Vertical{
-          background: white;
-        }
-      }
     }
-    .MultiSelect{
-      flex-basis: 100%;
-      margin: 5px 0;
-      .holder-select{
+
+    .SyncanoMultiSelects {
+      width: 100%;
+      padding-right: 20px;
+    }
+
+    .MultiSelect {
+      margin: 10px 0 15px;
+      width: 100%!important;
+
+      .holder-select {
         font-size: 12px;
-        .select-arrow{
-          border-color: $color-white transparent transparent;
+        width: 100%;
+
+        .select-arrow {
+          border-color: $syncano-admin-color-one transparent transparent;
         }
-        .holder-value{
-          border: 1px solid $color-white;
+
+        .holder-value {
+          border: 1px solid $syncano-admin-color-one;
+          width: 100%;
+          min-height: 40px;
+
           .placeholder-value{
-            color:$color-white;
+            font-size: 15px;
+            letter-spacing: 1.2px;
+            font-weight: 300;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            color: $syncano-admin-color-one;
           }
-          .show-value{
-            color:#fff;
+
+          .show-value {
+            color: $syncano-admin-color-one;
+            background: $syncano-admin-color-four;
+            border: 1px solid $syncano-admin-color-four;
+            letter-spacing: 1.2px;
+            font-weight: 300;
+
+            .delete {
+
+              &:hover {
+                color: $syncano-admin-color-seven;
+              }
+            }
           }
         }
       }
-      .holder-values{
-        background: $color-white-background;
-        border-color: $color-white;
+
+      .holder-values {
+        background: $syncano-admin-color-five;
+        border-color: none;
+
+        .select-value {
+          font-weight: 300;
+
+          &:hover {
+            background: $syncano-admin-color-one;
+            color: $syncano-admin-color-five;
+          }
+        }
       }
     }
-    input{
-      border: 1px solid $color-white;
-      background: $main-color;
-      color:$font-color;
-      padding: 5px 20px;
-      margin:0 10px 10px 0;
-      width: 120px;
-      &::placeholder{
-        color:$color-white;
+
+    .MultiSelectSearchFields {
+      display: flex;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+
+      input {
+        box-sizing: border-box;
+        border: 1px solid $syncano-admin-color-one;
+        background: none;
+        color: $syncano-admin-color-four;
+        padding: 10px 20px;
+        margin: 0 13px 10px 0;
+        width: 195px;
+        font-weight: 500;
+        font-size: 15px;
+        appearance: none;
+        -webkit-appearance: none;
+        border-radius: 0;
+        box-shadow: none;
+        outline: none;
+
+        &::placeholder{
+          color: $syncano-admin-color-one;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  @media(max-width: 767px) {
+    .SyncanoFilters {
+
+      .AddButton {
+        min-height: 70px;
+        min-width: 70px;
+
+        .Horizontal {
+          width: 30px;
+          left: 22px;
+          top: 36px;
+        }
+
+        .Vertical {
+          height: 30px;
+          top: 22px;
+          left: 36px;
+        }
+      }
+    }
+  }
+
+  @media(max-width: 420px) {
+    .SyncanoFilters {
+
+      .AddButton {
+        min-height: 50px;
+        min-width: 50px;
+
+        .Horizontal {
+          width: 25px;
+          left: 14px;
+          top: 26px;
+        }
+
+        .Vertical {
+          height: 25px;
+          top: 14px;
+          left: 26px;
+        }
       }
     }
   }
 }
+
 .SyncanoList {
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
   max-height: 100%;
   overflow: auto;
+  padding: 30px;
+
   .SyncanoObject {
-    padding: 15px 20px;
-    border-bottom: $color-four 1px solid;
     display: flex;
-    flex: 0 1 1;
-    font-size: 12px;
-    font-weight: 500;
+    margin-bottom: 10px;
+    border-bottom: $syncano-admin-color-two 1px solid;
+    padding: 10px 20px 10px 10px;
+    box-sizing: border-box;
+    color: $syncano-admin-color-five;
+    // /background: $syncano-admin-color-eight;
+
     .displayName {
       cursor: pointer;
       transition: .25s ease-out;
+      font-size: 15px;
+      line-height: 25px;
+
       &:hover {
-        color: $main-color;
+        color: $syncano-admin-color-five;
       }
     }
 
     .deleteButton {
       cursor: pointer;
-      margin-left: 15px;
+      margin-right: 15px;
       transition: .25s ease-out;
+      background: $syncano-admin-color-two;
+      color: $syncano-admin-color-five;
+      font-weight: 300;
+      font-size: 18px;
+      padding: 0 8px;
+      height: 25px;
+      width: 25px;
 
       &:hover{
-        color: $color-five;
+        background: $syncano-admin-color-five;
+        color: $syncano-admin-color-seven;
       }
     }
   }
@@ -135,9 +248,9 @@
       min-width: 200px;
       outline: none;
       appearance: none;
-      border: 1px solid $color-three;
+      border: 1px solid $syncano-admin-color-two;
       height: 20px;
-      font-family: 'Lato';
+      font-family: 'Roboto';
     }
   }
 

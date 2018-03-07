@@ -25,7 +25,7 @@ class UpdateModal extends React.Component {
     } = this.props
     return (
       <Modal isOpen={isOpen} toggle={toggle}>
-        <ModalHeader toggle={toggle}>{`Edytuj ${name}`}</ModalHeader>
+        <ModalHeader toggle={toggle}>{`Edit ${name}`}</ModalHeader>
         <ModalBody>
           <FormGenerator
             fields={fields}

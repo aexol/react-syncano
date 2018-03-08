@@ -4,7 +4,7 @@
   "description": "Aexol react repatch syncano insane repo",
   "scripts": {
     "generate-syncano-apis": "sh bin/gen_socket_apis.sh",
-    "start": "npm run generate-syncano-apis && webpack-dev-server",
+    "start": "npm run generate-syncano-apis && webpack-dev-server --host 0.0.0.0",
     "clean": "rimraf dist",
     "production": "npm run generate-syncano-apis && cross-env npm run clean && webpack --config webpack.production.config.js --progress --profile --colors"
   },

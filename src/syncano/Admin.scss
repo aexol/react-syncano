@@ -1,7 +1,8 @@
 @import '../varsSyncano.scss';
 
 .SyncanoAdmin {
-  background: url('../images/backgroundAdmin.jpg') center center no-repeat / cover;
+  background: url('../images/backgroundAdmin.jpg') center center no-repeat;
+  background-position: cover;
   width: 100%;
   height: 100%;
   display: flex;

@@ -75,6 +75,34 @@
         display: flex;
         flex-flow: column nowrap;
 
+        .BooleanField {
+          margin-bottom: 10px;
+
+          label {
+            margin-right: 10px;
+          }
+        }
+
+        .formgenInput {
+          margin: 0;
+        }
+
+        .formgenFile {
+          background: none;
+          color: $syncano-admin-color-five;
+          box-shadow: none;
+          margin: 0;
+          min-width: auto;
+          padding: 0;
+          display: block;
+
+          input {
+            opacity: 1;
+            position: relative;
+            color: $syncano-admin-color-five;
+          }
+        }
+
         .MultiSelect {
 
           .holder-select {

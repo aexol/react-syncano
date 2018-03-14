@@ -46,6 +46,8 @@
         margin-bottom: 20px;
         background: $syncano-admin-color-three;
         position: relative;
+        width: 100%;
+        box-sizing: border-box;
 
         &::after {
           content: '';
@@ -117,6 +119,7 @@
         -webkit-appearance: none;
         outline: 0;
         border: 0;
+        line-height: 24px;
       }
     }
   }
@@ -231,6 +234,10 @@
   .SyncanoContainer {
     padding-left: 230px;
     width: 100%;
+
+    .SyncanoManage {
+      background: $syncano-admin-color-one;
+    }
   }
 
   @media (max-width: 767px) {
